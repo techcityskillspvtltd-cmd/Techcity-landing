@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///Users/rajatsaraswat/Desktop/Techcity/Techcity-landing/src/app/opengraph-image.alt.txt.mjs%20(text%20content)"],"sourcesContent":["export default \"TechCity logo\";"],"names":[],"mappings":";;;;uCAAe"}}]
+}

@@ -1,0 +1,421 @@
+@import "tailwindcss";
+
+:root {
+  --background: #090b10;
+  --foreground: #f4f7fb;
+  --accent: #4677e2;
+  --accent-secondary: #f59e0b;
+  --on-accent: #f7f9ff;
+  --on-accent-secondary: #1c1406;
+}
+
+html[data-theme="light"] {
+  --background: #ffffff;
+  --foreground: #1a1916;
+  --accent: #3b63c4;
+  --accent-secondary: #b45309;
+  --on-accent: #f7f9ff;
+  --on-accent-secondary: #fffaf3;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-on-accent: var(--on-accent);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --ease-power4-in-out: cubic-bezier(0.83, 0, 0.17, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+  color-scheme: dark;
+  background: var(--background);
+}
+
+.nav-light {
+  --background: #ffffff;
+  --foreground: #141414;
+  color-scheme: light;
+}
+
+html[data-theme="light"]:has(.student-page) {
+  --accent: #2563eb;
+  --accent-secondary: #0d9488;
+  --on-accent: #f7f9ff;
+  --on-accent-secondary: #ecfdf8;
+}
+
+.student-hero-scrim {
+  background:
+    radial-gradient(
+      52% 46% at 50% 46%,
+      color-mix(in srgb, var(--background) 58%, transparent) 0%,
+      color-mix(in srgb, var(--background) 28%, transparent) 45%,
+      transparent 78%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--background) 40%, transparent) 0%,
+      transparent 24%,
+      transparent 76%,
+      color-mix(in srgb, var(--background) 55%, transparent) 100%
+    );
+}
+
+html[data-theme="light"] .student-hero-scrim {
+  background:
+    radial-gradient(
+      48% 42% at 50% 46%,
+      color-mix(in srgb, var(--background) 48%, transparent) 0%,
+      color-mix(in srgb, var(--background) 18%, transparent) 48%,
+      transparent 80%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--background) 28%, transparent) 0%,
+      transparent 26%,
+      transparent 74%,
+      color-mix(in srgb, var(--background) 40%, transparent) 100%
+    );
+}
+
+.student-cta-scrim {
+  background:
+    radial-gradient(
+      52% 46% at 50% 48%,
+      rgba(5, 7, 15, 0.45) 0%,
+      rgba(5, 7, 15, 0.16) 50%,
+      transparent 78%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(5, 7, 15, 0.22) 0%,
+      transparent 30%,
+      transparent 70%,
+      rgba(5, 7, 15, 0.3) 100%
+    );
+}
+
+html[data-theme="light"] .student-cta-scrim {
+  background:
+    radial-gradient(
+      52% 46% at 50% 48%,
+      rgba(239, 246, 255, 0.55) 0%,
+      rgba(239, 246, 255, 0.2) 50%,
+      transparent 78%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(239, 246, 255, 0.35) 0%,
+      transparent 30%,
+      transparent 70%,
+      rgba(239, 246, 255, 0.4) 100%
+    );
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  transition: background-color 280ms ease, color 280ms ease;
+}
+
+.hero-copy-wash {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--background) 78%, transparent) 0%,
+    color-mix(in srgb, var(--background) 42%, transparent) 46%,
+    transparent 78%
+  );
+}
+
+html[data-theme="light"] .hero-copy-wash {
+  width: min(100%, 46rem);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--background) 22%, transparent) 0%,
+    color-mix(in srgb, var(--background) 10%, transparent) 42%,
+    transparent 100%
+  );
+}
+
+.hero-copy-scrim {
+  display: none;
+}
+
+html[data-theme="light"] .hero-copy-scrim {
+  display: block;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--background) 34%, transparent) 0%,
+    color-mix(in srgb, var(--background) 26%, transparent) 76%,
+    transparent 100%
+  );
+}
+
+html[data-theme="light"] .hero-lead {
+  color: var(--foreground);
+}
+
+@media (max-width: 1023px) {
+  /* Dark mobile: keep text readable without burying the ASCII city */
+  .hero-copy-wash {
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      color-mix(in srgb, var(--background) 8%, transparent) 22%,
+      color-mix(in srgb, var(--background) 28%, transparent) 48%,
+      color-mix(in srgb, var(--background) 48%, transparent) 72%,
+      color-mix(in srgb, var(--background) 58%, transparent) 100%
+    );
+  }
+
+  html[data-theme="light"] .hero-copy-wash {
+    width: 100%;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      color-mix(in srgb, var(--background) 14%, transparent) 18%,
+      color-mix(in srgb, var(--background) 32%, transparent) 48%,
+      color-mix(in srgb, var(--background) 38%, transparent) 100%
+    );
+  }
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.theme-toggle button {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: color-mix(in srgb, var(--foreground) 40%, transparent);
+  cursor: pointer;
+  transition: color 200ms ease;
+}
+
+.theme-toggle button:hover {
+  color: color-mix(in srgb, var(--foreground) 70%, transparent);
+}
+
+.theme-toggle button.is-active {
+  color: var(--foreground);
+}
+
+.theme-toggle-sep {
+  color: color-mix(in srgb, var(--foreground) 25%, transparent);
+}
+
+@keyframes marquee-up {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, -50%, 0);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 1.25rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.marquee-mask {
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 14%,
+    black 86%,
+    transparent
+  );
+}
+
+.marquee-track {
+  animation: marquee-up var(--marquee-duration, 60s) linear infinite;
+  animation-direction: var(--marquee-direction, normal);
+}
+
+.marquee-mask:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--fade-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .fade-up {
+    animation: none;
+  }
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 40%, transparent);
+  color: var(--foreground);
+}
+
+.projects-map .leaflet-container {
+  height: 100%;
+  width: 100%;
+  background: var(--background);
+  font-family: inherit;
+}
+
+@media (max-width: 767px) {
+  .projects-map.h-auto .leaflet-container {
+    height: 18rem;
+  }
+}
+
+.projects-map .leaflet-tooltip {
+  border: 1px solid color-mix(in srgb, var(--foreground) 16%, transparent);
+  border-radius: 0;
+  background: var(--background);
+  color: var(--foreground);
+  box-shadow: none;
+  font-family: inherit;
+  font-size: 11px;
+  padding: 4px 8px;
+}
+
+.projects-map .leaflet-tooltip-top:before {
+  border-top-color: color-mix(in srgb, var(--foreground) 16%, transparent);
+}
+
+.projects-map .leaflet-container img,
+.projects-map .leaflet-container svg {
+  max-width: none !important;
+  max-height: none !important;
+}
+
+.projects-map .leaflet-control-attribution {
+  background: transparent;
+  color: color-mix(in srgb, var(--foreground) 45%, transparent);
+  font-size: 10px;
+}
+
+.projects-map .leaflet-bar a {
+  background: var(--background);
+  color: var(--foreground);
+  border-color: color-mix(in srgb, var(--foreground) 15%, transparent);
+}
+
+.projects-map .leaflet-div-icon {
+  background: transparent;
+  border: 0;
+}
+
+.projects-map .leaflet-popup-content-wrapper,
+.projects-map .leaflet-popup-tip {
+  background: var(--background);
+  color: var(--foreground);
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.projects-map .leaflet-popup-content-wrapper {
+  border: 1px solid color-mix(in srgb, var(--foreground) 16%, transparent);
+  padding: 0;
+}
+
+.projects-map .leaflet-popup-content {
+  margin: 0;
+  width: 280px !important;
+  line-height: 1.4;
+}
+
+@media (max-width: 1023px) {
+  .projects-map .leaflet-popup-content {
+    width: min(16.5rem, calc(100vw - 5rem)) !important;
+  }
+}
+
+.projects-map .leaflet-popup-close-button {
+  color: var(--foreground) !important;
+  font-size: 18px;
+  padding: 8px 8px 0 0;
+}
+
+.projects-map .map-popup {
+  padding: 16px 16px 14px;
+}
+
+.projects-map .map-popup-kicker {
+  margin: 0;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.projects-map .map-popup-title {
+  margin: 8px 28px 0 0;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.projects-map .map-popup-place,
+.projects-map .map-popup-term {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: color-mix(in srgb, var(--foreground) 62%, transparent);
+}
+
+.projects-map .map-popup-body {
+  margin: 10px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--foreground) 78%, transparent);
+}
+
+.projects-map .map-popup-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.projects-map .map-popup-details,
+.projects-map .map-popup-apply {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.projects-map .map-popup-details {
+  border: 1px solid color-mix(in srgb, var(--foreground) 18%, transparent);
+  color: var(--foreground);
+}
+
+.projects-map .map-popup-apply {
+  background: var(--accent);
+  color: var(--on-accent);
+}
+
