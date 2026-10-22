@@ -15,10 +15,10 @@ const geistMono = Geist_Mono({
 });
 
 const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "http://localhost:3000");
+  process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
+  (process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "https://www.techcityskills.com");
 
 const title = "TechCity — Industry-aligned skilling for modern tech careers";
 const description =

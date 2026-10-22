@@ -22,7 +22,7 @@ export const studentProducts: StudentProduct[] = [
     line: "Ordered tracks so you always know the next step: DSA, AI/ML, cloud, and more.",
     href:
       process.env.NEXT_PUBLIC_PRODUCT_MARG_URL?.trim() ||
-      "https://tech-city-rm.vercel.app/",
+      "https://marg.techcityskills.com",
     accent: "#2563eb",
     external: true,
   },
@@ -36,7 +36,7 @@ export const studentProducts: StudentProduct[] = [
     line: "Campus contests and skill checks you can enter, finish, and talk through later.",
     href:
       process.env.NEXT_PUBLIC_PRODUCT_SPARDHA_URL?.trim() ||
-      "https://tech-city-spardha.vercel.app/",
+      "https://spardha.techcityskills.com",
     accent: "#d97706",
     external: true,
   },
@@ -88,7 +88,7 @@ export const studentAboutLinks = [
 
 const loginUrl =
   process.env.NEXT_PUBLIC_STUDENT_LOGIN_URL?.trim() ||
-  "https://tech-city-spardha.vercel.app/login";
+  "https://spardha.techcityskills.com/login";
 
 export const studentLogin = {
   slug: "login",
