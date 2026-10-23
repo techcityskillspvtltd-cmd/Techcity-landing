@@ -162,6 +162,15 @@ html[data-theme="light"] .hero-lead {
   color: var(--foreground);
 }
 
+.hero-aurora-wash {
+  background: radial-gradient(
+    58% 70% at 50% 46%,
+    color-mix(in srgb, var(--background) 46%, transparent) 0%,
+    color-mix(in srgb, var(--background) 18%, transparent) 52%,
+    transparent 76%
+  );
+}
+
 @media (max-width: 1023px) {
   /* Dark mobile: keep text readable without burying the ASCII city */
   .hero-copy-wash {

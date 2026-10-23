@@ -31,32 +31,59 @@ const figureStyle = {
   "--hairline-lo": "color-mix(in srgb, var(--foreground) 12%, transparent)",
 } as CSSProperties;
 
+function toneStyle(plate?: string, ink?: string): CSSProperties {
+  if (!plate && !ink) return figureStyle;
+  const hi = ink ?? "var(--foreground)";
+  return {
+    "--hairline-plate": plate ?? "var(--background)",
+    "--hairline-hi": hi,
+    "--hairline-edge": `color-mix(in srgb, ${hi} 62%, transparent)`,
+    "--hairline-mid": `color-mix(in srgb, ${hi} 36%, transparent)`,
+    "--hairline-lo": `color-mix(in srgb, ${hi} 18%, transparent)`,
+  } as CSSProperties;
+}
+
 export function ProgramFigure({
   id,
   caption,
   index,
   compact = false,
+  fill = false,
+  plate,
+  ink,
   className = "",
 }: {
   id: ProgramFamilyId;
   caption: string;
   index: string;
   compact?: boolean;
+  fill?: boolean;
+  plate?: string;
+  ink?: string;
   className?: string;
 }) {
   const Art = figures[id];
+  const style = toneStyle(plate, ink);
+
+  if (fill) {
+    return (
+      <div aria-hidden="true" className={`w-full ${className}`}>
+        <Art label={caption} intensity={0.55} play theme="auto" className="w-full" style={style} />
+      </div>
+    );
+  }
 
   if (compact) {
     return (
       <div aria-hidden="true" className={`w-[5.25rem] shrink-0 border border-foreground/10 min-[420px]:w-[6.75rem] md:w-[8.5rem] ${className}`}>
-        <Art label={caption} intensity={0.55} play theme="auto" style={figureStyle} />
+        <Art label={caption} intensity={0.55} play theme="auto" style={style} />
       </div>
     );
   }
 
   return (
     <figure className={`border border-foreground/10 ${className}`}>
-      <Art label={caption} intensity={0.6} theme="auto" style={figureStyle} />
+      <Art label={caption} intensity={0.6} theme="auto" style={style} />
       <figcaption className="flex items-center justify-between gap-4 border-t border-foreground/10 px-4 py-2.5 font-mono text-[9px] uppercase tracking-[0.12em] text-foreground/40">
         <span>{caption}</span>
         <span className="shrink-0 text-accent-secondary">{index}</span>
