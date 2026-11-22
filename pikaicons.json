@@ -4,9 +4,25 @@
   "importAlias": "@/components/pikaicons",
   "variant": "stroke",
   "icons": {
+    "building-apartment-two": {
+      "name": "building-apartment-two",
+      "variant": "stroke"
+    },
+    "calendar-default": {
+      "name": "calendar-default",
+      "variant": "stroke"
+    },
+    "check-tick-circle": {
+      "name": "check-tick-circle",
+      "variant": "stroke"
+    },
     "envelope-default-solid": {
       "name": "envelope-default",
       "variant": "solid"
+    },
+    "file-default": {
+      "name": "file-default",
+      "variant": "stroke"
     },
     "file-default-solid": {
       "name": "file-default",
@@ -23,6 +39,18 @@
     "linkedin-solid": {
       "name": "linkedin",
       "variant": "solid"
+    },
+    "map-pin": {
+      "name": "map-pin",
+      "variant": "stroke"
+    },
+    "multiple-cross-cancel-default": {
+      "name": "multiple-cross-cancel-default",
+      "variant": "stroke"
+    },
+    "upload-up": {
+      "name": "upload-up",
+      "variant": "stroke"
     },
     "x-com-solid": {
       "name": "x-com",

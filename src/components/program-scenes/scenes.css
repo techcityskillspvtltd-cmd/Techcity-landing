@@ -1,0 +1,135 @@
+/*
+ * Program scenes: one shared frame (see program-scenes/index.tsx). Accents are
+ * the site's brand ramp, not the products' colours: indigo by default, amber
+ * (--warm) and navy (--navy) for variety across the eight pages.
+ */
+.tc-pg .ss-stage {
+  --ss-accent: #3b47c4;
+  --ss-accent-2: #6b7be6;
+  --ss-accent-soft: #eceefc;
+  --ss-accent-text: #3b47c4;
+}
+.tc-pg--warm .ss-stage {
+  --ss-accent: #e0861c;
+  --ss-accent-2: #f59e0b;
+  --ss-accent-soft: #fdf1e2;
+  --ss-accent-text: #a95f0c;
+}
+.tc-pg--navy .ss-stage {
+  --ss-accent: #1c257d;
+  --ss-accent-2: #3b47c4;
+  --ss-accent-soft: #e8eaf8;
+  --ss-accent-text: #1c257d;
+}
+
+/* Pinned, bottom bleed: one gutter left, right and top, off the bottom. */
+.tc-pg .pg-win {
+  position: absolute;
+  top: 48px;
+  left: 48px;
+  right: 48px;
+  box-shadow: var(--ss-shadow-hero);
+}
+.tc-pg .ss-stage[data-layout="compact"] .pg-win {
+  top: 16px;
+  left: 16px;
+  right: 16px;
+}
+.tc-pg .pg-body {
+  position: relative;
+  min-height: 460px;
+  padding: 16px 16px 0;
+  background: var(--ss-surface);
+}
+.tc-pg .pg-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 8px 14px;
+  border-bottom: 1px solid var(--ss-line-faint);
+}
+.tc-pg .pg-who {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.tc-pg .pg-what {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.tc-pg .pg-name {
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--ss-text-strong);
+}
+.tc-pg .pg-meta {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  font-size: 12px;
+  line-height: 1.3;
+  white-space: nowrap;
+  color: var(--ss-text);
+}
+.tc-pg .pg-count {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  font-size: 12px;
+  white-space: nowrap;
+  color: var(--ss-text);
+}
+.tc-pg .pg-count > :first-child {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ss-text-strong);
+}
+.tc-pg .pg-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 8px;
+}
+.tc-pg .pg-title {
+  font-size: 13.5px;
+  font-weight: 500;
+}
+.tc-pg .pg-sub {
+  font-size: 12px;
+}
+.tc-pg .pg-score {
+  min-width: 28px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--ss-text-strong);
+}
+.tc-pg .pg-score--faint {
+  color: var(--ss-text-faint);
+}
+.tc-pg .pg-meter-row {
+  padding: 14px 8px 0;
+}
+.tc-pg .pg-meter {
+  display: block;
+  width: 100%;
+}
+.tc-pg .pg-toast {
+  position: absolute;
+  top: 300px; /* under the list, inside the visible part of the window */
+  left: 50%;
+  translate: -50% 0;
+  white-space: nowrap;
+}
+.tc-pg .ss-stage[data-layout="compact"] .pg-toast {
+  top: 200px;
+}

@@ -1,0 +1,383 @@
+/* ---------------------------------------------------------------
+   Newsroom (src/components/newsroom.tsx), after stripe.com/newsroom:
+   plain white, generous type, thin rules, solid-colour pictures.
+   --------------------------------------------------------------- */
+
+/* Header and tabs ------------------------------------------------ */
+.nr-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+.nr-meta__cat {
+  font-weight: 500;
+  color: var(--g-indigo);
+}
+.nr-dek {
+  margin-top: 12px;
+  max-width: 620px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+.nr-more,
+.nr-link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--accent);
+}
+.nr-more {
+  margin-top: 14px;
+}
+.nr-link:hover {
+  color: var(--tertiary);
+}
+.nr-h2 {
+  font-size: clamp(26px, 2.6vw, 34px);
+  line-height: 1.15;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--text);
+}
+
+/* Picture: a pale dotted panel, the college's logo on a white plate. */
+.nr-art {
+  position: relative;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 8px;
+  background-color: var(--surface-subdued);
+  background-image: radial-gradient(color-mix(in srgb, var(--accent) 12%, transparent) 1px, transparent 1.4px);
+  background-size: 16px 16px;
+  background-position: 8px 8px;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+/* A faint wash in the college's accent from one corner. */
+.nr-art::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(90% 80% at 100% 0%, color-mix(in srgb, var(--tone) 12%, transparent), transparent 70%);
+}
+.nr-art[data-size="thumb"] {
+  width: 132px;
+  aspect-ratio: 4 / 3;
+}
+@media (min-width: 640px) {
+  .nr-art[data-size="thumb"] {
+    width: 176px;
+  }
+}
+.nr-art[data-size="lead"] {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  margin-bottom: 22px;
+}
+.nr-art__logo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56%;
+  aspect-ratio: 2 / 1;
+  padding: 8% 10%;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow:
+    0 0 0 1px var(--line),
+    0 10px 24px -14px color-mix(in srgb, var(--accent) 28%, transparent);
+  transition: transform 400ms var(--ease-out);
+}
+.nr-art[data-size="lead"] .nr-art__logo {
+  width: 46%;
+  padding: 5% 7%;
+  border-radius: 12px;
+}
+.nr-art__logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.nr-art__word {
+  font-size: 12px;
+  line-height: 1.15;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: var(--text);
+}
+@media (min-width: 640px) {
+  .nr-art__word {
+    font-size: 14px;
+  }
+}
+.nr-art[data-size="lead"] .nr-art__word {
+  font-size: 20px;
+}
+.nr-art__tracks {
+  position: absolute;
+  left: 22px;
+  bottom: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.nr-art__tracks span {
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--g-indigo);
+  background: var(--bg);
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+a:hover .nr-art__logo {
+  transform: scale(1.04);
+}
+
+/* Featured -------------------------------------------------------- */
+.nr-featured {
+  display: grid;
+  gap: 40px;
+  padding: 40px 20px 48px;
+}
+@media (min-width: 640px) {
+  .nr-featured {
+    padding: 48px 40px 64px;
+  }
+}
+@media (min-width: 1024px) {
+  .nr-featured {
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: 56px;
+  }
+}
+.nr-lead {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.nr-lead__title {
+  margin-top: 10px;
+  font-size: clamp(26px, 2.8vw, 36px);
+  line-height: 1.15;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  transition: color 200ms var(--ease-out);
+}
+.nr-lead:hover .nr-lead__title {
+  color: var(--accent);
+}
+.nr-side {
+  display: flex;
+  flex-direction: column;
+}
+.nr-side li + li {
+  border-top: 1px solid var(--line);
+}
+.nr-side__item {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 0;
+}
+.nr-side li:first-child .nr-side__item {
+  padding-top: 0;
+}
+.nr-side__title {
+  display: block;
+  margin-top: 8px;
+  font-size: 18px;
+  line-height: 1.35;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--text);
+  transition: color 200ms var(--ease-out);
+}
+.nr-side__item:hover .nr-side__title {
+  color: var(--accent);
+}
+.nr-side .nr-art[data-size="thumb"] {
+  width: 112px;
+}
+@media (min-width: 640px) {
+  .nr-side .nr-art[data-size="thumb"] {
+    width: 136px;
+  }
+}
+
+.nr-section {
+  padding: 48px 20px 56px;
+}
+@media (min-width: 640px) {
+  .nr-section {
+    padding: 64px 40px 72px;
+  }
+}
+.nr-section__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-bottom: 28px;
+}
+.nr-list {
+  border-top: 1px solid var(--line);
+}
+.nr-list li {
+  border-bottom: 1px solid var(--line);
+}
+.nr-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 0;
+}
+.nr-row__cat {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--g-indigo);
+}
+.nr-row__title {
+  display: block;
+  margin-top: 6px;
+  max-width: 680px;
+  font-size: clamp(17px, 1.6vw, 21px);
+  line-height: 1.35;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--text);
+  transition: color 200ms var(--ease-out);
+}
+.nr-row:hover .nr-row__title {
+  color: var(--accent);
+}
+.nr-row__date {
+  display: block;
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* Products ------------------------------------------------------------ */
+.nr-products {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+@media (min-width: 768px) {
+  .nr-products {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .nr-products {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+.nr-products li {
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.nr-product {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  height: 100%;
+  padding: 22px 20px 24px;
+  transition: background-color 200ms var(--ease-out);
+}
+.nr-product:hover {
+  background: var(--surface-subdued);
+}
+.nr-product__name {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text);
+}
+.nr-product__line {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+/* Page flow: the shared inner-page hero and section heads (page-blocks.tsx).
+   These place the newsroom's own parts inside the guide-line container. */
+.nr-page .pp-hero__picture .project-scene {
+  width: min(100%, 600px);
+  margin-left: auto;
+}
+@media (min-width: 1024px) {
+  .nr-page .pp-hero__picture {
+    min-height: 520px;
+  }
+  .nr-page .pp-hero__picture .project-scene {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+}
+
+/* The full list: white rows on the tinted section, inset like the other grids. */
+.nr-page .nr-list li {
+  background: var(--bg);
+}
+.nr-page .nr-list li:last-child {
+  border-bottom: 0;
+}
+.nr-page .nr-row {
+  padding: 24px 20px;
+}
+@media (min-width: 640px) {
+  .nr-page .nr-row {
+    padding: 28px 40px;
+  }
+}
+
+/* Stories grid inside the container. */
+.nr-stories {
+  padding: 0 20px 48px;
+}
+@media (min-width: 640px) {
+  .nr-stories {
+    padding: 0 40px 56px;
+  }
+}
+
+/* Products: a ruled grid that meets the guide lines without doubling them. */
+.nr-page .nr-products {
+  overflow: hidden;
+  border-left: 0;
+}
+.nr-page .nr-products li {
+  border: 0;
+  background: var(--bg);
+  box-shadow: 1px 0 0 var(--line), 0 1px 0 var(--line);
+}
+.nr-page .nr-product {
+  padding: 24px 20px 28px;
+}
+@media (min-width: 640px) {
+  .nr-page .nr-product {
+    padding: 28px 28px 32px;
+  }
+}

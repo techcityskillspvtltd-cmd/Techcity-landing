@@ -10,6 +10,7 @@ import { TrainersItem } from "@/components/bento/trainers";
 import { Icon } from "@/components/icons";
 import { NumberTicker } from "@/components/number-ticker";
 import { InView } from "@/components/in-view";
+import { programHref } from "@/lib/program-pages";
 import { programBento, type BentoProgram, type BentoSize } from "@/lib/programs";
 
 /**
@@ -269,7 +270,7 @@ export function ProgramBento() {
         return (
           <Link
             key={p.anchor}
-            href={`/programs#${p.anchor}`}
+            href={programHref(p.anchor)}
             className={`bento-card group ${sizeClass[p.size]}`}
             data-kind={stat ? "stat" : undefined}
             data-program={p.anchor}

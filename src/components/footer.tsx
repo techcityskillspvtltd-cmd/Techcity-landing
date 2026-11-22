@@ -57,7 +57,7 @@ const columns: FooterGroup[][] = [
       title: "Partners",
       links: [
         { label: "Colleges", href: "/partners/colleges" },
-        { label: "Industry", href: "/partners/industry" },
+        { label: "Industry", href: "/partners/industries" },
         { label: "Partner with us", href: "#contact" },
       ],
     },

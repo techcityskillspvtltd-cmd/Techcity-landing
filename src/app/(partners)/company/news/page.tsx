@@ -1,19 +1,13 @@
 import type { Metadata } from "next";
-import { PageShell } from "@/components/page-shell";
-import { TestimonialsCarousel } from "@/components/testimonials-carousel";
-import { container } from "@/lib/layout";
+import { Newsroom } from "@/components/newsroom";
 
-export const metadata: Metadata = { title: "News" };
+export const metadata: Metadata = {
+  title: "Newsroom",
+  description:
+    "The latest from TechCity Skills: programs starting, under way and finished at partner colleges, partner stories, and the product stack.",
+  alternates: { canonical: "/company/news" },
+};
 
 export default function Page() {
-  return (
-    <PageShell title="News">
-      {/* The expanding story rail, moved here from the home page. */}
-      <section className="scroll-mt-20">
-        <div className={`${container} border-x border-b border-line px-5 py-14 sm:px-10 sm:py-16 lg:py-20`}>
-          <TestimonialsCarousel />
-        </div>
-      </section>
-    </PageShell>
-  );
+  return <Newsroom />;
 }

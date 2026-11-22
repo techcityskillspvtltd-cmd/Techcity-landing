@@ -83,19 +83,19 @@ export const partnerNav: NavConfig = {
         {
           title: "For students",
           items: [
-            { label: "Trainers for students", icon: "trainer", description: "30+ subjects on campus", href: "/programs#trainers" },
-            { label: "Placement preparation", icon: "target", description: "Interviews and drills", href: "/programs#placement" },
-            { label: "Student placement", icon: "briefcase", description: "Campus to first role", href: "/programs#placing" },
-            { label: "Mentorship", icon: "compass", description: "Industry mentors", href: "/programs#mentorship" },
+            { label: "Trainers for students", icon: "trainer", description: "30+ subjects on campus", href: "/programs/trainers" },
+            { label: "Placement preparation", icon: "target", description: "Interviews and drills", href: "/programs/placement-preparation" },
+            { label: "Student placement", icon: "briefcase", description: "Campus to first role", href: "/programs/student-placement" },
+            { label: "Mentorship", icon: "compass", description: "Industry mentors", href: "/programs/mentorship" },
           ],
         },
         {
           title: "For colleges",
           items: [
-            { label: "Faculty development", icon: "faculty", description: "Upskill your faculty", href: "/programs#faculty" },
-            { label: "Online lessons", icon: "video", description: "Live virtual classes", href: "/programs#online" },
-            { label: "Online content", icon: "content", description: "Videos, notes and tests", href: "/programs#content" },
-            { label: "Platforms for colleges", icon: "platform", description: "LMS, ERP and more", href: "/programs#platforms" },
+            { label: "Faculty development", icon: "faculty", description: "Upskill your faculty", href: "/programs/faculty-development" },
+            { label: "Online lessons", icon: "video", description: "Live virtual classes", href: "/programs/online-lessons" },
+            { label: "Online content", icon: "content", description: "Videos, notes and tests", href: "/programs/online-content" },
+            { label: "Platforms for colleges", icon: "platform", description: "LMS, ERP and more", href: "/programs/platforms" },
           ],
         },
       ],
@@ -146,7 +146,7 @@ export const partnerNav: NavConfig = {
           title: "Partner with us",
           items: [
             { label: "Colleges", icon: "platform", description: "Bring skilling to your campus", nowrapDescription: true, href: "/partners/colleges" },
-            { label: "Industry", icon: "briefcase", description: "Connect with emerging talent", nowrapDescription: true, href: "/partners/industry" },
+            { label: "Industry", icon: "briefcase", description: "Connect with emerging talent", nowrapDescription: true, href: "/partners/industries" },
           ],
         },
       ],
