@@ -8,9 +8,17 @@
       "name": "envelope-default",
       "variant": "solid"
     },
+    "file-default-solid": {
+      "name": "file-default",
+      "variant": "solid"
+    },
     "instagram-solid": {
       "name": "instagram",
       "variant": "solid"
+    },
+    "link-chain-horizontal": {
+      "name": "link-chain-horizontal",
+      "variant": "stroke"
     },
     "linkedin-solid": {
       "name": "linkedin",

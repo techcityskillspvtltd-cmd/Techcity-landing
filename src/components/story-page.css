@@ -1,0 +1,315 @@
+/* ---------------------------------------------------------------
+   Our story (app/(partners)/company/story): the picture, three beats
+   and the figures, in the site's ruled-grid language.
+   --------------------------------------------------------------- */
+
+/* The 3D city still, edge to edge between the guide lines. */
+.st-picture {
+  position: relative;
+  aspect-ratio: 2 / 1;
+  overflow: hidden;
+  background: #f3f4f6;
+}
+.st-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media (max-width: 639px) {
+  .st-picture {
+    aspect-ratio: 4 / 3;
+  }
+  .st-picture img {
+    object-position: 62% 50%;
+  }
+}
+
+/* Ruled grids: rules drawn on the cells, clipped at the outer edges. */
+.st-beats,
+.st-figures {
+  display: grid;
+  overflow: hidden;
+}
+.st-beats > *,
+.st-figures > * {
+  box-shadow:
+    1px 0 0 var(--line),
+    0 1px 0 var(--line);
+}
+
+.st-beats {
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 768px) {
+  .st-beats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.st-beat {
+  padding: 32px 20px 36px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 600ms var(--ease-out),
+    transform 700ms var(--ease-out);
+  transition-delay: calc(var(--i) * 90ms);
+}
+@media (min-width: 640px) {
+  .st-beat {
+    padding: 40px 40px 44px;
+  }
+}
+.st-beats[data-in] .st-beat {
+  opacity: 1;
+  transform: none;
+}
+.st-beat p:last-child {
+  max-width: 300px;
+  margin-inline: auto;
+  text-wrap: pretty;
+}
+.st-beat__n {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--g-amber);
+  font-variant-numeric: tabular-nums;
+}
+
+.st-figures {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (min-width: 1024px) {
+  .st-figures {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+.st-figure {
+  padding: 28px 20px;
+  text-align: center;
+}
+@media (min-width: 640px) {
+  .st-figure {
+    padding: 36px 40px;
+  }
+}
+.st-figure__num {
+  font-size: clamp(36px, 3.6vw, 52px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  white-space: nowrap;
+  color: var(--text);
+}
+
+/* Founders' initials */
+.st-marks {
+  display: flex;
+  flex: none;
+}
+.st-marks i {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px var(--bg);
+}
+.st-marks i + i {
+  margin-left: -12px;
+  background: var(--g-amber);
+  color: var(--text);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .st-beat {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------------------------------------------------------------
+   How we started (components/story-scroll.tsx): chapters scroll on the
+   left, the city picture stays on the right and moves with them.
+   --------------------------------------------------------------- */
+
+.ss {
+  display: grid;
+  padding: 0 20px 24px;
+}
+@media (min-width: 640px) {
+  .ss {
+    padding: 0 40px 40px;
+  }
+}
+@media (min-width: 1024px) {
+  .ss {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    column-gap: 72px;
+    padding-bottom: 0;
+  }
+}
+
+/* Picture: pinned under the navbar on phones, beside the chapters on wide screens. */
+.ss__stage {
+  order: -1;
+  position: sticky;
+  top: 64px;
+  z-index: 2;
+  padding: 12px 0;
+  background: var(--bg);
+}
+@media (min-width: 1024px) {
+  .ss__stage {
+    order: 0;
+    top: 0;
+    height: 100svh;
+    max-height: 860px;
+    display: flex;
+    align-items: center;
+    padding: 64px 0 0;
+    background: none;
+  }
+}
+.ss__frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #f3f4f6;
+  box-shadow:
+    0 0 0 1px var(--line),
+    0 40px 80px -40px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+@media (min-width: 1024px) {
+  .ss__frame {
+    aspect-ratio: 5 / 4;
+  }
+}
+.ss__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition:
+    transform 1400ms var(--ease-out),
+    transform-origin 1400ms var(--ease-out);
+  will-change: transform;
+}
+.ss__chip {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: calc(100% - 110px);
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.92);
+  box-shadow: 0 1px 2px rgb(6 27 49 / 0.12);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ss__chip span {
+  color: var(--g-amber);
+  font-variant-numeric: tabular-nums;
+}
+@media (min-width: 640px) {
+  .ss__chip {
+    left: 16px;
+    bottom: 16px;
+  }
+}
+.ss__dots {
+  position: absolute;
+  right: 14px;
+  bottom: 22px;
+  display: flex;
+  gap: 5px;
+}
+.ss__dots li {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.9);
+  box-shadow: 0 0 0 1px rgb(6 27 49 / 0.15);
+  transition:
+    width 400ms var(--ease-out),
+    background-color 400ms var(--ease-out);
+}
+.ss__dots li[data-on] {
+  width: 18px;
+  background: var(--accent);
+}
+
+/* Chapters */
+.ss__chapter {
+  padding: 40px 0;
+}
+@media (min-width: 1024px) {
+  .ss__chapter {
+    min-height: 72svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 48px 0;
+    opacity: 0.32;
+    transition: opacity 500ms var(--ease-out);
+  }
+  .ss__chapter[data-on] {
+    opacity: 1;
+  }
+  .ss__chapter:first-child {
+    min-height: 60svh;
+  }
+}
+.ss__n {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--g-amber);
+  font-variant-numeric: tabular-nums;
+}
+.ss__title {
+  margin-top: 8px;
+  font-size: clamp(22px, 2.2vw, 28px);
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--accent);
+}
+.ss__body {
+  margin-top: 14px;
+  max-width: 480px;
+  font-size: 17px;
+  line-height: 1.7;
+  color: #2b3a52;
+  text-wrap: pretty;
+}
+.ss__note {
+  margin-top: 20px;
+  max-width: 440px;
+  padding-left: 14px;
+  border-left: 1px solid var(--accent);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ss__img,
+  .ss__chapter {
+    transition: none;
+  }
+}

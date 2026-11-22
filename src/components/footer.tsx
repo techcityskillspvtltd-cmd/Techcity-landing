@@ -26,7 +26,6 @@ const columns: FooterGroup[][] = [
       title: "Products",
       links: [
         ...products.map((p) => ({ label: p.name, href: p.href, external: true })),
-        { label: "Product roadmap", href: "/company/roadmap" },
       ],
     },
   ],
@@ -82,6 +81,7 @@ const columns: FooterGroup[][] = [
         { label: "Team", href: "/company/team" },
         { label: "Testimonials", href: "/company/testimonials" },
         { label: "News", href: "/company/news" },
+        { label: "Reports", href: "/reports" },
         { label: "Careers", href: "/company/careers" },
       ],
     },

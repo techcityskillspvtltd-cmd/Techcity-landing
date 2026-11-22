@@ -1,5 +1,7 @@
 export { EnvelopeSolidIcon } from "./envelope-default-solid"
+export { FileSolidIcon } from "./file-default-solid"
 export { InstagramSolidIcon } from "./instagram-solid"
+export { LinkChainHorizontalIcon } from "./link-chain-horizontal"
 export { LinkedinSolidIcon } from "./linkedin-solid"
 export { XComSolidIcon } from "./x-com-solid"
 export { YoutubeSolidIcon } from "./youtube-solid"

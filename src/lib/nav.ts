@@ -73,7 +73,7 @@ export const partnerNav: NavConfig = {
         title: "One account",
         links: [
           { label: "Student platform", href: "/students" },
-          { label: "Product roadmap", href: "/company/roadmap" },
+          { label: "Reports", href: "/reports" },
         ],
       },
     },
@@ -131,7 +131,7 @@ export const partnerNav: NavConfig = {
         {
           title: "Updates",
           items: [
-            { label: "Product roadmap", icon: "roadmap", description: "What’s live and next", href: "/company/roadmap" },
+            { label: "Reports", icon: "content", description: "From partner campuses", href: "/reports" },
             { label: "News", icon: "news", description: "Latest announcements", href: "/company/news" },
             { label: "Careers", icon: "briefcase", description: "Join the team", href: "/company/careers" },
           ],
