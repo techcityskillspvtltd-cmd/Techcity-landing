@@ -20,9 +20,6 @@ export type DirectoryEntry = {
 
 export type DirectoryFilter = { id: string; label: string };
 
-/** A faint corner wash per card, from the brand ramp; assigned in turn. */
-const TONES = ["#3B47C4", "#F59E0B", "#6B7BE6", "#1C257D", "#FCD38A", "#A5B1F5"];
-
 /** Filter pills (All + one per group, with counts) over a grid of partner cards. */
 export function PartnerFilters({ entries, filters }: { entries: DirectoryEntry[]; filters: DirectoryFilter[] }) {
   const [active, setActive] = useState<string>("all");
@@ -46,7 +43,7 @@ export function PartnerFilters({ entries, filters }: { entries: DirectoryEntry[]
       <ul key={active} className="pd-grid">
         {shown.map((e) => (
           <li key={e.name} style={{ "--i": entries.indexOf(e) } as CSSProperties}>
-            <Card entry={e} tone={TONES[entries.indexOf(e) % TONES.length]} />
+            <Card entry={e} />
           </li>
         ))}
       </ul>
@@ -54,11 +51,11 @@ export function PartnerFilters({ entries, filters }: { entries: DirectoryEntry[]
   );
 }
 
-function Card({ entry, tone }: { entry: DirectoryEntry; tone: string }) {
+function Card({ entry }: { entry: DirectoryEntry }) {
   const [place, ...rest] = entry.eyebrow.split(" · ");
   const body = (
     <>
-      <span className="pd-card__art" style={{ "--tone": tone } as CSSProperties}>
+      <span className="pd-card__art">
         <span className="pd-card__logo">
           <img src={entry.logo} alt={`${entry.name} logo`} loading="lazy" decoding="async" />
         </span>

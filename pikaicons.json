@@ -4,6 +4,14 @@
   "importAlias": "@/components/pikaicons",
   "variant": "stroke",
   "icons": {
+    "arrow-left": {
+      "name": "arrow-left",
+      "variant": "stroke"
+    },
+    "arrow-right": {
+      "name": "arrow-right",
+      "variant": "stroke"
+    },
     "building-apartment-two": {
       "name": "building-apartment-two",
       "variant": "stroke"

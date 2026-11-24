@@ -3,6 +3,7 @@ import Link from "next/link";
 import { HoverArrow } from "@/components/hover-arrow";
 import { InView } from "@/components/in-view";
 import { NumberTicker } from "@/components/number-ticker";
+import { StoryGallery } from "@/components/story-gallery";
 import { StoryScroll } from "@/components/story-scroll";
 import { container } from "@/lib/layout";
 import "@/components/story-page.css";
@@ -15,9 +16,10 @@ export const metadata: Metadata = {
 };
 
 /*
- * Our story, in the home page's language: the headline; how TechCity started
- * and grew, in chapters beside a still of the 3D TechCity (components/story-scroll);
- * three beats in a ruled grid; the figures; the founders. Figures are from lib/company.
+ * Our story, in the home page's language: how TechCity started and grew, in
+ * chapters beside a still of the 3D TechCity (components/story-scroll); three
+ * beats in a ruled grid; the figures; the founders; photos from campus
+ * (components/story-gallery). Figures are from lib/company.
  */
 
 const beats = [
@@ -36,38 +38,18 @@ const figures = [
 export default function Page() {
   return (
     <main className="overflow-x-clip">
-      {/* Headline */}
+      {/* How it started and grew: chapters on the left, the city on the right. */}
       <section className="mt-16 border-t border-line">
         <div className={`${container} border-x border-line`}>
-          <div className="mx-auto flex max-w-[860px] flex-col items-center px-5 pt-16 pb-14 text-center sm:px-10 sm:pt-24 sm:pb-20">
-            <p className="text-[14px] font-medium text-accent">Our story</p>
-            <h1 className="mt-5 text-[clamp(34px,4.6vw,58px)] leading-[1.06] font-normal tracking-[-0.04em] text-balance text-text">
-              Colleges teach the subject. <span className="text-text-muted">We bring the work into the classroom.</span>
-            </h1>
-            <p className="mt-6 max-w-[560px] text-[17px] leading-[1.6] text-pretty text-text-muted">
-              TechCity Skills puts industry trainers inside the college timetable, so students leave ready for their
-              first team.
+          <div className="px-5 pt-14 pb-4 sm:px-10 sm:pt-20 lg:pb-0">
+            <p className="pp-eyebrow">
+              <span>Company</span>
+              <span aria-hidden="true">/</span>
+              <span className="text-text">Our story</span>
             </p>
-            <div className="mt-9 flex flex-wrap justify-center gap-3">
-              <Link href="/company/team" className="btn btn-primary btn-lg">
-                Meet the team
-                <HoverArrow />
-              </Link>
-              <Link href="/programs" className="btn btn-secondary btn-lg shadow-[var(--shadow-btn)]">
-                See our programs
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How it started and grew: chapters on the left, the city on the right. */}
-      <section className="border-t border-line">
-        <div className={`${container} border-x border-line`}>
-          <div className="mx-auto max-w-[760px] px-5 pt-16 pb-4 text-center sm:px-10 sm:pt-20 lg:pb-0">
-            <h2 className="text-[clamp(26px,3vw,38px)] leading-[1.15] font-normal tracking-[-0.03em] text-balance text-text">
+            <h1 className="mt-6 max-w-[760px] text-[clamp(32px,4vw,52px)] leading-[1.08] font-normal tracking-[-0.035em] text-text">
               How TechCity started. <span className="text-text-muted">And how it grew, one college at a time.</span>
-            </h2>
+            </h1>
           </div>
           <StoryScroll />
         </div>
@@ -91,11 +73,11 @@ export default function Page() {
       {/* Figures */}
       <section>
         <div className={`${container} border-x border-b border-line`}>
-          <InView className="st-figures" threshold={0.4}>
+          <InView className="pp-stats" threshold={0.4}>
             {figures.map((f, i) => (
-              <div key={f.label} className="st-figure">
-                <p className="st-figure__num">
-                  <NumberTicker value={f.value} delay={i * 0.1} />
+              <div key={f.label} className="pp-stats__cell">
+                <p className="pp-stats__num">
+                  <NumberTicker value={f.value} delay={i * 0.12} />
                 </p>
                 <p className="mt-2 text-[14px] leading-[1.5] text-text-muted">{f.label}</p>
               </div>
@@ -107,20 +89,29 @@ export default function Page() {
       {/* Founders */}
       <section>
         <div className={`${container} border-x border-b border-line`}>
-          <div className="mx-auto flex max-w-[780px] flex-col items-center px-5 py-16 text-center sm:px-10 sm:py-20">
-            <span className="st-marks" aria-hidden="true">
-              <i>DT</i>
-              <i>GS</i>
-            </span>
-            <h2 className="mt-6 text-[clamp(22px,2.4vw,30px)] leading-[1.3] font-normal tracking-[-0.02em] text-balance text-text">
-              <span className="block">Started by Deepak Tripathi and Gunjan Soam.</span>
-              <span className="block text-text-muted">Still run by people who teach.</span>
-            </h2>
-            <Link href="/company/team" className="btn btn-secondary btn-lg mt-8 shadow-[var(--shadow-btn)]">
+          <div className="flex flex-col gap-8 px-5 py-14 sm:flex-row sm:items-end sm:justify-between sm:px-10 sm:py-16">
+            <div>
+              <span className="st-marks" aria-hidden="true">
+                <i>DT</i>
+                <i>GS</i>
+              </span>
+              <h2 className="mt-6 max-w-[760px] text-[clamp(24px,2.6vw,32px)] leading-[1.25] font-normal tracking-[-0.02em] text-text">
+                Started by Deepak Tripathi and Gunjan Soam.{" "}
+                <span className="text-text-muted">Still run by people who teach.</span>
+              </h2>
+            </div>
+            <Link href="/company/team" className="btn btn-secondary btn-lg shrink-0 self-start shadow-[var(--shadow-btn)] sm:self-auto">
               Meet the team
               <HoverArrow />
             </Link>
           </div>
+        </div>
+      </section>
+
+      {/* Photos from campus */}
+      <section>
+        <div className={`${container} border-x border-b border-line`}>
+          <StoryGallery />
         </div>
       </section>
       <div aria-hidden="true" className="relative -mt-px border-t border-line" />

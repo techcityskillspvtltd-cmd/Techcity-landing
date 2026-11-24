@@ -1,0 +1,95 @@
+/* ---------------------------------------------------------------
+   404 (app/not-found.tsx, components/lost-stack.tsx): the stack with one
+   plate missing, and a ruled list of popular pages.
+   --------------------------------------------------------------- */
+
+.nf-stack {
+  width: min(100%, 360px);
+  height: auto;
+}
+.nf-stack .hl-layer {
+  cursor: default;
+}
+
+/* The missing plate: dashed, its edge marching, floating up and down. */
+.nf-ghost {
+  animation: nf-float 4.2s ease-in-out infinite alternate;
+}
+@keyframes nf-float {
+  from {
+    transform: translateY(-8px);
+  }
+  to {
+    transform: translateY(8px);
+  }
+}
+.nf-stack .nf-dash {
+  stroke: color-mix(in srgb, var(--accent) 55%, transparent);
+  stroke-width: 1.25;
+  stroke-dasharray: 5 6;
+  animation: nf-march 1.6s linear infinite;
+}
+.nf-stack .nf-face {
+  fill: color-mix(in srgb, var(--accent) 4%, transparent);
+}
+@keyframes nf-march {
+  to {
+    stroke-dashoffset: -22;
+  }
+}
+.nf-stack .nf-404 {
+  fill: var(--accent);
+  font-family: var(--sans);
+  font-size: 76px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+.nf-stack .nf-type,
+.nf-stack .nf-type .hl-type-name {
+  fill: var(--accent);
+}
+
+/* Popular pages: ruled cells, each a link. */
+.nf-links {
+  display: grid;
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+}
+@media (min-width: 640px) {
+  .nf-links {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .nf-links {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.nf-links > li {
+  box-shadow:
+    1px 0 0 var(--line),
+    0 1px 0 var(--line);
+}
+.nf-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 20px;
+  transition: background-color 250ms var(--ease-out);
+}
+@media (min-width: 640px) {
+  .nf-link {
+    padding: 24px 40px;
+  }
+}
+.nf-link:hover {
+  background: var(--surface-subdued);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nf-ghost,
+  .nf-stack .nf-dash {
+    animation: none;
+  }
+}

@@ -2,15 +2,17 @@
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import { HoverArrow } from "@/components/hover-arrow";
+import { SectionHead } from "@/components/page-blocks";
 import { PartnerFilters, type DirectoryEntry, type DirectoryFilter } from "@/components/partner-filters";
 import { container } from "@/lib/layout";
 import "./partner-directory.css";
 
 /*
  * The partner directory: /partners/colleges and /partners/industries share it,
- * after devin.ai/customers. A statement on the left of the hero with a moving
- * field of logo tiles on the right; under it, filter pills and a grid of tall
- * coloured cards, each with the partner's logo and a few lines below.
+ * after devin.ai/customers, in the shared inner-page language (see PageHero in
+ * page-blocks): the hero with a moving field of logo tiles on the right; under
+ * it, a section heading, filter pills and a grid of cards, each with the
+ * partner's logo and a few lines below.
  */
 
 export type { DirectoryEntry, DirectoryFilter };
@@ -75,47 +77,74 @@ export function LogoField({ logos }: { logos: { src: string; name: string }[] })
 /* ---------------------------------------------------------------- page */
 
 /**
- * The whole directory page: hero (statement + logo field), then the filters
- * and the card grid. `statement` is the big line; `muted` sits under it.
+ * The whole directory page, in the same flow as the other inner pages: the
+ * hero (breadcrumb, run-in headline, a paragraph and two buttons on the left;
+ * the logo field on a dotted panel on the right), then a section heading over
+ * the filters and the card grid.
  */
 export function PartnerDirectory({
-  eyebrow,
-  statement,
-  muted,
-  links,
+  crumb,
+  lead,
+  rest,
+  body,
+  actions,
+  section,
   entries,
   filters,
 }: {
-  eyebrow: string;
-  statement: string;
-  muted: string;
-  links: { label: string; href: string }[];
+  /** The page's name in the breadcrumb, after "Partners". */
+  crumb: string;
+  lead: string;
+  rest: string;
+  body: string;
+  /** The primary button first, then the secondary. */
+  actions: [{ label: string; href: string }, { label: string; href: string }];
+  /** Heading over the grid: a dark lead and a muted rest. */
+  section: { lead: string; rest: string };
   entries: DirectoryEntry[];
   filters: DirectoryFilter[];
 }) {
+  const [primary, secondary] = actions;
   return (
     <main className="overflow-x-clip">
       <section className="mt-16 border-t border-line">
-        <div className={`${container} pd-hero border-x border-line`}>
-          <div className="pd-hero__copy">
-            <p className="pd-eyebrow">{eyebrow}</p>
-            <h1 className="pd-statement">{statement}</h1>
-            <p className="pd-muted">{muted}</p>
-            <div className="mt-8 flex flex-wrap gap-x-7 gap-y-3">
-              {links.map((l) => (
-                <HeroLink key={l.href} href={l.href}>
-                  {l.label}
-                </HeroLink>
-              ))}
+        <div className={`${container} border-x border-b border-line`}>
+          <div className="grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
+            <div className="flex flex-col px-5 pt-14 pb-12 sm:px-10 sm:pt-20 lg:pb-20">
+              <p className="pp-eyebrow">
+                <Link href="/#partners" className="hover:text-text">
+                  Partners
+                </Link>
+                <span aria-hidden="true">/</span>
+                <span className="text-text">{crumb}</span>
+              </p>
+              <h1 className="mt-6 text-[clamp(32px,4vw,52px)] leading-[1.08] font-normal tracking-[-0.035em] text-text">
+                {lead} <span className="text-text-muted">{rest}</span>
+              </h1>
+              <p className="mt-6 max-w-[520px] text-[17px] leading-[1.6] text-text-muted">{body}</p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <ButtonLink href={primary.href} className="btn btn-primary btn-lg">
+                  {primary.label}
+                  <HoverArrow />
+                </ButtonLink>
+                <ButtonLink href={secondary.href} className="btn btn-secondary btn-lg shadow-[var(--shadow-btn)]">
+                  {secondary.label}
+                </ButtonLink>
+              </div>
+            </div>
+            <div className="pd-hero__picture">
+              <LogoField logos={entries.map((e) => ({ src: e.logo, name: e.name }))} />
             </div>
           </div>
-          <LogoField logos={entries.map((e) => ({ src: e.logo, name: e.name }))} />
         </div>
       </section>
 
-      <section className="border-t border-line">
-        <div className={`${container} border-x border-line px-5 pt-12 pb-16 sm:px-10 sm:pt-14 sm:pb-24`}>
-          <PartnerFilters entries={entries} filters={filters} />
+      <section>
+        <div className={`${container} border-x border-line`}>
+          <SectionHead lead={section.lead} rest={section.rest} />
+          <div className="px-5 pb-16 sm:px-10 sm:pb-24">
+            <PartnerFilters entries={entries} filters={filters} />
+          </div>
         </div>
       </section>
       <div aria-hidden="true" className="relative -mt-px border-t border-line" />
@@ -123,20 +152,14 @@ export function PartnerDirectory({
   );
 }
 
-function HeroLink({ href, children }: { href: string; children: ReactNode }) {
-  const inner = (
-    <>
-      {children}
-      <HoverArrow />
-    </>
-  );
+function ButtonLink({ href, className, children }: { href: string; className: string; children: ReactNode }) {
   return href.startsWith("#") ? (
-    <a href={href} className="pd-link">
-      {inner}
+    <a href={href} className={className}>
+      {children}
     </a>
   ) : (
-    <Link href={href} className="pd-link">
-      {inner}
+    <Link href={href} className={className}>
+      {children}
     </Link>
   );
 }

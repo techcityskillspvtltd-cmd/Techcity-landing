@@ -4,7 +4,7 @@ import { site } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // Every internal page linked from either navbar, without #anchors.
-  const paths = new Set<string>(["/", "/students", "/programs"]);
+  const paths = new Set<string>(["/", "/students", "/programs", "/products", "/projects", "/company", "/partners"]);
   for (const nav of [partnerNav, studentNav]) {
     for (const group of nav.groups) {
       for (const href of [group.href, ...groupItems(group).map((i) => i.href)]) {

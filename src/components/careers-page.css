@@ -1,74 +1,234 @@
 /* ---------------------------------------------------------------
-   Careers (app/(partners)/company/careers, components/careers-*.tsx),
-   after stripe.com/careers, in the site's own language: guide lines,
-   run-in headings, ruled rows, the brand ramp.
+   Careers (app/(partners)/company/careers, components/careers-form.tsx),
+   in the site's own language: guide lines, run-in headings, ruled rows.
    --------------------------------------------------------------- */
 
-/* Artwork band: brand ribbons over deep navy, like Stripe's painted band. */
-.cr-art {
-  position: relative;
-  overflow: hidden;
-  height: clamp(280px, 38vw, 520px);
-  background:
-    radial-gradient(60% 80% at 15% 20%, #2a3596 0%, transparent 70%),
-    radial-gradient(50% 70% at 85% 90%, #3b2a7a 0%, transparent 70%),
-    #0b1251;
+/* Hero: how to join, as plates in the TechCity stack's line art (components/join-stack.tsx). */
+.cr-join {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 20px;
+  border-top: 1px solid var(--line);
+  background-color: var(--surface-subdued);
+  background-image: radial-gradient(color-mix(in srgb, var(--accent) 16%, transparent) 1px, transparent 1.4px);
+  background-size: 18px 18px;
+  background-position: 9px 9px;
 }
-.cr-art__svg {
+@media (min-width: 1024px) {
+  .cr-join {
+    padding: 32px 24px;
+    border-top: 0;
+    border-left: 1px solid var(--line);
+  }
+}
+.join-stack {
+  position: relative;
+  width: min(100%, 440px);
+  aspect-ratio: 490 / 620;
+}
+.join-stack__layer {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
 }
-.cr-art__ribbon {
-  transform-box: view-box;
-  transform-origin: 50% 50%;
-  animation: cr-sway 14s ease-in-out infinite alternate;
+.join-stack .hl-layer {
+  cursor: default;
 }
-.cr-art__ribbon:nth-child(3) {
-  animation-duration: 17s;
-  animation-direction: alternate-reverse;
+
+/* Lines that draw in, parts that pop in, on the plate in focus; finished on plates already passed. */
+.join-stack .jn-draw {
+  opacity: 0;
+  stroke-dasharray: 1 2;
+  stroke-dashoffset: 1;
 }
-.cr-art__ribbon:nth-child(4) {
-  animation-duration: 12s;
+.join-stack [data-done] .jn-draw {
+  opacity: 1;
+  stroke-dashoffset: 0;
 }
-@keyframes cr-sway {
+.join-stack [data-lit] .jn-draw {
+  animation: jn-draw 800ms var(--ease-out) var(--dl, 0ms) both;
+}
+@keyframes jn-draw {
   from {
-    transform: translateY(-2.5%) skewY(-1.2deg);
+    opacity: 0;
+    stroke-dashoffset: 1;
+  }
+  15% {
+    opacity: 1;
   }
   to {
-    transform: translateY(2.5%) skewY(1.2deg);
+    opacity: 1;
+    stroke-dashoffset: 0;
   }
 }
-.cr-art__glow {
+.join-stack .jn-pop {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.join-stack [data-done] .jn-pop {
+  opacity: 1;
+}
+.join-stack [data-lit] .jn-pop {
+  animation: jn-pop 500ms cubic-bezier(0.34, 1.56, 0.64, 1) var(--dl, 0ms) both;
+}
+@keyframes jn-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.join-stack .jn-check {
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.join-stack [data-done] .jn-check {
+  stroke: var(--hl-edge);
+}
+.join-stack [data-lit] .jn-on {
+  animation: jn-on 300ms var(--ease-out) var(--dl, 0ms) both;
+}
+@keyframes jn-on {
+  from {
+    fill: var(--text);
+  }
+  to {
+    fill: #fff;
+  }
+}
+.join-stack .jn-flag {
+  opacity: 0;
+}
+.join-stack [data-lit] .jn-flag {
+  animation: jn-rise 700ms cubic-bezier(0.22, 1, 0.36, 1) 2600ms both;
+}
+@keyframes jn-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The three steps under the hero; a bar times the one in focus. */
+.cr-steps {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+@media (min-width: 768px) {
+  .cr-steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .cr-steps li + li {
+    border-left: 1px solid var(--line);
+  }
+}
+.cr-steps li + li {
+  border-top: 1px solid var(--line);
+}
+@media (min-width: 768px) {
+  .cr-steps li + li {
+    border-top: 0;
+  }
+}
+.cr-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  padding: 28px 20px 32px;
+  text-align: left;
+  transition: background-color 250ms var(--ease-out);
+}
+@media (min-width: 640px) {
+  .cr-step {
+    padding: 32px 40px 36px;
+  }
+}
+.cr-step:hover {
+  background: var(--surface-subdued);
+}
+.cr-step:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.cr-step__bar {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0.55;
-  pointer-events: none;
+  top: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  overflow: hidden;
 }
-.cr-art__glow--a {
-  top: -20%;
-  left: 55%;
-  width: 40%;
-  aspect-ratio: 1;
-  background: var(--g-periwinkle);
+.cr-step[data-done] .cr-step__bar {
+  background: color-mix(in srgb, var(--accent) 30%, transparent);
 }
-.cr-art__glow--b {
-  bottom: -30%;
-  left: 5%;
-  width: 35%;
-  aspect-ratio: 1;
-  background: var(--g-amber);
-  opacity: 0.35;
+.cr-step__bar span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform-origin: left;
+  animation: cr-step-fill linear both;
 }
-/* Fine grain so the gradients read as printed, not flat. */
-.cr-art__grain {
-  position: absolute;
-  inset: 0;
-  opacity: 0.18;
-  mix-blend-mode: overlay;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+@keyframes cr-step-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.cr-steps[data-paused] .cr-step__bar span {
+  animation-play-state: paused;
+}
+.cr-steps[data-still] .cr-step__bar span {
+  animation: none;
+}
+.cr-step__n {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--g-indigo);
+  font-variant-numeric: tabular-nums;
+}
+.cr-step__title {
+  margin-top: 20px;
+  font-size: 18px;
+  line-height: 1.35;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--text-soft);
+  transition: color 300ms var(--ease-out);
+}
+.cr-step[data-on] .cr-step__title {
+  color: var(--text);
+}
+.cr-step__body {
+  margin-top: 6px;
+  max-width: 320px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .join-stack .hl-layer {
+    transition: none;
+  }
+  .join-stack [data-lit] :is(.jn-draw, .jn-pop, .jn-on, .jn-flag) {
+    animation-duration: 1ms;
+    animation-delay: 0ms;
+  }
 }
 
 /* Principles: three ruled columns; a bar fills along the top of each, in order. */
@@ -108,7 +268,7 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, var(--g-indigo), var(--g-periwinkle), var(--g-amber));
+  background: var(--accent);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.9s var(--ease-out);
@@ -118,72 +278,31 @@
   transform: none;
 }
 
-/* Statement band on navy. */
-.cr-statement {
-  background:
-    radial-gradient(60% 120% at 100% 0%, color-mix(in srgb, var(--g-indigo) 55%, transparent), transparent 70%),
-    var(--tertiary);
-}
-
-/* The big figure. */
-.cr-figure {
-  font-size: clamp(72px, 12vw, 168px);
-  line-height: 0.9;
-  letter-spacing: -0.05em;
-  color: var(--text);
-  background: linear-gradient(90deg, var(--accent), var(--g-periwinkle) 60%, var(--g-amber));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.cr-figure .ticker-window {
-  height: 1em;
-}
-
-/* Roles: ruled rows that highlight on hover. */
-.cr-roles {
-  border-top: 1px solid var(--line);
-}
-.cr-role {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 8px 24px;
-  padding: 22px 20px;
-  border-bottom: 1px solid var(--line);
-  transition: background-color 250ms var(--ease-out);
-}
-.cr-role:last-child {
-  border-bottom: 0;
-}
-.cr-role:hover {
-  background: var(--surface-subdued);
-}
-@media (min-width: 640px) {
-  .cr-role {
-    grid-template-columns: minmax(0, 1fr) 200px auto;
-    padding: 26px 40px;
-  }
-}
-.cr-role__where {
-  display: none;
-  font-size: 14px;
-  color: var(--text-muted);
-}
-@media (min-width: 640px) {
-  .cr-role__where {
-    display: block;
-  }
-}
-.cr-role__cta {
-  display: inline-flex;
-  align-items: center;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--accent);
-}
-
 /* Apply: copy on the left, the form in a tinted panel on the right. */
+.cr-apply {
+  display: grid;
+}
+@media (min-width: 1024px) {
+  .cr-apply {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  }
+}
+.cr-apply__copy {
+  padding: 56px 20px 32px;
+}
+@media (min-width: 640px) {
+  .cr-apply__copy {
+    padding: 64px 40px 40px;
+  }
+}
+@media (min-width: 1024px) {
+  .cr-apply__copy {
+    position: sticky;
+    top: 64px;
+    align-self: start;
+    padding-bottom: 64px;
+  }
+}
 .cr-apply__form {
   padding: 0 20px 40px;
 }
@@ -231,7 +350,10 @@
   box-shadow: inset 0 0 0 1px var(--border);
 }
 
-/* The form. */
+/* The form. Role links scroll it into view clear of the navbar. */
+.cr-form-wrap {
+  scroll-margin-top: 88px;
+}
 .cr-form {
   display: flex;
   flex-direction: column;
@@ -258,8 +380,12 @@
   padding-top: 24px;
   border-top: 1px solid var(--line);
 }
+/* Floated, so the legend sits inside its group under the rule instead of cutting through it. */
 .cr-legend {
-  margin-bottom: 14px;
+  float: left;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 4px;
   font-size: 13px;
   font-weight: 500;
   color: var(--g-indigo);
@@ -322,7 +448,8 @@ select.cr-input {
   background-repeat: no-repeat;
   background-position: right 12px center;
 }
-select.cr-input:invalid {
+select.cr-input:invalid,
+select.cr-input:has(option[value=""]:checked) {
   color: color-mix(in srgb, var(--text-muted) 75%, transparent);
 }
 .cr-textarea {
@@ -493,49 +620,3 @@ select.cr-input:invalid {
   background: #e3f5ec;
 }
 
-/* More: three link cells. */
-.cr-more {
-  display: grid;
-  border-top: 1px solid var(--line);
-}
-@media (min-width: 768px) {
-  .cr-more {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-.cr-more__cell {
-  display: flex;
-  flex-direction: column;
-  padding: 28px 20px 32px;
-  border-bottom: 1px solid var(--line);
-  transition: background-color 250ms var(--ease-out);
-}
-.cr-more__cell:last-child {
-  border-bottom: 0;
-}
-@media (min-width: 640px) {
-  .cr-more__cell {
-    padding: 32px 40px 36px;
-  }
-}
-@media (min-width: 768px) {
-  .cr-more__cell {
-    border-bottom: 0;
-  }
-  .cr-more__cell + .cr-more__cell {
-    border-left: 1px solid var(--line);
-  }
-}
-.cr-more__cell:hover {
-  background: var(--surface-subdued);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cr-art__ribbon {
-    animation: none;
-  }
-  .cr-principle__bar {
-    transform: none;
-    transition: none;
-  }
-}

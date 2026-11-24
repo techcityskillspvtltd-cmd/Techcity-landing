@@ -56,7 +56,7 @@ export function ProjectsHero({
       <div className={`${container} border-x border-b border-line`}>
         <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
           <div className="flex flex-col px-5 pt-14 pb-10 sm:px-10 sm:pt-20 lg:pb-16">
-            <p className="pj-eyebrow">
+            <p className="pp-eyebrow">
               {status ? (
                 <>
                   <Link href="/projects" className="hover:text-text">
@@ -69,7 +69,13 @@ export function ProjectsHero({
                   </span>
                 </>
               ) : (
-                <span className="text-text">Projects</span>
+                <>
+                  <Link href="/" className="hover:text-text">
+                    Home
+                  </Link>
+                  <span aria-hidden="true">/</span>
+                  <span className="text-text">Projects</span>
+                </>
               )}
             </p>
             <h1 className="mt-6 text-[clamp(32px,4vw,52px)] leading-[1.08] font-normal tracking-[-0.035em] text-text">

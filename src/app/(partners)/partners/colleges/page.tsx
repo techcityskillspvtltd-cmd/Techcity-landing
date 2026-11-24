@@ -27,13 +27,15 @@ const entries: DirectoryEntry[] = colleges.map((c) => ({
 export default function Page() {
   return (
     <PartnerDirectory
-      eyebrow="College partners"
-      statement={`${colleges.length} colleges teach with us, inside their own timetables.`}
-      muted={`Universities and institutes across ${states.slice(0, -1).join(", ")} and ${states[states.length - 1]}, with their own faculty in the room.`}
-      links={[
-        { label: "Read their stories", href: "/company/testimonials#stories" },
+      crumb="Colleges"
+      lead={`${colleges.length} colleges teach with us,`}
+      rest="inside their own timetables."
+      body={`Universities and institutes across ${states.slice(0, -1).join(", ")} and ${states[states.length - 1]}, with their own faculty in the room.`}
+      actions={[
         { label: "Partner with us", href: "#contact" },
+        { label: "Read their stories", href: "/company/testimonials#stories" },
       ]}
+      section={{ lead: "Every partner college.", rest: "Filter by state; a college with a story links to it." }}
       entries={entries}
       filters={states.map((s) => ({ id: s, label: s }))}
     />

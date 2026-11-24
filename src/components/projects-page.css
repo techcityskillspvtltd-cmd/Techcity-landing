@@ -4,16 +4,6 @@
    run-in headings, a tinted picture panel holding a stageshow scene.
    --------------------------------------------------------------- */
 
-.pj-eyebrow {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-muted);
-}
-
 /* Hero picture: a plain subdued panel; the scene is pinned to its bottom-right corner,
    so its window runs off the bottom and stops at the guide line on the right. */
 .pj-hero__picture {

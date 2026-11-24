@@ -4,6 +4,7 @@ import { startTransition, useActionState, useEffect, useRef, useState, type Drag
 import { submitApplication, type ApplyState } from "@/app/(partners)/company/careers/actions";
 import { HoverArrow } from "@/components/hover-arrow";
 import { CheckTickCircleIcon, FileIcon, MultipleCrossCancelIcon, UploadUpIcon } from "@/components/pikaicons";
+import { ROLES } from "@/lib/careers";
 
 /*
  * Careers application form. Submits to a server action (careers/actions.ts),
@@ -15,18 +16,6 @@ import { CheckTickCircleIcon, FileIcon, MultipleCrossCancelIcon, UploadUpIcon } 
  * here and picks it (e.g. #apply-ai-ml).
  */
 
-export const ROLES = [
-  { value: "software", label: "Software trainer" },
-  { value: "ai-ml", label: "AI and ML trainer" },
-  { value: "data", label: "Data and analytics trainer" },
-  { value: "cloud", label: "Cloud, DevOps or security trainer" },
-  { value: "core", label: "Core engineering trainer (IoT, SCADA, embedded)" },
-  { value: "placement", label: "Placement trainer (aptitude and interviews)" },
-  { value: "mentor", label: "Industry mentor" },
-  { value: "faculty", label: "Faculty development trainer" },
-  { value: "content", label: "Content developer" },
-  { value: "other", label: "Something else" },
-];
 const EXPERIENCE = ["Less than 2 years", "2 to 5 years", "5 to 10 years", "More than 10 years"];
 const AVAILABILITY = ["Immediately", "Within 15 days", "Within 30 days", "In 60 days or more"];
 const ENGAGEMENT = ["Full-time", "Part-time", "Freelance"];

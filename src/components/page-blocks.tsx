@@ -137,10 +137,10 @@ export function Steps({ steps }: { steps: Step[] }) {
 
 export type Tile = { icon: IconName; lead: string; body: string; href?: string };
 
-/** Ruled grid of icon tiles with run-in copy; tiles with an href are links. */
-export function TileGrid({ tiles }: { tiles: Tile[] }) {
+/** Ruled grid of icon tiles with run-in copy; tiles with an href are links. `cols`: columns on wide screens (default: one per tile). */
+export function TileGrid({ tiles, cols }: { tiles: Tile[]; cols?: number }) {
   return (
-    <div className="pp-tiles" style={{ "--n": tiles.length } as CSSProperties}>
+    <div className="pp-tiles" style={{ "--n": cols ?? tiles.length } as CSSProperties}>
       {tiles.map((t) => {
         const inner = (
           <>

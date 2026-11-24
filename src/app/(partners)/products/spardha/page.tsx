@@ -1,10 +1,6 @@
-import type { Metadata } from "next";
-import { PageShell } from "@/components/page-shell";
+import { permanentRedirect } from "next/navigation";
 
-export const metadata: Metadata = { title: "Spardha" };
-
+/** Each product runs on its own site; this address goes to its card on /products, which links out. */
 export default function Page() {
-  return (
-    <PageShell title="Spardha" />
-  );
+  permanentRedirect("/products#spardha");
 }

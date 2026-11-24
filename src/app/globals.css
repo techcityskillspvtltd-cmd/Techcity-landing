@@ -3370,6 +3370,17 @@ a:focus-visible > .product-tile {
   }
 }
 
+/* Dotted ground inside a hero picture that is a drawing (the stack, the logo field). */
+.pp-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background-image: radial-gradient(color-mix(in srgb, var(--accent) 14%, transparent) 1px, transparent 1.4px);
+  background-size: 18px 18px;
+  background-position: 9px 9px;
+}
+
 /* Shared ruled grids. */
 .pp-stats,
 .pp-grid,

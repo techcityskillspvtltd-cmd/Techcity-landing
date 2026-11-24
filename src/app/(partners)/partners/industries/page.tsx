@@ -33,13 +33,15 @@ const entries: DirectoryEntry[] = industry.map((p) => ({
 export default function Page() {
   return (
     <PartnerDirectory
-      eyebrow="Industry partners"
-      statement="The companies that shape what our students learn."
-      muted="Upskilling platforms, test preparation, and the software and IT teams our students go on to join."
-      links={[
-        { label: "Read their stories", href: "/company/testimonials#stories" },
+      crumb="Industry"
+      lead="The companies that shape"
+      rest="what our students learn."
+      body="Upskilling platforms, test preparation, and the software and IT teams our students go on to join."
+      actions={[
         { label: "Partner with us", href: "#contact" },
+        { label: "Read their stories", href: "/company/testimonials#stories" },
       ]}
+      section={{ lead: "Every industry partner.", rest: "Filter by the kind of work; a partner with a story links to it." }}
       entries={entries}
       filters={GROUPS}
     />

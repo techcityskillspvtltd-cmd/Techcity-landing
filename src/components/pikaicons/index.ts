@@ -1,3 +1,5 @@
+export { ArrowLeftIcon } from "./arrow-left"
+export { ArrowRightIcon } from "./arrow-right"
 export { BuildingApartmentTwoIcon } from "./building-apartment-two"
 export { CalendarIcon } from "./calendar-default"
 export { CheckTickCircleIcon } from "./check-tick-circle"

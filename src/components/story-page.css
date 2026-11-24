@@ -1,37 +1,14 @@
 /* ---------------------------------------------------------------
-   Our story (app/(partners)/company/story): the picture, three beats
-   and the figures, in the site's ruled-grid language.
+   Our story (app/(partners)/company/story): three beats in the site's
+   ruled-grid language; the figures use the shared .pp-stats row.
    --------------------------------------------------------------- */
 
-/* The 3D city still, edge to edge between the guide lines. */
-.st-picture {
-  position: relative;
-  aspect-ratio: 2 / 1;
-  overflow: hidden;
-  background: #f3f4f6;
-}
-.st-picture img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-@media (max-width: 639px) {
-  .st-picture {
-    aspect-ratio: 4 / 3;
-  }
-  .st-picture img {
-    object-position: 62% 50%;
-  }
-}
-
 /* Ruled grids: rules drawn on the cells, clipped at the outer edges. */
-.st-beats,
-.st-figures {
+.st-beats {
   display: grid;
   overflow: hidden;
 }
-.st-beats > *,
-.st-figures > * {
+.st-beats > * {
   box-shadow:
     1px 0 0 var(--line),
     0 1px 0 var(--line);
@@ -47,7 +24,6 @@
 }
 .st-beat {
   padding: 32px 20px 36px;
-  text-align: center;
   opacity: 0;
   transform: translateY(10px);
   transition:
@@ -65,41 +41,14 @@
   transform: none;
 }
 .st-beat p:last-child {
-  max-width: 300px;
-  margin-inline: auto;
+  max-width: 320px;
   text-wrap: pretty;
 }
 .st-beat__n {
   font-size: 13px;
   font-weight: 500;
-  letter-spacing: 0.06em;
-  color: var(--g-amber);
+  color: var(--g-indigo);
   font-variant-numeric: tabular-nums;
-}
-
-.st-figures {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-@media (min-width: 1024px) {
-  .st-figures {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-.st-figure {
-  padding: 28px 20px;
-  text-align: center;
-}
-@media (min-width: 640px) {
-  .st-figure {
-    padding: 36px 40px;
-  }
-}
-.st-figure__num {
-  font-size: clamp(36px, 3.6vw, 52px);
-  line-height: 1;
-  letter-spacing: -0.035em;
-  white-space: nowrap;
-  color: var(--text);
 }
 
 /* Founders' initials */
@@ -136,7 +85,8 @@
 
 /* ---------------------------------------------------------------
    How we started (components/story-scroll.tsx): chapters scroll on the
-   left, the city picture stays on the right and moves with them.
+   left; on wide screens a deck of pictures stays on the right and each
+   chapter lays its picture on top. Phones show each picture inline.
    --------------------------------------------------------------- */
 
 .ss {
@@ -150,135 +100,65 @@
 }
 @media (min-width: 1024px) {
   .ss {
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     column-gap: 72px;
     padding-bottom: 0;
   }
 }
 
-/* Picture: pinned under the navbar on phones, beside the chapters on wide screens. */
-.ss__stage {
-  order: -1;
-  position: sticky;
-  top: 64px;
-  z-index: 2;
-  padding: 12px 0;
-  background: var(--bg);
-}
-@media (min-width: 1024px) {
-  .ss__stage {
-    order: 0;
-    top: 0;
-    height: 100svh;
-    max-height: 860px;
-    display: flex;
-    align-items: center;
-    padding: 64px 0 0;
-    background: none;
-  }
-}
-.ss__frame {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 2 / 1;
-  overflow: hidden;
-  border-radius: 14px;
-  background: #f3f4f6;
-  box-shadow:
-    0 0 0 1px var(--line),
-    0 40px 80px -40px color-mix(in srgb, var(--accent) 35%, transparent);
-}
-@media (min-width: 1024px) {
-  .ss__frame {
-    aspect-ratio: 5 / 4;
-  }
-}
-.ss__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition:
-    transform 1400ms var(--ease-out),
-    transform-origin 1400ms var(--ease-out);
-  will-change: transform;
-}
-.ss__chip {
-  position: absolute;
-  left: 12px;
-  bottom: 12px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  max-width: calc(100% - 110px);
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: rgb(255 255 255 / 0.92);
-  box-shadow: 0 1px 2px rgb(6 27 49 / 0.12);
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.ss__chip span {
-  color: var(--g-amber);
-  font-variant-numeric: tabular-nums;
-}
-@media (min-width: 640px) {
-  .ss__chip {
-    left: 16px;
-    bottom: 16px;
-  }
-}
-.ss__dots {
-  position: absolute;
-  right: 14px;
-  bottom: 22px;
-  display: flex;
-  gap: 5px;
-}
-.ss__dots li {
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
-  background: rgb(255 255 255 / 0.9);
-  box-shadow: 0 0 0 1px rgb(6 27 49 / 0.15);
-  transition:
-    width 400ms var(--ease-out),
-    background-color 400ms var(--ease-out);
-}
-.ss__dots li[data-on] {
-  width: 18px;
-  background: var(--accent);
-}
-
 /* Chapters */
 .ss__chapter {
-  padding: 40px 0;
+  padding: 40px 0 8px;
 }
 @media (min-width: 1024px) {
   .ss__chapter {
-    min-height: 72svh;
+    min-height: 78svh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 48px 0;
-    opacity: 0.32;
-    transition: opacity 500ms var(--ease-out);
+    opacity: 0.28;
+    transition: opacity 600ms var(--ease-out);
   }
   .ss__chapter[data-on] {
     opacity: 1;
   }
   .ss__chapter:first-child {
-    min-height: 60svh;
+    min-height: 64svh;
+  }
+  /* A full screen for the last chapter, so the deck stays pinned while it's read. */
+  .ss__chapter:last-child {
+    min-height: calc(100svh - 64px);
+  }
+}
+.ss__inline {
+  margin-bottom: 24px;
+  overflow: hidden;
+  border-radius: 14px;
+  aspect-ratio: 4 / 3;
+  background: var(--surface-subdued);
+  box-shadow: 0 0 0 1px var(--line);
+}
+.ss__inline img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 70%;
+}
+@media (min-width: 640px) {
+  .ss__inline {
+    aspect-ratio: 16 / 10;
+  }
+}
+@media (min-width: 1024px) {
+  .ss__inline {
+    display: none;
   }
 }
 .ss__n {
   font-size: 13px;
   font-weight: 500;
-  letter-spacing: 0.06em;
-  color: var(--g-amber);
+  color: var(--g-indigo);
   font-variant-numeric: tabular-nums;
 }
 .ss__title {
@@ -307,9 +187,347 @@
   color: var(--text-muted);
 }
 
+/* The deck: wide screens only, pinned beside the chapters. */
+.ss__stage {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .ss__stage {
+    position: sticky;
+    top: 64px;
+    height: calc(100svh - 64px);
+    max-height: 880px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding-top: 40px;
+  }
+}
+.ss__deck {
+  position: relative;
+  height: min(calc(100svh - 240px), 620px);
+  aspect-ratio: 1122 / 1402;
+  max-width: 100%;
+}
+.ss__card {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--surface-subdued);
+  transform-origin: 50% 0;
+  box-shadow:
+    0 0 0 1px var(--line),
+    0 30px 60px -30px color-mix(in srgb, var(--accent) 40%, transparent);
+  transition:
+    transform 1100ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 700ms var(--ease-out),
+    filter 900ms var(--ease-out);
+  will-change: transform;
+}
+/* The current picture, on top. */
+.ss__card[data-state="on"] {
+  transform: none;
+  opacity: 1;
+}
+/* Earlier pictures step back and peek out above it. */
+.ss__card[data-state="past"] {
+  transform: translateY(calc(var(--d) * 18px)) scale(calc(1 + var(--d) * 0.045));
+  filter: saturate(0.6) brightness(0.96);
+}
+.ss__card[data-far] {
+  opacity: 0;
+}
+/* Pictures still to come wait below, out of sight. */
+.ss__card[data-state="next"] {
+  transform: translateY(72px) rotate(1.5deg);
+  opacity: 0;
+}
+.ss__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.08);
+  transition: transform 6000ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* A slow settle on the current picture keeps it alive while you read. */
+.ss__card[data-state="on"] .ss__img {
+  transform: none;
+}
+
+.ss__caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: min(100%, calc(min(calc(100svh - 240px), 620px) * 1122 / 1402));
+}
+.ss__caption p {
+  display: flex;
+  gap: 10px;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ss__caption span {
+  color: var(--g-indigo);
+  font-variant-numeric: tabular-nums;
+}
+.ss__ticks {
+  display: flex;
+  flex: none;
+  gap: 5px;
+}
+.ss__ticks li {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--line);
+  transition:
+    width 400ms var(--ease-out),
+    background-color 400ms var(--ease-out);
+}
+.ss__ticks li[data-done] {
+  background: color-mix(in srgb, var(--accent) 35%, var(--line));
+}
+.ss__ticks li[data-on] {
+  width: 20px;
+  background: var(--accent);
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .ss__card,
   .ss__img,
   .ss__chapter {
     transition: none;
+  }
+}
+
+
+/* ---------------------------------------------------------------
+   Photos from campus (components/story-gallery.tsx): two photos at a
+   time (one on phones), moving on by one; a progress bar times each step.
+   --------------------------------------------------------------- */
+
+.gl {
+  --v: 1;
+  --gap: 12px;
+  --pad: 20px;
+  padding-bottom: 40px;
+}
+@media (min-width: 640px) {
+  .gl {
+    --gap: 24px;
+    --pad: 40px;
+    padding-bottom: 56px;
+  }
+}
+@media (min-width: 768px) {
+  .gl {
+    --v: 2;
+  }
+}
+
+/* Head: the same run-in heading and spacing as the shared SectionHead. */
+.gl__head {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 56px var(--pad) 40px;
+}
+@media (min-width: 640px) {
+  .gl__head {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding-top: 64px;
+    padding-bottom: 48px;
+  }
+}
+.gl__controls {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+}
+.gl__count {
+  margin-right: 10px;
+  font-size: 14px;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.gl__count span {
+  color: var(--text);
+  font-weight: 500;
+}
+.gl__btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--text);
+  box-shadow: var(--shadow-btn);
+  transition:
+    background-color 200ms var(--ease-out),
+    color 200ms var(--ease-out),
+    transform 200ms var(--ease-out);
+}
+.gl__btn:hover {
+  background: var(--accent);
+  color: #fff;
+}
+.gl__btn:active {
+  transform: scale(0.94);
+}
+.gl__btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Track: each step moves by one photo and one gap. */
+.gl__viewport {
+  overflow: hidden;
+  margin: 0 var(--pad);
+  touch-action: pan-y;
+  user-select: none;
+  cursor: grab;
+}
+.gl__viewport:active {
+  cursor: grabbing;
+}
+.gl__track {
+  display: flex;
+  gap: var(--gap);
+  transform: translate3d(calc(var(--at) * (100% + var(--gap)) / var(--v) * -1 + var(--dx, 0px)), 0, 0);
+  transition: transform 1100ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+.gl__track[data-instant] {
+  transition: none;
+}
+.gl__slide {
+  flex: 0 0 calc((100% - (var(--v) - 1) * var(--gap)) / var(--v));
+  min-width: 0;
+}
+
+.gl__frame {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--surface-subdued);
+}
+.gl__frame::after {
+  /* Hairline drawn inside, so the viewport's edge never clips it. */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgb(6 27 49 / 0.08);
+  pointer-events: none;
+}
+.gl__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  transform: scale(1.06);
+  transition: transform 1600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* Photos settle from a slight zoom as they come into view. */
+.gl__slide[data-shown] .gl__img {
+  transform: none;
+}
+.gl__track[data-instant] .gl__img {
+  transition: none;
+}
+
+.gl__caption {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  text-wrap: pretty;
+}
+.gl__caption span {
+  flex: none;
+  font-size: 13px;
+  line-height: 23px;
+  font-weight: 500;
+  color: var(--g-indigo);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Progress: one segment per photo; the current one fills, then moves on. */
+.gl__progress {
+  display: flex;
+  gap: 6px;
+  margin: 28px var(--pad) 0;
+}
+.gl__progress li {
+  flex: 1;
+}
+.gl__progress button {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 20px;
+}
+.gl__progress button::before,
+.gl__fill {
+  content: "";
+  position: absolute;
+  inset: 9px 0;
+  border-radius: 999px;
+}
+.gl__progress button::before {
+  background: var(--line);
+  transition: background-color 300ms var(--ease-out);
+}
+.gl__progress button[data-done]::before {
+  background: color-mix(in srgb, var(--accent) 30%, var(--line));
+}
+.gl__progress button:hover::before {
+  background: color-mix(in srgb, var(--accent) 50%, var(--line));
+}
+.gl__fill {
+  background: var(--accent);
+  transform-origin: left;
+  animation: gl-fill 5s linear forwards;
+}
+@keyframes gl-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.gl[data-paused] .gl__fill,
+.gl:hover .gl__fill,
+.gl:has(:focus-visible) .gl__fill {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gl__track,
+  .gl__img {
+    transition: none;
+  }
+  .gl__img {
+    transform: none;
+  }
+  .gl__fill {
+    animation: none;
+    transform: none;
   }
 }
