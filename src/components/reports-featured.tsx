@@ -2,6 +2,22 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
 
+/*
+ * The featured report on /reports: one big card at a time, like a carousel,
+ * going first → second → third and round again on its own, every 7 seconds.
+ * A strip of college marks under it picks one; a timeline across the marks
+ * shows the wait (the showing report's segment fills).
+ *
+ * A timer moves it on, so it keeps going whatever the browser does with
+ * animations; the bar only shows the wait, restarted with the timer. It
+ * pauses while off screen or while a keyboard user is in it, and doesn't move
+ * on its own with reduced motion.
+ *
+ * The cards and marks are rendered on the server and passed in, so this only
+ * owns which one is showing.
+ */
+
+const EVERY_MS = 7000;
 const REDUCE = "(prefers-reduced-motion: reduce)";
 const subscribe = (cb: () => void) => {
   const mq = window.matchMedia(REDUCE);
@@ -9,42 +25,37 @@ const subscribe = (cb: () => void) => {
   return () => mq.removeEventListener("change", cb);
 };
 
-/*
- * The featured report on /reports: one big card at a time, and a strip of
- * college marks under it with a timeline across the top. The showing report's
- * segment fills (a CSS animation); when it's full the next report comes in,
- * round and round. Picking a mark shows that report and the timeline carries
- * on from there. It pauses while off screen or while a keyboard user is in it;
- * with reduced motion it doesn't move on its own.
- *
- * The cards and marks are rendered on the server and passed in, so this only
- * owns which one is showing.
- */
-
 export function ReportsFeatured({ cards, marks, labels }: { cards: ReactNode[]; marks: ReactNode[]; labels: string[] }) {
+  const n = cards.length;
   const [at, setAt] = useState(0);
-  const [run, setRun] = useState(0); // restarts the timeline when a mark is picked
+  const [run, setRun] = useState(0); // restarts the wait when a mark is picked
+  const [onScreen, setOnScreen] = useState(true);
+  const [focused, setFocused] = useState(false);
+  const root = useRef<HTMLDivElement>(null);
   const still = useSyncExternalStore(
     subscribe,
     () => window.matchMedia(REDUCE).matches,
     () => false,
   );
-  const [onScreen, setOnScreen] = useState(true);
-  const [focused, setFocused] = useState(false);
-  const root = useRef<HTMLDivElement>(null);
-  const n = cards.length;
+  const playing = !still && n > 1 && onScreen && !focused;
 
   useEffect(() => {
-    const io = new IntersectionObserver(([e]) => setOnScreen(e.isIntersecting), { threshold: 0.25 });
+    const io = new IntersectionObserver(([e]) => setOnScreen(e.isIntersecting), { threshold: 0.15 });
     if (root.current) io.observe(root.current);
     return () => io.disconnect();
   }, []);
+
+  // First → second → third → first…
+  useEffect(() => {
+    if (!playing) return;
+    const id = window.setTimeout(() => setAt((a) => (a + 1) % n), EVERY_MS);
+    return () => window.clearTimeout(id);
+  }, [at, run, playing, n]);
 
   return (
     <div
       ref={root}
       className="rp-featured"
-      data-paused={!onScreen || focused || undefined}
       onFocusCapture={(e) => setFocused((e.target as HTMLElement).matches(":focus-visible"))}
       onBlurCapture={() => setFocused(false)}
     >
@@ -79,13 +90,7 @@ export function ReportsFeatured({ cards, marks, labels }: { cards: ReactNode[]; 
           >
             {mark}
             <span className="rp-featured__timer" aria-hidden="true">
-              {i === at && (
-                <i
-                  key={`${at}-${run}`}
-                  data-run={(!still && n > 1) || undefined}
-                  onAnimationEnd={() => setAt((a) => (a + 1) % n)}
-                />
-              )}
+              {i === at && <i key={`${at}-${run}-${playing}`} data-run={playing || undefined} />}
             </span>
           </button>
         ))}

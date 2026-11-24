@@ -353,9 +353,6 @@
 .rp-featured__mark[data-on] .rp-featured__timer > i[data-run] {
   animation: rp-timeline 7000ms linear both;
 }
-.rp-featured[data-paused] .rp-featured__timer > i {
-  animation-play-state: paused;
-}
 @keyframes rp-timeline {
   from {
     transform: scaleX(0);
