@@ -29,7 +29,6 @@ export default function Page() {
         eyebrow="Team"
         lead="The people in the room."
         rest="Two directors, and the trainers who teach inside our partner colleges."
-        body="Deepak brings the experience, the network and the training. Gunjan leads the technology, the hiring and the trainers. Around them, practitioners teach software, AI and data, with cloud, DevOps and cybersecurity where a campus needs them."
         stats={[
           { value: "2", label: "Directors and co-founders" },
           { value: "15+", label: "Years of leadership" },

@@ -67,7 +67,6 @@ export function Newsroom() {
         eyebrow="News"
         lead="What's happening on campus."
         rest="Programs starting, under way and finished at our partner colleges."
-        body="Every program we run is a term inside a college's own timetable. Here's where each one stands, with the tracks, the batch and the people who ran it."
         picture={<ProjectScene id="all" />}
         stats={[
           { value: String(news.length), label: "Programs reported" },

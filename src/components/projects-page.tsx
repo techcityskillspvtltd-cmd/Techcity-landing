@@ -49,7 +49,7 @@ export function ProjectsHero({
   status?: ProjectStatus;
   lead: string;
   rest: string;
-  body: string;
+  body?: string;
   stats: Stat[];
 }) {
   return (
@@ -77,7 +77,7 @@ export function ProjectsHero({
             <h1 className="pp-h1">
               {lead} <span className="text-text-muted">{rest}</span>
             </h1>
-            <p className="pp-lede">{body}</p>
+            {body && <p className="pp-lede">{body}</p>}
             <div className="pp-actions">
               <a href="#contact" className="btn btn-primary btn-lg">
                 Partner with us

@@ -1,38 +1,52 @@
 "use client";
 
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
+
+const REDUCE = "(prefers-reduced-motion: reduce)";
+const subscribe = (cb: () => void) => {
+  const mq = window.matchMedia(REDUCE);
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+};
 
 /*
  * The featured report on /reports: one big card at a time, and a strip of
- * college marks under it to pick another. It moves on by itself every few
- * seconds until someone points at it, focuses it or picks a mark; with
- * reduced motion it never moves on its own.
+ * college marks under it with a timeline across the top. The showing report's
+ * segment fills (a CSS animation); when it's full the next report comes in,
+ * round and round. Picking a mark shows that report and the timeline carries
+ * on from there. It pauses while off screen or while a keyboard user is in it;
+ * with reduced motion it doesn't move on its own.
  *
  * The cards and marks are rendered on the server and passed in, so this only
  * owns which one is showing.
  */
 
-const EVERY_MS = 7000;
-
 export function ReportsFeatured({ cards, marks, labels }: { cards: ReactNode[]; marks: ReactNode[]; labels: string[] }) {
   const [at, setAt] = useState(0);
-  const [held, setHeld] = useState(false);
-  const [picked, setPicked] = useState(false);
+  const [run, setRun] = useState(0); // restarts the timeline when a mark is picked
+  const still = useSyncExternalStore(
+    subscribe,
+    () => window.matchMedia(REDUCE).matches,
+    () => false,
+  );
+  const [onScreen, setOnScreen] = useState(true);
+  const [focused, setFocused] = useState(false);
+  const root = useRef<HTMLDivElement>(null);
+  const n = cards.length;
 
   useEffect(() => {
-    if (held || picked || cards.length < 2) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = window.setTimeout(() => setAt((i) => (i + 1) % cards.length), EVERY_MS);
-    return () => window.clearTimeout(id);
-  }, [at, held, picked, cards.length]);
+    const io = new IntersectionObserver(([e]) => setOnScreen(e.isIntersecting), { threshold: 0.25 });
+    if (root.current) io.observe(root.current);
+    return () => io.disconnect();
+  }, []);
 
   return (
     <div
+      ref={root}
       className="rp-featured"
-      onPointerEnter={() => setHeld(true)}
-      onPointerLeave={() => setHeld(false)}
-      onFocusCapture={() => setHeld(true)}
-      onBlurCapture={() => setHeld(false)}
+      data-paused={!onScreen || focused || undefined}
+      onFocusCapture={(e) => setFocused((e.target as HTMLElement).matches(":focus-visible"))}
+      onBlurCapture={() => setFocused(false)}
     >
       <div className="rp-featured__stage">
         {cards.map((card, i) => (
@@ -60,12 +74,18 @@ export function ReportsFeatured({ cards, marks, labels }: { cards: ReactNode[]; 
             aria-label={labels[i]}
             onClick={() => {
               setAt(i);
-              setPicked(true);
+              setRun((r) => r + 1);
             }}
           >
             {mark}
             <span className="rp-featured__timer" aria-hidden="true">
-              <i key={`${at}-${held}-${picked}`} data-run={(i === at && !held && !picked) || undefined} />
+              {i === at && (
+                <i
+                  key={`${at}-${run}`}
+                  data-run={(!still && n > 1) || undefined}
+                  onAnimationEnd={() => setAt((a) => (a + 1) % n)}
+                />
+              )}
             </span>
           </button>
         ))}

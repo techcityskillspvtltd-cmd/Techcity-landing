@@ -15,7 +15,6 @@ export default function Page() {
         status="upcoming"
         lead="Starting next term."
         rest="Curriculum agreed, trainers lined up, labs being set up."
-        body="The next batches are planned with each department: tracks chosen, trainers from industry assigned, labs and timetables ready before the first class."
         stats={[
           { value: String(list.length), label: "Programs starting" },
           { value: String(cityCount(list)), label: list.length === 1 ? "City" : "Cities" },

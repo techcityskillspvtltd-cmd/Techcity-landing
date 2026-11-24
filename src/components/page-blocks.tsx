@@ -69,7 +69,8 @@ export function PageHero({
   eyebrow: string;
   lead: string;
   rest?: string;
-  body: string;
+  /** A short paragraph under the headline; most pages leave it out. */
+  body?: string;
   stats?: HeroStat[];
   picture: ReactNode;
   /** Defaults to "Partner with us" and "See our programs". */
@@ -84,7 +85,7 @@ export function PageHero({
             <h1 className="pp-h1">
               {lead} {rest && <span className="text-text-muted">{rest}</span>}
             </h1>
-            <p className="pp-lede">{body}</p>
+            {body && <p className="pp-lede">{body}</p>}
             <div className="pp-actions">
               {actions ?? (
                 <>

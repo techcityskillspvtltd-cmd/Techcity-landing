@@ -9,7 +9,6 @@ import { StoryColumns } from "@/components/testimonials-page";
 import { studentStories } from "@/lib/company";
 import { container } from "@/lib/layout";
 import { partnerStories } from "@/lib/partner-stories";
-import { colleges, industry } from "@/lib/partners";
 
 export const metadata: Metadata = {
   title: "Testimonials",
@@ -36,11 +35,6 @@ export default function Page() {
             <div className="pp-hero-copy">
               <Crumbs items={[{ label: "Company", href: "/company" }, { label: "Testimonials" }]} />
               <h1 className="pp-h1">The skilling partner behind colleges, companies and their students.</h1>
-              <p className="pp-lede">
-                We work inside {colleges.length} colleges across north India and alongside {industry.length} featured industry
-                partners, so students leave able to join a team. These are their stories: what we ran, where, and what the
-                students who took it went on to do.
-              </p>
               <div className="pp-actions">
                 <a href="#stories" className="btn btn-primary btn-lg">
                   See all stories

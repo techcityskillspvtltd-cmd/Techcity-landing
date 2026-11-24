@@ -15,7 +15,6 @@ export default function Page() {
         status="completed"
         lead="Programs we have delivered."
         rest="Every batch finished with work they built and skills to show for it."
-        body="From data analytics and Power BI to full stack and AI/ML, each of these programs ran end to end on campus, alongside the college's own faculty."
         stats={[
           { value: String(list.length), label: "Programs delivered" },
           { value: String(cityCount(list)), label: list.length === 1 ? "City" : "Cities" },

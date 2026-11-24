@@ -52,18 +52,16 @@ export function ProgramLanding({ program: p }: { program: ProgramPage }) {
         <div className={`${container} pl-hero border-x border-line`}>
           <div className="pl-hero__copy">
             <Crumbs items={[{ label: "Programs", href: "/programs" }, { label: p.label }]} />
-            <h1 className="pl-title">{p.hero.lead}</h1>
-            <p className="pl-sub">
-              <strong>{p.hero.rest}</strong> {p.hero.body}
-            </p>
-            <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-3">
-              <a href="#contact" className="pl-btn">
+            <h1 className="pp-h1">
+              {p.hero.lead} <span className="text-text-muted">{p.hero.rest}</span>
+            </h1>
+            <div className="pp-actions">
+              <a href="#contact" className="btn btn-primary btn-lg">
                 Bring it to your campus
                 <HoverArrow />
               </a>
-              <a href="#how-it-runs" className="pl-link">
+              <a href="#how-it-runs" className="btn btn-secondary btn-lg shadow-[var(--shadow-btn)]">
                 See how it runs
-                <HoverArrow />
               </a>
             </div>
           </div>

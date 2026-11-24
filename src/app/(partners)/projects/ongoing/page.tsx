@@ -15,7 +15,6 @@ export default function Page() {
         status="ongoing"
         lead="Running on campus right now."
         rest="Trainers in the timetable, labs every week, progress you can see."
-        body="These programs are live this term, taught on campus by trainers from industry inside the college timetable, with labs, assessments and placement preparation every week."
         stats={[
           { value: String(list.length), label: "Programs running" },
           { value: String(cityCount(list)), label: list.length === 1 ? "City" : "Cities" },
