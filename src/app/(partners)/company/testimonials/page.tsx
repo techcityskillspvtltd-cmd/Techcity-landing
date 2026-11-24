@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { HoverArrow } from "@/components/hover-arrow";
 import { InView } from "@/components/in-view";
 import { NumberTicker } from "@/components/number-ticker";
+import { Crumbs } from "@/components/page-blocks";
 import { StoriesWall } from "@/components/stories-wall";
 import { StoryTabs } from "@/components/story-tabs";
 import { StoryColumns } from "@/components/testimonials-page";
@@ -28,35 +29,38 @@ const results = [
 export default function Page() {
   return (
     <main className="overflow-x-clip">
-      <section className="ts-hero mt-16 border-t border-line">
-        <div className={`${container} ts-hero__inner border-x border-line`}>
-          <div className="ts-hero__copy">
-            <p className="ts-eyebrow">Testimonials</p>
-            <h1 className="ts-hero__title">The skilling partner behind colleges, companies and their students.</h1>
-            <p className="ts-hero__body">
-              We work inside {colleges.length} colleges across north India and alongside {industry.length} featured industry
-              partners, so students leave able to join a team. These are their stories: what we ran, where, and what the
-              students who took it went on to do.
-            </p>
-            <div className="mt-9 flex flex-wrap items-center gap-x-6 gap-y-3">
-              <a href="#stories" className="ts-btn">
-                See all stories
-                <HoverArrow />
-              </a>
-              <a href="#students" className="ts-link">
-                Student stories
-                <HoverArrow />
-              </a>
+      {/* Hero: the shared breadcrumb, headline and buttons; the story cards on the right. */}
+      <section className="mt-16 border-t border-line">
+        <div className={`${container} border-x border-b border-line`}>
+          <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+            <div className="pp-hero-copy">
+              <Crumbs items={[{ label: "Company", href: "/company" }, { label: "Testimonials" }]} />
+              <h1 className="pp-h1">The skilling partner behind colleges, companies and their students.</h1>
+              <p className="pp-lede">
+                We work inside {colleges.length} colleges across north India and alongside {industry.length} featured industry
+                partners, so students leave able to join a team. These are their stories: what we ran, where, and what the
+                students who took it went on to do.
+              </p>
+              <div className="pp-actions">
+                <a href="#stories" className="btn btn-primary btn-lg">
+                  See all stories
+                  <HoverArrow />
+                </a>
+                <a href="#students" className="btn btn-secondary btn-lg shadow-[var(--shadow-btn)]">
+                  Student stories
+                </a>
+              </div>
+            </div>
+            <div className="pp-hero__picture ts-hero__picture">
+              <StoryColumns stories={partnerStories} />
             </div>
           </div>
-          <StoryColumns stories={partnerStories} />
         </div>
       </section>
 
       <section className="ts-section">
         <div className={`${container} border-x border-line px-5 py-16 sm:px-10 sm:py-20`}>
-          <p className="ts-eyebrow">Results so far</p>
-          <h2 className="ts-h2">The work, in numbers.</h2>
+          <h2 className="pp-h2">The work, in numbers.</h2>
           <InView className="ts-results" threshold={0.35}>
             {results.map((r, i) => (
               <div key={r.label} className="ts-results__cell">
@@ -72,24 +76,26 @@ export default function Page() {
 
       <section id="stories" className="ts-section ts-section--tint scroll-mt-16">
         <div className={`${container} border-x border-line px-5 py-16 sm:px-10 sm:py-20`}>
-          <p className="ts-eyebrow">Partner stories</p>
-          <h2 className="ts-h2">Colleges and companies we build with.</h2>
-          <p className="ts-lede">
-            Each story covers what we ran with the partner, when, and the tracks it taught, from public records and our
-            own program history.
-          </p>
+          <h2 className="pp-h2">
+            Colleges and companies we build with.{" "}
+            <span className="text-text-muted">
+              Each story covers what we ran with the partner, when, and the tracks it taught, from public records and our
+              own program history.
+            </span>
+          </h2>
           <StoryTabs stories={partnerStories} />
         </div>
       </section>
 
       <section id="students" className="ts-section scroll-mt-16">
         <div className={`${container} border-x border-line px-5 py-16 sm:px-10 sm:py-20`}>
-          <p className="ts-eyebrow">Students</p>
-          <h2 className="ts-h2">From the classroom to a first role.</h2>
-          <p className="ts-lede">
-            {studentStories.length} students on the labs, the mentors and the hiring briefs that got them there,
-            including the parts that were hard.
-          </p>
+          <h2 className="pp-h2">
+            From the classroom to a first role.{" "}
+            <span className="text-text-muted">
+              {studentStories.length} students on the labs, the mentors and the hiring briefs that got them there,
+              including the parts that were hard.
+            </span>
+          </h2>
           <StoriesWall />
         </div>
       </section>

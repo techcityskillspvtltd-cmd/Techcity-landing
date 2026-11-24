@@ -3,6 +3,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { HoverArrow } from "@/components/hover-arrow";
 import { InView } from "@/components/in-view";
 import { NumberTicker } from "@/components/number-ticker";
+import { Crumbs } from "@/components/page-blocks";
 import { ProjectScene } from "@/components/project-scenes";
 import { ProjectsGlobe } from "@/components/projects-globe";
 import { container } from "@/lib/layout";
@@ -55,34 +56,29 @@ export function ProjectsHero({
     <section className="mt-16 border-t border-line">
       <div className={`${container} border-x border-b border-line`}>
         <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
-          <div className="flex flex-col px-5 pt-14 pb-10 sm:px-10 sm:pt-20 lg:pb-16">
-            <p className="pp-eyebrow">
-              {status ? (
-                <>
-                  <Link href="/projects" className="hover:text-text">
-                    Projects
-                  </Link>
-                  <span aria-hidden="true">/</span>
-                  <span className="inline-flex items-center gap-2 text-text">
-                    <i className="h-2 w-2 rounded-full" style={{ background: statusOf(status).color }} aria-hidden="true" />
-                    {statusOf(status).label}
-                  </span>
-                </>
-              ) : (
-                <>
-                  <Link href="/" className="hover:text-text">
-                    Home
-                  </Link>
-                  <span aria-hidden="true">/</span>
-                  <span className="text-text">Projects</span>
-                </>
-              )}
-            </p>
-            <h1 className="mt-6 text-[clamp(32px,4vw,52px)] leading-[1.08] font-normal tracking-[-0.035em] text-text">
+          <div className="pp-hero-copy">
+            <Crumbs
+              items={
+                status
+                  ? [
+                      { label: "Projects", href: "/projects" },
+                      {
+                        label: (
+                          <span className="inline-flex items-center gap-2">
+                            <i className="h-2 w-2 rounded-full" style={{ background: statusOf(status).color }} aria-hidden="true" />
+                            {statusOf(status).label}
+                          </span>
+                        ),
+                      },
+                    ]
+                  : [{ label: "Home", href: "/" }, { label: "Projects" }]
+              }
+            />
+            <h1 className="pp-h1">
               {lead} <span className="text-text-muted">{rest}</span>
             </h1>
-            <p className="mt-6 max-w-[520px] text-[17px] leading-[1.6] text-text-muted">{body}</p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <p className="pp-lede">{body}</p>
+            <div className="pp-actions">
               <a href="#contact" className="btn btn-primary btn-lg">
                 Partner with us
                 <HoverArrow />

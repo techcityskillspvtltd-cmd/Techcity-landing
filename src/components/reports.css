@@ -233,26 +233,16 @@
 
 /* -------------------------------------------------------- top area */
 
+/* The featured report, full width under the hero. */
 .rp-top {
-  display: grid;
-  padding-top: 56px;
-}
-.rp-top__intro {
-  padding: 0 var(--pad) 32px;
+  padding-top: 40px;
 }
 .rp-featured {
   padding: 0 var(--pad);
 }
 @media (min-width: 1024px) {
   .rp-top {
-    grid-template-columns: 1fr 3fr;
-    padding-top: 96px;
-  }
-  .rp-top__intro {
-    padding: 0 var(--pad);
-  }
-  .rp-featured {
-    padding: 0;
+    padding-top: 56px;
   }
 }
 
@@ -264,6 +254,11 @@
 @media (min-width: 640px) {
   .rp-featured__stage {
     aspect-ratio: 16 / 9;
+  }
+}
+@media (min-width: 1024px) {
+  .rp-featured__stage {
+    aspect-ratio: 21 / 9;
   }
 }
 .rp-featured__slide {
@@ -545,20 +540,7 @@
     padding: 72px var(--pad) 64px;
   }
 }
-.rp-art__back {
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--accent);
-}
-.rp-art__back:hover {
-  color: var(--accent-hover);
-}
-.rp-art__type {
-  margin-top: 40px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-muted);
-}
+
 .rp-art__title {
   margin-top: 12px;
   font-size: clamp(34px, 4.6vw, 60px);

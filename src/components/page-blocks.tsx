@@ -14,17 +14,49 @@ import { container } from "@/lib/layout";
  * globals.css.
  */
 
+/* ------------------------------------------------------------ breadcrumb */
+
+export type Crumb = { label: ReactNode; href?: string };
+
+/** The breadcrumb at the top of every inner page: "Company / Our story". The last item is the page. */
+export function Crumbs({ items, className = "" }: { items: Crumb[]; className?: string }) {
+  return (
+    <nav aria-label="Breadcrumb" className={className}>
+      <ol className="pp-eyebrow">
+        {items.map((c, i) => {
+          const last = i === items.length - 1;
+          return (
+            <li key={i} className="contents">
+              {i > 0 && <span aria-hidden="true">/</span>}
+              {last || !c.href ? (
+                <span className={last ? "text-text" : undefined} aria-current={last ? "page" : undefined}>
+                  {c.label}
+                </span>
+              ) : (
+                <Link href={c.href} className="hover:text-text">
+                  {c.label}
+                </Link>
+              )}
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
+  );
+}
+
 /* ------------------------------------------------------------------ hero */
 
 export type HeroStat = { value: string; label: string };
 
 /**
  * The inner-page hero: breadcrumb, run-in headline, a short paragraph and
- * actions on the left; the page's own picture on the right (below on phones);
- * an optional ruled row of rolling numbers underneath.
+ * actions on the left (`.pp-hero-copy`, the same on every page); the page's
+ * own picture on the right (below on phones); an optional ruled row of
+ * rolling numbers underneath.
  */
 export function PageHero({
-  crumb = { label: "Partners", href: "/#partners" },
+  crumb = { label: "Partners", href: "/partners" },
   eyebrow,
   lead,
   rest,
@@ -33,10 +65,10 @@ export function PageHero({
   picture,
   actions,
 }: {
-  crumb?: { label: string; href: string };
+  crumb?: Crumb;
   eyebrow: string;
   lead: string;
-  rest: string;
+  rest?: string;
   body: string;
   stats?: HeroStat[];
   picture: ReactNode;
@@ -47,19 +79,13 @@ export function PageHero({
     <section className="pp-hero mt-16 border-t border-line">
       <div className={`${container} border-x border-b border-line`}>
         <div className="grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
-          <div className="flex flex-col px-5 pt-14 pb-10 sm:px-10 sm:pt-20 lg:pb-16">
-            <p className="pp-eyebrow">
-              <Link href={crumb.href} className="hover:text-text">
-                {crumb.label}
-              </Link>
-              <span aria-hidden="true">/</span>
-              <span className="text-text">{eyebrow}</span>
-            </p>
-            <h1 className="mt-6 text-[clamp(32px,4vw,52px)] leading-[1.08] font-normal tracking-[-0.035em] text-text">
-              {lead} <span className="text-text-muted">{rest}</span>
+          <div className="pp-hero-copy">
+            <Crumbs items={[crumb, { label: eyebrow }]} />
+            <h1 className="pp-h1">
+              {lead} {rest && <span className="text-text-muted">{rest}</span>}
             </h1>
-            <p className="mt-6 max-w-[520px] text-[17px] leading-[1.6] text-text-muted">{body}</p>
-            <div className="mt-8 flex flex-wrap gap-3">
+            <p className="pp-lede">{body}</p>
+            <div className="pp-actions">
               {actions ?? (
                 <>
                   <a href="#contact" className="btn btn-primary btn-lg">

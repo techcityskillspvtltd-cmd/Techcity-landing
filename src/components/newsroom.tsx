@@ -63,7 +63,7 @@ export function Newsroom() {
   return (
     <main className="nr-page overflow-x-clip">
       <PageHero
-        crumb={{ label: "Company", href: "/company/story" }}
+        crumb={{ label: "Company", href: "/company" }}
         eyebrow="News"
         lead="What's happening on campus."
         rest="Programs starting, under way and finished at our partner colleges."

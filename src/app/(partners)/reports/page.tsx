@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Crumbs } from "@/components/page-blocks";
 import { Guides, ReportCard, ReportMark, ReportRow } from "@/components/reports";
 import { ReportsFeatured } from "@/components/reports-featured";
 import { container } from "@/lib/layout";
@@ -16,17 +17,23 @@ export default function Page() {
 
   return (
     <main className="overflow-x-clip">
-      {/* Title and the featured report, with its picker strip. */}
+      {/* Hero: the shared breadcrumb and run-in headline. */}
       <section className="mt-16 border-t border-line">
+        <div className={`${container} border-x border-b border-line`}>
+          <div className="pp-hero-copy">
+            <Crumbs items={[{ label: "Company", href: "/company" }, { label: "Reports" }]} />
+            <h1 className="pp-h1">
+              Reports. <span className="text-text-muted">What each partner campus ran, how the term went, and what comes next.</span>
+            </h1>
+          </div>
+        </div>
+      </section>
+
+      {/* The featured report, with its picker strip, then two more side by side. */}
+      <section>
         <div className={`${container} relative border-x border-line`}>
           <Guides />
           <div className="rp-top">
-            <div className="rp-top__intro">
-              <h1 className="text-[clamp(36px,4vw,52px)] leading-[1.05] font-normal tracking-[-0.035em] text-text">Reports</h1>
-              <p className="mt-6 max-w-[300px] text-[17px] leading-[1.6] text-text-muted">
-                What each partner campus ran, how the term went, and what comes next.
-              </p>
-            </div>
             <ReportsFeatured
               cards={featured.map((r, i) => (
                 <ReportCard key={r.slug} report={r} big priority={i === 0} />

@@ -1,13 +1,26 @@
+import { Crumbs, type Crumb } from "@/components/page-blocks";
 import { container } from "@/lib/layout";
 
-/** Empty page: title framed by the guide lines. Content comes later. */
-export function PageShell({ title, children }: { title: string; children?: React.ReactNode }) {
+/** A plain page: the breadcrumb and title in the shared hero type, framed by the guide lines. */
+export function PageShell({
+  title,
+  crumb = { label: "Home", href: "/" },
+  children,
+}: {
+  title: string;
+  /** The section above this page in the breadcrumb. */
+  crumb?: Crumb;
+  children?: React.ReactNode;
+}) {
   return (
     <main>
       {/* mt-16 clears the fixed navbar; the top rule sits right under it */}
       <section className="mt-16 border-t border-line">
-        <div className={`${container} border-b border-line px-5 py-16 sm:px-10 sm:py-20 lg:px-[120px] lg:py-[96px]`}>
-          <h1 className="text-[clamp(28px,3.4vw,40px)] leading-[1.15] font-normal tracking-[-0.02em]">{title}</h1>
+        <div className={`${container} border-x border-b border-line`}>
+          <div className="pp-hero-copy">
+            <Crumbs items={[crumb, { label: title }]} />
+            <h1 className="pp-h1">{title}</h1>
+          </div>
         </div>
       </section>
       {children}

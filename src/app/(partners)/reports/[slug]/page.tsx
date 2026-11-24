@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { HoverArrow } from "@/components/hover-arrow";
+import { Crumbs } from "@/components/page-blocks";
 import { Guides, ReportCover, ReportMark, ReportRow } from "@/components/reports";
 import { ReportShare } from "@/components/reports-share";
 import { container } from "@/lib/layout";
@@ -86,10 +87,13 @@ async function ReportView({ params }: { params: Promise<{ slug: string }> }) {
           <div className={`${container} relative border-x border-line`}>
             <Guides />
             <div className="rp-art__head">
-              <Link href="/reports" className="rp-art__back">
-                Reports
-              </Link>
-              <p className="rp-art__type">{r.type}</p>
+              <Crumbs
+                items={[
+                  { label: "Company", href: "/company" },
+                  { label: "Reports", href: "/reports" },
+                  { label: r.type },
+                ]}
+              />
               <h1 className="rp-art__title">{r.title}</h1>
             </div>
 

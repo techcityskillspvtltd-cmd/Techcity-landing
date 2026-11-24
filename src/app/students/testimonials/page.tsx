@@ -5,6 +5,6 @@ export const metadata: Metadata = { title: "Student testimonials" };
 
 export default function Page() {
   return (
-    <PageShell title="Student testimonials" />
+    <PageShell crumb={{ label: "Students", href: "/students" }} title="Student testimonials" />
   );
 }

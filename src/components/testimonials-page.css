@@ -20,13 +20,7 @@
   letter-spacing: -0.03em;
   color: var(--text);
 }
-.ts-lede {
-  margin-top: 14px;
-  max-width: 620px;
-  font-size: 17px;
-  line-height: 1.6;
-  color: var(--text-muted);
-}
+
 .ts-btn {
   display: inline-flex;
   align-items: center;
@@ -78,41 +72,13 @@
   background: var(--bg);
   clip-path: polygon(0 62%, 100% 0, 100% 100%, 0 100%);
 }
-.ts-hero__inner {
-  display: grid;
-  gap: 48px;
-  padding: 56px 20px 48px;
-}
-@media (min-width: 640px) {
-  .ts-hero__inner {
-    padding: 72px 40px 56px;
-  }
-}
-@media (min-width: 1024px) {
-  .ts-hero__inner {
-    grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
-    gap: 48px;
-    padding: 88px 40px 80px;
-  }
-}
+
 .ts-hero__copy {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
-@media (min-width: 1024px) {
-  .ts-hero__inner .ts-hero__copy {
-    padding-top: 56px;
-  }
-}
-.ts-hero__title {
-  margin-top: 14px;
-  font-size: clamp(36px, 4.2vw, 56px);
-  line-height: 1.06;
-  font-weight: 500;
-  letter-spacing: -0.04em;
-  color: var(--text);
-}
+
 .ts-hero__body {
   margin-top: 24px;
   max-width: 520px;
@@ -684,16 +650,7 @@
     padding: 80px 40px;
   }
 }
-.ts-crumbs {
-  display: inline-flex;
-  gap: 8px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-muted);
-}
-.ts-crumbs a {
-  color: var(--g-indigo);
-}
+
 .ts-story-title {
   margin-top: 24px;
   font-size: clamp(30px, 3.6vw, 46px);
@@ -904,5 +861,25 @@
 @media (prefers-reduced-motion: reduce) {
   .ts-skel {
     animation: none;
+  }
+}
+
+/* The story cards inside the shared hero's picture panel. */
+.ts-hero__picture {
+  display: flex;
+  align-items: center;
+  padding: 32px 20px;
+  min-height: 0;
+}
+@media (min-width: 640px) {
+  .ts-hero__picture {
+    padding: 40px;
+  }
+}
+/* Wider than the panel: the columns run off its right edge, the cards at a readable width. */
+@media (min-width: 768px) {
+  .ts-hero__picture .ts-cols {
+    flex: none;
+    width: 640px;
   }
 }

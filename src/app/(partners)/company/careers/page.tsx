@@ -4,7 +4,7 @@ import { CareersForm } from "@/components/careers-form";
 import { HoverArrow } from "@/components/hover-arrow";
 import { InView } from "@/components/in-view";
 import { JoinHero, type JoinStep } from "@/components/join-stack";
-import { SectionHead } from "@/components/page-blocks";
+import { Crumbs, SectionHead } from "@/components/page-blocks";
 import { container } from "@/lib/layout";
 import "@/components/careers-page.css";
 
@@ -50,19 +50,13 @@ export default function Page() {
       <section className="mt-16 border-t border-line">
         <div className={`${container} border-x border-b border-line`}>
           <JoinHero steps={steps}>
-            <div className="flex flex-col justify-center px-5 pt-14 pb-12 sm:px-10 sm:pt-20 lg:pb-20">
-              <p className="pp-eyebrow">
-                <span>Company</span>
-                <span aria-hidden="true">/</span>
-                <span className="text-text">Careers</span>
-              </p>
-              <h1 className="mt-6 max-w-[520px] text-[clamp(34px,4.2vw,56px)] leading-[1.06] font-normal tracking-[-0.04em] text-text">
+            <div className="pp-hero-copy">
+              <Crumbs items={[{ label: "Company", href: "/company" }, { label: "Careers" }]} />
+              <h1 className="pp-h1">
                 Teach the work, <span className="text-text-muted">not just the textbook.</span>
               </h1>
-              <p className="mt-6 max-w-[420px] text-[17px] leading-[1.6] text-text-muted">
-                Join the trainers who bring industry into the college classroom.
-              </p>
-              <div className="mt-8">
+              <p className="pp-lede">Join the trainers who bring industry into the college classroom.</p>
+              <div className="pp-actions">
                 <a href="#apply" className="btn btn-primary btn-lg">
                   Apply now
                   <HoverArrow />

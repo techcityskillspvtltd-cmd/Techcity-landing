@@ -12,7 +12,7 @@ export default function Page() {
   return (
     <PageShell title="Programs">
       <div>
-        <div className="mx-auto grid w-full max-w-[1266px] gap-12 border-b border-line px-5 py-12 sm:px-10 sm:py-16 lg:grid-cols-2 lg:px-[120px] lg:py-20">
+        <div className="mx-auto grid w-full max-w-[1266px] gap-12 border-x border-b border-line px-5 py-12 sm:px-10 sm:py-16 lg:grid-cols-2 lg:py-20">
           {partnerPrograms.map((group) => (
             <section key={group.title}>
               <h2 className="mb-5 text-[20px] font-normal tracking-[-0.02em] text-text">{group.title}</h2>

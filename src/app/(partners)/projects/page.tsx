@@ -1,20 +1,48 @@
 import type { Metadata } from "next";
-import { GlobeSection, ProjectsHero, StatusTiles, byStatus, cityCount, trackCount } from "@/components/projects-page";
-import { projects } from "@/lib/projects";
+import Link from "next/link";
+import { HoverArrow } from "@/components/hover-arrow";
+import { GlobeSection, byStatus, cityCount, trackCount } from "@/components/projects-page";
+import { SectionHero } from "@/components/section-hero";
+import { groupItems, partnerNav } from "@/lib/nav";
+import { projects, type ProjectStatus } from "@/lib/projects";
 
 export const metadata: Metadata = {
   title: "Projects",
   description: "Every TechCity campus program: what runs now, what starts next term and what we have delivered.",
 };
 
-/** All campus projects: the board, the numbers, the globe, and a door to each status. */
+/** Projects, the section's front door: a short headline, the three status pages with counts, the figures, the globe. */
+const group = partnerNav.groups.find((g) => g.label === "Projects")!;
+const statusOf = (href: string) => href.split("/").pop() as ProjectStatus;
+
 export default function Page() {
   return (
-    <main>
-      <ProjectsHero
+    <main className="overflow-x-clip">
+      <SectionHero
+        crumb={[{ label: "Home", href: "/" }, { label: "Projects" }]}
         lead="Learning in action on campuses across India."
-        rest="Every program we run, from next term back to the first batch."
-        body="Industry trainers inside the timetable, labs every week and placement preparation that runs all term. Here is where it is happening now, what starts next and what we have delivered."
+        rest="From next term back to the first batch."
+        actions={
+          <>
+            <a href="#contact" className="btn btn-primary btn-lg">
+              Start a project
+              <HoverArrow />
+            </a>
+            <Link href="/programs" className="btn btn-secondary btn-lg shadow-[var(--shadow-btn)]">
+              See our programs
+            </Link>
+          </>
+        }
+        card={{
+          title: "Campus projects",
+          links: groupItems(group).map((i) => ({
+            label: i.label,
+            href: i.href,
+            description: i.description,
+            icon: i.icon,
+            meta: String(byStatus(statusOf(i.href)).length),
+          })),
+        }}
         stats={[
           { value: String(projects.length), label: "Campus projects" },
           { value: String(cityCount(projects)), label: "Cities" },
@@ -23,8 +51,6 @@ export default function Page() {
         ]}
       />
       <GlobeSection lead="Where we teach." rest="Pick a status, then hover a project to find its campus." />
-      <StatusTiles lead="Browse by status." rest="Each page has its campuses, tracks and dates." />
-      {/* Lines end here: a full-width rule over the last section's bottom line. */}
       <div aria-hidden="true" className="relative -mt-px border-t border-line" />
     </main>
   );

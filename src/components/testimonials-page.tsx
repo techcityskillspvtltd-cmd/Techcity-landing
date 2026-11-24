@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element -- local, pre-trimmed logo files */
 import Link from "next/link";
 import type { CSSProperties } from "react";
+import { Crumbs } from "@/components/page-blocks";
 import { HoverArrow } from "@/components/hover-arrow";
 import { BuildingApartmentTwoIcon, CalendarIcon, CheckTickCircleIcon, FileIcon, MapPinIcon } from "@/components/pikaicons";
 import { programStatus, type PartnerStory } from "@/lib/partner-stories";
@@ -126,11 +127,13 @@ export function StoryArticle({ story, more }: { story: PartnerStory; more: Partn
       <section className="ts-hero ts-hero--story mt-16 border-t border-line">
         <div className="ts-story-hero mx-auto w-full max-w-[1266px] border-x border-line">
           <div className="ts-hero__copy">
-            <p className="ts-crumbs">
-              <Link href="/company/testimonials">Testimonials</Link>
-              <span aria-hidden="true">/</span>
-              <span>{story.kind === "college" ? "College story" : "Industry story"}</span>
-            </p>
+            <Crumbs
+              items={[
+                { label: "Company", href: "/company" },
+                { label: "Testimonials", href: "/company/testimonials" },
+                { label: story.kind === "college" ? "College story" : "Industry story" },
+              ]}
+            />
             <div className="mt-8">
               <StoryLogo story={story} large />
             </div>

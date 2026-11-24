@@ -2,7 +2,7 @@
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import { HoverArrow } from "@/components/hover-arrow";
-import { SectionHead } from "@/components/page-blocks";
+import { Crumbs, SectionHead } from "@/components/page-blocks";
 import { PartnerFilters, type DirectoryEntry, type DirectoryFilter } from "@/components/partner-filters";
 import { container } from "@/lib/layout";
 import "./partner-directory.css";
@@ -110,19 +110,13 @@ export function PartnerDirectory({
       <section className="mt-16 border-t border-line">
         <div className={`${container} border-x border-b border-line`}>
           <div className="grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,1fr)]">
-            <div className="flex flex-col px-5 pt-14 pb-12 sm:px-10 sm:pt-20 lg:pb-20">
-              <p className="pp-eyebrow">
-                <Link href="/#partners" className="hover:text-text">
-                  Partners
-                </Link>
-                <span aria-hidden="true">/</span>
-                <span className="text-text">{crumb}</span>
-              </p>
-              <h1 className="mt-6 text-[clamp(32px,4vw,52px)] leading-[1.08] font-normal tracking-[-0.035em] text-text">
+            <div className="pp-hero-copy">
+              <Crumbs items={[{ label: "Partners", href: "/partners" }, { label: crumb }]} />
+              <h1 className="pp-h1">
                 {lead} <span className="text-text-muted">{rest}</span>
               </h1>
-              <p className="mt-6 max-w-[520px] text-[17px] leading-[1.6] text-text-muted">{body}</p>
-              <div className="mt-8 flex flex-wrap gap-3">
+              <p className="pp-lede">{body}</p>
+              <div className="pp-actions">
                 <ButtonLink href={primary.href} className="btn btn-primary btn-lg">
                   {primary.label}
                   <HoverArrow />

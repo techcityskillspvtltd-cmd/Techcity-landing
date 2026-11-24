@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { Faq } from "@/components/faq";
+import { Crumbs } from "@/components/page-blocks";
 import { HoverArrow } from "@/components/hover-arrow";
 import { Icon } from "@/components/icons";
 import { InView } from "@/components/in-view";
@@ -50,13 +51,7 @@ export function ProgramLanding({ program: p }: { program: ProgramPage }) {
       <section className="mt-16 border-t border-line">
         <div className={`${container} pl-hero border-x border-line`}>
           <div className="pl-hero__copy">
-            <Link href="/programs" className="pl-eyebrow">
-              <span className="pl-eyebrow__icon" aria-hidden="true">
-                <Icon name={p.icon} size={16} />
-              </span>
-              {p.label}
-              <span className="pl-eyebrow__aud">{p.audience}</span>
-            </Link>
+            <Crumbs items={[{ label: "Programs", href: "/programs" }, { label: p.label }]} />
             <h1 className="pl-title">{p.hero.lead}</h1>
             <p className="pl-sub">
               <strong>{p.hero.rest}</strong> {p.hero.body}

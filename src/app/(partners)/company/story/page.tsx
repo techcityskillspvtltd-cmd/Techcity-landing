@@ -3,6 +3,7 @@ import Link from "next/link";
 import { HoverArrow } from "@/components/hover-arrow";
 import { InView } from "@/components/in-view";
 import { NumberTicker } from "@/components/number-ticker";
+import { Crumbs } from "@/components/page-blocks";
 import { StoryGallery } from "@/components/story-gallery";
 import { StoryScroll } from "@/components/story-scroll";
 import { container } from "@/lib/layout";
@@ -41,13 +42,9 @@ export default function Page() {
       {/* How it started and grew: chapters on the left, the city on the right. */}
       <section className="mt-16 border-t border-line">
         <div className={`${container} border-x border-line`}>
-          <div className="px-5 pt-14 pb-4 sm:px-10 sm:pt-20 lg:pb-0">
-            <p className="pp-eyebrow">
-              <span>Company</span>
-              <span aria-hidden="true">/</span>
-              <span className="text-text">Our story</span>
-            </p>
-            <h1 className="mt-6 max-w-[760px] text-[clamp(32px,4vw,52px)] leading-[1.08] font-normal tracking-[-0.035em] text-text">
+          <div className="pp-hero-copy pp-hero-copy--lead-in">
+            <Crumbs items={[{ label: "Company", href: "/company" }, { label: "Our story" }]} />
+            <h1 className="pp-h1">
               How TechCity started. <span className="text-text-muted">And how it grew, one college at a time.</span>
             </h1>
           </div>

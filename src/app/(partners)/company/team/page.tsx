@@ -25,7 +25,7 @@ export default function Page() {
   return (
     <main className="tm-page overflow-x-clip">
       <PageHero
-        crumb={{ label: "Company", href: "/company/story" }}
+        crumb={{ label: "Company", href: "/company" }}
         eyebrow="Team"
         lead="The people in the room."
         rest="Two directors, and the trainers who teach inside our partner colleges."
