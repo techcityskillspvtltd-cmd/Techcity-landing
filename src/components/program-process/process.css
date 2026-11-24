@@ -1,0 +1,439 @@
+/*
+ * "How it runs" scenes (components/program-process). The panel is the page's
+ * own tinted plate with a hairline, like the hero picture; the window is
+ * pinned one gutter in and runs off the bottom. TechCity's navy is the accent.
+ */
+
+.pc-panel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--surface-subdued);
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.pc-panel {
+  display: grid;
+}
+/* On narrow screens the scene sits above the steps, so it stays put while they open and close. */
+@media (max-width: 1023px) {
+  .pc-panel {
+    order: -1;
+  }
+}
+.pc-scene {
+  grid-area: 1 / 1;
+  animation: pc-in 450ms var(--ease-out) both;
+}
+.pc-scene--leaving {
+  z-index: 1;
+  pointer-events: none;
+  animation: pc-out 420ms var(--ease-out) both;
+}
+@keyframes pc-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes pc-out {
+  to {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pc-scene {
+    animation: none;
+  }
+  .pc-scene--leaving {
+    display: none;
+  }
+}
+
+/* The site's type and inks, and its navy as the one accent. */
+.tc-proc .ss-stage {
+  --ss-font: var(--font-inter, "Inter"), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --ss-text-strong: #061b31;
+  --ss-text: #50617a;
+  --ss-text-faint: #8a97ad;
+  --ss-radius-window: 14px;
+  --ss-radius-lg: 10px;
+  --ss-radius-md: 8px;
+  --ss-radius-sm: 6px;
+  --ss-success: #1f9a6a;
+  --ss-success-soft: #e3f5ec;
+  --ss-success-text: #157452;
+  overflow: hidden;
+  --ss-accent: #1c257d;
+  --ss-accent-2: #3b47c4;
+  --ss-accent-soft: #e8eaf8;
+  --ss-accent-text: #1c257d;
+}
+
+/* Pinned, bottom bleed: one gutter left, right and top, off the bottom. */
+.tc-proc .pc-win {
+  position: absolute;
+  top: 36px;
+  left: 36px;
+  right: 36px;
+  box-shadow: var(--ss-shadow-hero);
+}
+.tc-proc .ss-stage[data-layout="compact"] .pc-win {
+  top: 14px;
+  left: 14px;
+  right: 14px;
+}
+.tc-proc .pc-body {
+  position: relative;
+  min-height: 350px;
+  padding: 18px 20px 24px;
+  background: var(--ss-surface);
+}
+.tc-proc .ss-stage[data-layout="compact"] .pc-body {
+  padding: 14px 14px 20px;
+}
+
+/* Shared type */
+.tc-proc .pc-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ss-text-strong);
+}
+.tc-proc .pc-sub {
+  font-size: 12px;
+  color: var(--ss-text);
+}
+.tc-proc .pc-prompt,
+.tc-proc .pc-meta {
+  font-size: 13px;
+  color: var(--ss-text);
+}
+.tc-proc .pc-meta {
+  margin-top: 16px;
+}
+.tc-proc .pc-foot {
+  margin-top: 18px;
+}
+.tc-proc .pc-foot__row {
+  display: flex;
+}
+
+/* select: chips that are picked one by one */
+.tc-proc .pc-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+.tc-proc .pc-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 12px 0 10px;
+  border-radius: var(--ss-radius-pill, 999px);
+  font-size: 13px;
+  color: var(--ss-text);
+  background: var(--ss-surface);
+  box-shadow: inset 0 0 0 1px var(--ss-line);
+  will-change: transform;
+  transition:
+    color 300ms ease,
+    background-color 300ms ease,
+    box-shadow 300ms ease;
+}
+.tc-proc .pc-chip[data-on] {
+  color: var(--ss-accent-text);
+  background: var(--ss-accent-soft);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ss-accent) 30%, transparent);
+}
+
+/* assign and library: rows */
+.tc-proc .pc-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.tc-proc .pc-type {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  color: var(--ss-accent-text);
+  background: var(--ss-accent-soft);
+}
+
+/* week: a timetable that fills */
+.tc-proc .pc-week {
+  display: grid;
+  grid-template-columns: 44px repeat(5, minmax(0, 1fr));
+  gap: 6px;
+}
+.tc-proc .pc-week__day {
+  padding-bottom: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  color: var(--ss-text);
+}
+.tc-proc .pc-week__slot {
+  align-self: center;
+  font-size: 11px;
+  color: var(--ss-text-faint);
+}
+.tc-proc .pc-week__cell {
+  position: relative;
+  will-change: transform;
+  height: 62px;
+  border-radius: 8px;
+  background: var(--ss-well, #f4f5f8);
+}
+.tc-proc .pc-session {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 7px 8px;
+  border-radius: 8px;
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: #fff;
+  background: var(--ss-accent);
+  will-change: transform, opacity;
+  opacity: 0;
+  transform: scale(0.92);
+  transition:
+    opacity 350ms ease,
+    transform 450ms cubic-bezier(0.34, 1.4, 0.64, 1);
+}
+.tc-proc .pc-session[data-on] {
+  opacity: 1;
+  transform: none;
+}
+.tc-proc .ss-stage[data-layout="compact"] .pc-week {
+  grid-template-columns: 30px repeat(5, minmax(0, 1fr));
+  gap: 4px;
+}
+.tc-proc .ss-stage[data-layout="compact"] .pc-week__cell {
+  height: 54px;
+}
+.tc-proc .ss-stage[data-layout="compact"] .pc-session {
+  padding: 5px;
+  font-size: 9.5px;
+}
+
+/* progress and score: bars that fill */
+.tc-proc .pc-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding-top: 6px;
+}
+.tc-proc .pc-bars--tight {
+  gap: 16px;
+  padding-top: 0;
+}
+.tc-proc .pc-bar__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.tc-proc .pc-bar__head > span:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.tc-proc .pc-bar__num {
+  text-align: right;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ss-text-strong);
+  font-variant-numeric: tabular-nums;
+}
+.tc-proc .pc-meter {
+  width: 100%;
+}
+/* A figure is faint until it reaches its value, so where it starts never reads as a result. */
+.tc-proc .pc-bar__num,
+.tc-proc .pc-score__num,
+.tc-proc .pc-funnel__num {
+  transition: opacity 400ms ease;
+}
+.tc-proc .pc-bar:not([data-on]) .pc-bar__num,
+.tc-proc .pc-funnel__row:not([data-on]) .pc-funnel__num,
+.tc-proc .pc-score__total:not([data-on]) .pc-score__num {
+  opacity: 0.25;
+}
+.tc-proc .pc-score__total {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding-bottom: 18px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--ss-line-faint);
+}
+.tc-proc .pc-score__num {
+  font-size: 46px;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--ss-text-strong);
+}
+.tc-proc .pc-score__of {
+  font-size: 15px;
+  color: var(--ss-text);
+}
+
+/* report: figures, then findings */
+.tc-proc .pc-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.tc-proc .pc-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px;
+  border-radius: 10px;
+  background: var(--ss-well, #f4f5f8);
+  transition: background-color 300ms ease;
+}
+.tc-proc .pc-metric[data-on] {
+  background: var(--ss-accent-soft);
+}
+.tc-proc .pc-metric .pc-metric__num {
+  opacity: 0.25;
+  transition: opacity 400ms ease;
+}
+.tc-proc .pc-metric[data-on] .pc-metric__num {
+  opacity: 1;
+}
+.tc-proc .pc-metric__num {
+  display: inline-flex;
+  align-items: baseline;
+  font-size: 26px;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--ss-text-strong);
+}
+.tc-proc .pc-metric__num .ss-count__unit {
+  font-size: 15px;
+}
+.tc-proc .pc-metric__label {
+  font-size: 12px;
+  color: var(--ss-text);
+}
+.tc-proc .pc-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-left: 14px;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--ss-line-faint);
+}
+.tc-proc .pc-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  font-size: 14px;
+  color: var(--ss-text);
+  transition: color 300ms ease;
+}
+.tc-proc .pc-line[data-on] {
+  color: var(--ss-text-strong);
+}
+.tc-proc .ss-stage[data-layout="compact"] .pc-metric {
+  padding: 10px;
+}
+.tc-proc .ss-stage[data-layout="compact"] .pc-lines {
+  padding-left: 10px;
+}
+.tc-proc .ss-stage[data-layout="compact"] .pc-metric__num {
+  font-size: 20px;
+}
+
+/* pipeline: a funnel of stages */
+.tc-proc .pc-funnel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 8px;
+}
+.tc-proc .pc-funnel__row {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr) 36px;
+  align-items: center;
+  gap: 12px;
+}
+.tc-proc .pc-funnel__label {
+  font-size: 13px;
+  color: var(--ss-text);
+}
+.tc-proc .pc-funnel__track {
+  height: 30px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--ss-well, #f4f5f8);
+}
+.tc-proc .pc-funnel__fill {
+  display: block;
+  height: 100%;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--ss-accent) 22%, var(--ss-surface));
+  transition: width 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.tc-proc .pc-funnel__row[data-last] .pc-funnel__fill {
+  background: var(--ss-accent);
+}
+.tc-proc .pc-funnel__num {
+  font-size: 15px;
+  font-weight: 500;
+  text-align: right;
+  color: var(--ss-text-strong);
+}
+
+/* chat: messages arriving */
+.tc-proc .pc-status {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+.tc-proc .pc-thread {
+  display: flex;
+  flex-direction: column;
+}
+.tc-proc .pc-msg {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  max-width: 82%;
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  border-radius: 12px 12px 12px 4px;
+  background: var(--ss-well, #f4f5f8);
+}
+.tc-proc .pc-msg[data-me] {
+  margin-left: auto;
+  border-radius: 12px 12px 4px 12px;
+  background: var(--ss-accent-soft);
+}
+.tc-proc .pc-msg__who {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ss-text);
+}
+.tc-proc .pc-msg[data-me] .pc-msg__who {
+  color: var(--ss-accent-text);
+}
+.tc-proc .pc-msg__text {
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--ss-text-strong);
+}
