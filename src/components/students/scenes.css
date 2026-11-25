@@ -1,0 +1,109 @@
+/*
+ * Student hero scenes (components/students/scenes.tsx): the site's type and
+ * inks, TechCity navy as the one accent; the window pinned one gutter in on
+ * three sides and running off the bottom. The page's panel is the ground.
+ */
+.tc-sd .ss-stage {
+  --ss-font: var(--font-inter, "Inter"), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --ss-text-strong: #061b31;
+  --ss-text: #50617a;
+  --ss-text-faint: #8a97ad;
+  --ss-radius-window: 14px;
+  --ss-radius-lg: 10px;
+  --ss-radius-md: 8px;
+  --ss-radius-sm: 6px;
+  --ss-success: #1f9a6a;
+  --ss-success-soft: #e3f5ec;
+  --ss-success-text: #157452;
+  --ss-accent: #1c257d;
+  --ss-accent-2: #3b47c4;
+  --ss-accent-soft: #e8eaf8;
+  --ss-accent-text: #1c257d;
+  overflow: hidden;
+}
+
+.tc-sd .sd-win {
+  position: absolute;
+  top: 44px;
+  left: 44px;
+  right: 44px;
+  box-shadow: var(--ss-shadow-hero);
+}
+.tc-sd .ss-stage[data-layout="compact"] .sd-win {
+  top: 16px;
+  left: 16px;
+  right: 16px;
+}
+/* Narrow: the rows' text starts on the window title's edge. */
+.tc-sd .ss-stage[data-layout="compact"] .sd-body {
+  padding-left: 12.5px;
+  padding-right: 12.5px;
+}
+.tc-sd .sd-body {
+  min-height: 460px;
+  padding: 18px 16px 24px;
+  background: var(--ss-surface);
+}
+
+.tc-sd .sd-hello {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 8px 16px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--ss-line-faint);
+}
+.tc-sd .sd-hello > span:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.tc-sd .sd-hello__name {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ss-text-strong);
+}
+.tc-sd .sd-hello__sub {
+  font-size: 12px;
+  color: var(--ss-text);
+}
+.tc-sd .sd-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.tc-sd .sd-meter {
+  display: block;
+  width: 140px;
+  padding-top: 4px;
+}
+.tc-sd .sd-count {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ss-text-strong);
+  font-variant-numeric: tabular-nums;
+}
+.tc-sd .sd-merge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 18px 8px 0;
+  margin-top: 8px;
+  border-top: 1px solid var(--ss-line-faint);
+}
+.tc-sd .sd-merge__row {
+  display: flex;
+}
+
+/* Merge row: the result on the left, its text on the rows' text column; the button on the right. */
+.tc-sd .sd-merge--row {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 19px;
+}
+.tc-sd .sd-hello[data-hide] {
+  display: none;
+}
