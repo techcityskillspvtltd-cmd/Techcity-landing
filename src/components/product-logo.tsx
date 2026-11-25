@@ -1,4 +1,4 @@
-export type ProductId = "setu" | "spardha" | "marg" | "riyaaz" | "kaksha";
+export type ProductId = "setu" | "marg" | "kaksha" | "riyaaz" | "spardha";
 
 /** Minimal white glyphs on a 24px grid, one per product. */
 const glyphs: Record<ProductId, React.ReactNode> = {

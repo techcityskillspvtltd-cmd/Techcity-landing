@@ -14,7 +14,7 @@ import { ExternalArrow, HoverArrow, newTab } from "@/components/hover-arrow";
 import { products } from "@/lib/products";
 import { Logo } from "@/components/logo";
 import { container } from "@/lib/layout";
-import { site } from "@/lib/site";
+import { linkTarget, signupUrl, site } from "@/lib/site";
 
 type FooterLink = { label: string; href: string; external?: boolean };
 type FooterGroup = { title: string; links: FooterLink[] };
@@ -58,7 +58,7 @@ const columns: FooterGroup[][] = [
       links: [
         { label: "Colleges", href: "/partners/colleges" },
         { label: "Industry", href: "/partners/industries" },
-        { label: "Partner with us", href: "#contact" },
+        { label: "Partner with us", href: "#partner" },
       ],
     },
   ],
@@ -67,7 +67,7 @@ const columns: FooterGroup[][] = [
       title: "Students",
       links: [
         { label: "Student platform", href: "/students" },
-        { label: "Features", href: "/students/features" },
+        { label: "Featured", href: "/students/featured" },
         { label: "Student projects", href: "/students/projects" },
         { label: "Testimonials", href: "/students/testimonials" },
       ],
@@ -111,7 +111,7 @@ const ctaCopy: Record<
     body: "Trainers, labs, placement preparation and platforms, run inside your college with your faculty.",
     primary: {
       label: "Partner with us",
-      href: `mailto:${site.email}?subject=Partnering%20with%20TechCity`,
+      href: "#partner",
     },
     secondary: { label: "Explore programs", href: "/programs" },
   },
@@ -119,10 +119,10 @@ const ctaCopy: Record<
     title: "Start building skills that get you hired.",
     body: "One TechCity account for tests, learning paths, daily practice and courses, from first lesson to first offer.",
     primary: {
-      label: "Get started",
-      href: `mailto:${site.email}?subject=Getting%20started%20with%20TechCity`,
+      label: "Create your account",
+      href: signupUrl,
     },
-    secondary: { label: "See features", href: "/students/features" },
+    secondary: { label: "See featured projects", href: "/students/featured" },
   },
 };
 
@@ -163,7 +163,7 @@ function Cta({ audience }: { audience: Audience }) {
           {copy.body}
         </p>
         <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-          <a href={copy.primary.href} className="btn btn-primary btn-lg">
+          <a href={copy.primary.href} className="btn btn-primary btn-lg" {...linkTarget(copy.primary.href)}>
             {copy.primary.label}
             <HoverArrow />
           </a>

@@ -7,7 +7,7 @@ import { products } from "@/lib/products";
 export const metadata: Metadata = {
   title: "Products",
   description:
-    "The TechCity stack: Setu, Marg, Spardha, Riyaaz and Kaksha. Five tools, one account, from the first lesson to the first offer.",
+    "The TechCity stack: Setu, Marg, Kaksha, Riyaaz and Spardha. Five tools, one account, from the first lesson to the first offer.",
   alternates: { canonical: "/products" },
 };
 
@@ -21,7 +21,7 @@ export default function Page() {
         rest="From the first lesson to the first offer."
         actions={
           <>
-            <a href="#contact" className="btn btn-primary btn-lg">
+            <a href="#partner" className="btn btn-primary btn-lg">
               Partner with us
               <HoverArrow />
             </a>

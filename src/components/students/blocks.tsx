@@ -6,7 +6,7 @@ import { ProductLogo } from "@/components/product-logo";
 import { STORY_TINT, type StoryTrack, type StudentStory } from "@/lib/company";
 import { container } from "@/lib/layout";
 import { products } from "@/lib/products";
-import type { StudentProject, StudentTool } from "@/lib/students";
+import { projectHref, type StudentProject, type StudentTool } from "@/lib/students";
 import "./students.css";
 
 /*
@@ -100,11 +100,11 @@ export function TrackChip({ track, children }: { track: StoryTrack; children?: R
 
 /* ----------------------------------------------------------------- tools */
 
-/** One of the five tools, as a card: logo, what it does for you, a link out. */
-export function ToolCard({ tool, href }: { tool: StudentTool; href: string }) {
+/** One of the five tools, as a card: logo, what it does for you, and a link to the product's own site. */
+export function ToolCard({ tool }: { tool: StudentTool }) {
   const p = products.find((x) => x.id === tool.id)!;
   return (
-    <Link href={href} className={`sd-tool sd-tool--${tool.id} group`}>
+    <a href={p.href} target="_blank" rel="noreferrer" className={`sd-tool sd-tool--${tool.id} group`}>
       <ProductLogo id={tool.id} size={40} />
       <span className="mt-4 block text-[13px] text-text-muted">
         <span className="font-medium text-text">{p.name}</span> · {p.category}
@@ -112,10 +112,11 @@ export function ToolCard({ tool, href }: { tool: StudentTool; href: string }) {
       <span className="mt-3 block text-[17px] leading-[1.35] font-medium tracking-[-0.01em] text-text">{tool.lead}</span>
       <span className="mt-2 block text-[14px] leading-[1.6] text-text-muted">{tool.body}</span>
       <span className="mt-auto inline-flex items-center pt-6 text-[14px] font-medium text-accent">
-        See how it works
+        Open {p.name}
+        <span className="sr-only"> (opens in a new tab)</span>
         <HoverArrow />
       </span>
-    </Link>
+    </a>
   );
 }
 
@@ -144,11 +145,17 @@ export function StoryCard({ story }: { story: StudentStory }) {
 
 /* -------------------------------------------------------------- projects */
 
-/** A thumbnail of what the project is, drawn in the track's colour. */
-function Thumb({ project }: { project: StudentProject }) {
+/** A thumbnail of what the project is, drawn in the track's colour. `large` for the featured rows and project pages. */
+export function Thumb({ project, large }: { project: StudentProject; large?: boolean }) {
   const bars = (n: number) => Array.from({ length: n }, (_, i) => <i key={i} />);
   return (
-    <span className="sd-thumb" data-look={project.look} style={{ "--tint": STORY_TINT[project.track] } as CSSProperties} aria-hidden="true">
+    <span
+      className="sd-thumb"
+      data-look={project.look}
+      data-large={large || undefined}
+      style={{ "--tint": STORY_TINT[project.track] } as CSSProperties}
+      aria-hidden="true"
+    >
       <span className="sd-thumb__frame">
         {project.look === "dashboard" && (
           <>
@@ -171,7 +178,7 @@ function Thumb({ project }: { project: StudentProject }) {
 
 export function ProjectCard({ project }: { project: StudentProject }) {
   return (
-    <article className="sd-project">
+    <Link href={projectHref(project)} className="sd-project group">
       <Thumb project={project} />
       <div className="sd-project__body">
         <TrackChip track={project.track} />
@@ -189,6 +196,38 @@ export function ProjectCard({ project }: { project: StudentProject }) {
           </span>
           <span className="sd-outcome">{project.outcome}</span>
         </div>
+      </div>
+    </Link>
+  );
+}
+
+/** A featured project, large: the thumbnail on one side, the story on the other. */
+export function FeaturedProject({ project, flip, index }: { project: StudentProject; flip?: boolean; index: number }) {
+  return (
+    <article className="sd-featured" data-flip={flip || undefined}>
+      <Link href={projectHref(project)} className="sd-featured__art" tabIndex={-1} aria-hidden="true">
+        <Thumb project={project} large />
+      </Link>
+      <div className="sd-featured__copy">
+        <p className="sd-featured__num">Featured · 0{index + 1}</p>
+        <div className="mt-4">
+          <TrackChip track={project.track} />
+        </div>
+        <h2 className="mt-4 text-[clamp(26px,2.8vw,36px)] leading-[1.15] font-normal tracking-[-0.025em] text-text">{project.title}</h2>
+        <p className="mt-4 max-w-[480px] text-[16px] leading-[1.65] text-text-muted">{project.summary}</p>
+        <ul className="sd-stack" aria-label="Built with">
+          {project.stack.map((t) => (
+            <li key={t}>{t}</li>
+          ))}
+        </ul>
+        <p className="sd-featured__by">
+          <span className="font-medium text-text">{project.student}</span> · {project.detail}
+          <span className="sd-featured__outcome">{project.outcome}</span>
+        </p>
+        <Link href={projectHref(project)} className="btn btn-secondary btn-lg mt-8 self-start shadow-[var(--shadow-btn)]">
+          Read the project
+          <HoverArrow />
+        </Link>
       </div>
     </article>
   );

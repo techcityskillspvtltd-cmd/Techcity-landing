@@ -24,7 +24,7 @@ export default function Page() {
         rest="From next term back to the first batch."
         actions={
           <>
-            <a href="#contact" className="btn btn-primary btn-lg">
+            <a href="#partner" className="btn btn-primary btn-lg">
               Start a project
               <HoverArrow />
             </a>

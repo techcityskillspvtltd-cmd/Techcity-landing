@@ -1,3 +1,4 @@
+export { AlertCircleIcon } from "./alert-circle"
 export { ArrowLeftIcon } from "./arrow-left"
 export { ArrowRightIcon } from "./arrow-right"
 export { BuildingApartmentTwoIcon } from "./building-apartment-two"

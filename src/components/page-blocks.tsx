@@ -89,7 +89,7 @@ export function PageHero({
             <div className="pp-actions">
               {actions ?? (
                 <>
-                  <a href="#contact" className="btn btn-primary btn-lg">
+                  <a href="#partner" className="btn btn-primary btn-lg">
                     Partner with us
                     <HoverArrow />
                   </a>

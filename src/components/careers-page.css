@@ -464,6 +464,89 @@ select.cr-input:has(option[value=""]:checked) {
   color: #c2412b;
 }
 
+/* Required and optional marks on labels, and the note that explains them. */
+.cr-req {
+  margin-left: 3px;
+  font-weight: 500;
+  color: #c2412b;
+}
+.cr-opt {
+  margin-left: 6px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+.cr-hint {
+  margin-bottom: -10px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+.cr-hint .cr-req {
+  margin: 0;
+}
+
+/* What's missing or wrong, at the top of the form after a send that didn't go. */
+.cr-alert {
+  padding: 14px 16px;
+  border-radius: 8px;
+  background: #fdf2ef;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, #c2412b 28%, transparent);
+  scroll-margin: 24px;
+  outline: none;
+  animation: cr-alert-in 260ms var(--ease-out);
+}
+.cr-alert:focus-visible {
+  box-shadow:
+    inset 0 0 0 1px #c2412b,
+    0 0 0 3px color-mix(in srgb, #c2412b 16%, transparent);
+}
+.cr-alert__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #9b2f1c;
+}
+.cr-alert__title svg {
+  flex: none;
+}
+.cr-alert__list {
+  display: grid;
+  gap: 2px;
+  margin-top: 6px;
+  padding-left: 26px;
+}
+.cr-alert__list button {
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: left;
+  color: #9b2f1c;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, #9b2f1c 35%, transparent);
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.cr-alert__list button:hover {
+  text-decoration-color: currentColor;
+}
+@keyframes cr-alert-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cr-alert {
+    animation: none;
+  }
+}
+.cr-consent + .cr-error {
+  display: block;
+  margin-top: 4px;
+  padding-left: 30px;
+}
+
 /* Segmented choice pills. */
 .cr-pills {
   display: flex;
@@ -620,3 +703,87 @@ select.cr-input:has(option[value=""]:checked) {
   background: #e3f5ec;
 }
 
+/* The pop-up forms (student applications, partner enquiries) --------- */
+.ap-dialog {
+  width: min(680px, calc(100vw - 24px));
+  max-height: calc(100svh - 48px);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 18px;
+  background: var(--bg);
+  box-shadow: 0 40px 80px -30px rgb(6 27 49 / 0.45);
+  overflow: hidden;
+}
+.ap-dialog::backdrop {
+  background: rgb(6 27 49 / 0.45);
+  backdrop-filter: blur(3px);
+}
+.ap-dialog[open] {
+  animation: ap-dialog-in 320ms var(--ease-out) both;
+}
+.ap-dialog[open]::backdrop {
+  animation: ap-fade 320ms var(--ease-out) both;
+}
+@keyframes ap-dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+}
+@keyframes ap-fade {
+  from {
+    opacity: 0;
+  }
+}
+.ap-dialog__panel {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100svh - 48px);
+}
+.ap-dialog__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 24px 18px;
+  border-bottom: 1px solid var(--line);
+}
+.ap-dialog__close {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  color: var(--text-muted);
+  transition:
+    background-color 200ms var(--ease-out),
+    color 200ms var(--ease-out);
+}
+.ap-dialog__close:hover {
+  color: var(--text);
+  background: var(--surface-subdued);
+}
+.ap-dialog__panel > div:last-child {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+/* Inside the pop-up the form needs no card of its own. */
+.ap-dialog .ap-dialog__form {
+  border-radius: 0;
+  box-shadow: none;
+  padding: 24px;
+}
+.ap-dialog__sent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 32px 24px 28px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ap-dialog[open],
+  .ap-dialog[open]::backdrop {
+    animation: none;
+  }
+}

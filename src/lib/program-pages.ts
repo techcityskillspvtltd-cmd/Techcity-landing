@@ -792,7 +792,7 @@ export const programPages: ProgramPage[] = [
     hero: {
       lead: "One login for everything.",
       rest: "Courses, tests, practice and placements in five connected tools.",
-      body: "Setu, Marg, Spardha, Riyaaz and Kaksha, set up for your college: your batches, your faculty and your reports, on one account.",
+      body: "Setu, Marg, Kaksha, Riyaaz and Spardha, set up for your college: your batches, your faculty and your reports, on one account.",
       stats: [
         { value: "5", label: "Connected products" },
         { value: "30+", label: "Partner colleges" },
@@ -810,7 +810,7 @@ export const programPages: ProgramPage[] = [
             kind: "select",
             title: "Set up · Your college",
             prompt: "Products to switch on",
-            chips: ["Setu · LMS", "Marg · Roadmaps", "Spardha · Tests", "Riyaaz · Practice", "Kaksha · Cohorts"],
+            chips: ["Setu · LMS", "Marg · Roadmaps", "Kaksha · Cohorts", "Riyaaz · Practice", "Spardha · Tests"],
             picked: [0, 2, 3],
             done: "3 products switched on",
           },

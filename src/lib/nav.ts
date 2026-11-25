@@ -1,6 +1,7 @@
 import type { IconName } from "@/components/icons";
 import type { ProductId } from "@/components/product-logo";
 import { productUrl } from "@/lib/products";
+import { signupUrl } from "@/lib/site";
 
 export type NavItem = {
   label: string;
@@ -50,11 +51,11 @@ const productSections: NavSection[] = [
     title: "Live now",
     accent: true,
     items: [
-      { label: "Spardha", product: "spardha", description: "Tests and campus contests", href: productUrl("spardha"), external: true },
-      { label: "Marg", product: "marg", description: "Learning paths and roadmaps", nowrapDescription: true, href: productUrl("marg"), external: true },
       { label: "Setu", product: "setu", description: "Learning management", href: productUrl("setu"), external: true },
-      { label: "Riyaaz", product: "riyaaz", description: "Daily coding practice", href: productUrl("riyaaz"), external: true },
+      { label: "Marg", product: "marg", description: "Learning paths and roadmaps", nowrapDescription: true, href: productUrl("marg"), external: true },
       { label: "Kaksha", product: "kaksha", description: "Cohort-based video courses", nowrapDescription: true, href: productUrl("kaksha"), external: true },
+      { label: "Riyaaz", product: "riyaaz", description: "Daily coding practice", href: productUrl("riyaaz"), external: true },
+      { label: "Spardha", product: "spardha", description: "Tests and campus contests", href: productUrl("spardha"), external: true },
     ],
   },
 ];
@@ -103,7 +104,7 @@ export const partnerNav: NavConfig = {
         title: "Programs",
         links: [
           { label: "See all programs", href: "/programs" },
-          { label: "Partner with us", href: "#contact" },
+          { label: "Partner with us", href: "#partner" },
         ],
       },
     },
@@ -119,7 +120,7 @@ export const partnerNav: NavConfig = {
           ],
         },
       ],
-      aside: { title: "Work with us", links: [{ label: "Start a project", href: "#contact" }] },
+      aside: { title: "Work with us", links: [{ label: "Start a project", href: "#partner" }] },
     },
     {
       label: "Company",
@@ -150,12 +151,12 @@ export const partnerNav: NavConfig = {
           ],
         },
       ],
-      aside: { title: "Build together", links: [{ label: "Start a conversation", href: "#contact" }] },
+      aside: { title: "Build together", links: [{ label: "Partner with us", href: "#partner" }] },
     },
     contact,
   ],
   secondary: { label: "For students", href: "/students" },
-  primary: { label: "Partner with us", href: "#contact" },
+  primary: { label: "Partner with us", href: "#partner" },
 };
 
 export const studentNav: NavConfig = {
@@ -164,7 +165,7 @@ export const studentNav: NavConfig = {
     {
       label: "Products",
       sections: productSections,
-      aside: { title: "One account", links: [{ label: "Get started", href: "#contact" }] },
+      aside: { title: "One account", links: [{ label: "Create your account", href: signupUrl }] },
     },
     {
       label: "Showcase",
@@ -172,26 +173,29 @@ export const studentNav: NavConfig = {
         {
           title: "Showcase",
           items: [
-            { label: "Features", icon: "sparkle", description: "What your account does", href: "/students/features" },
+            { label: "Featured", icon: "sparkle", description: "The best student projects", href: "/students/featured" },
             { label: "Student projects", icon: "code", description: "Built by students", href: "/students/projects" },
           ],
         },
       ],
-      aside: { title: "Get started", links: [{ label: "Create your account", href: "#contact" }] },
+      aside: { title: "Get started", links: [{ label: "Create your account", href: signupUrl }] },
     },
     {
       label: "About",
       sections: [
         {
           title: "About",
-          items: [story, team, { label: "Testimonials", icon: "quote", description: "From students", href: "/students/testimonials" }],
+          items: [
+            { label: "Our story", icon: "book", description: "How TechCity started", href: "/students/story" },
+            { label: "Testimonials", icon: "quote", description: "From students", href: "/students/testimonials" },
+          ],
         },
       ],
-      aside: { title: "Join us", links: [{ label: "Careers", href: "/company/careers" }] },
+      aside: { title: "Join us", links: [{ label: "Careers", href: "/students/careers" }] },
     },
-    { label: "Careers", href: "/company/careers" },
+    { label: "Careers", href: "/students/careers" },
     contact,
   ],
   secondary: { label: "For Partners", href: "/" },
-  primary: { label: "Get Started", href: "#contact" },
+  primary: { label: "Get Started", href: signupUrl },
 };

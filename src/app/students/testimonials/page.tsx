@@ -5,11 +5,10 @@ import { HoverArrow } from "@/components/hover-arrow";
 import { InView } from "@/components/in-view";
 import { NumberTicker } from "@/components/number-ticker";
 import { SectionHead } from "@/components/page-blocks";
-import { StoriesWall } from "@/components/stories-wall";
 import { StudentHero } from "@/components/students/blocks";
+import { StudentStoriesWall } from "@/components/students/stories-wall";
 import { STORY_TINT, studentStories } from "@/lib/company";
 import { container } from "@/lib/layout";
-import "@/components/testimonials-page.css";
 
 export const metadata: Metadata = {
   title: "Student stories",
@@ -20,8 +19,8 @@ export const metadata: Metadata = {
 
 /*
  * Student stories: three quotes fanned on the hero's panel, the figures, then
- * every story in the filterable wall (components/stories-wall), led by the
- * first of the selection.
+ * every story in the student wall (components/students/stories-wall): a
+ * spotlight on the first of the selection, then a masonry of the rest.
  */
 
 const fanned = ["Ishita Banerjee", "Priya Nair", "Rohan Verma"].map((n) => studentStories.find((s) => s.name === n)!);
@@ -33,7 +32,7 @@ export default function Page() {
         crumb={[{ label: "Students", href: "/students" }, { label: "Stories" }]}
         title={
           <>
-            From college to a <span className="mark">first role</span>.
+            From college to a first role.
           </>
         }
         lede="Students on the labs, the mentors and the hiring briefs that got them there, including the parts that were hard."
@@ -87,7 +86,7 @@ export default function Page() {
         <div className={`${container} border-x border-b border-line`}>
           <SectionHead lead="Every story." rest="Filter by track; each one is in the student's own words." />
           <div className="px-5 pb-16 sm:px-10 sm:pb-20">
-            <StoriesWall />
+            <StudentStoriesWall />
           </div>
         </div>
       </section>

@@ -384,30 +384,30 @@ function ContentScene() {
 }
 
 /* --------------------------------------------------------------- platforms */
-// One account: Setu, Riyaaz and Kaksha switch on beside Spardha and Marg; the
+// One account: Kaksha, Riyaaz and Spardha switch on beside Setu and Marg; the
 // count of connected tools rolls 2 → 5.
 
 type Pf = { on: ProductId[] };
 async function pfScript(a: Act<Pf>) {
   await a.wait(1000);
-  a.put({ on: ["spardha", "marg", "setu"] });
+  a.put({ on: ["setu", "marg", "kaksha"] });
   await a.wait(700);
-  a.put({ on: ["spardha", "marg", "setu", "riyaaz"] });
+  a.put({ on: ["setu", "marg", "kaksha", "riyaaz"] });
   await a.wait(700);
-  a.put({ on: ["spardha", "marg", "setu", "riyaaz", "kaksha"] });
+  a.put({ on: ["setu", "marg", "kaksha", "riyaaz", "spardha"] });
   await a.wait(3200);
 }
 const TOOLS: { id: ProductId; name: string; what: string }[] = [
   { id: "setu", name: "Setu", what: "Courses, attendance and grades" },
   { id: "marg", name: "Marg", what: "Roadmaps for DSA, AI/ML and cloud" },
-  { id: "spardha", name: "Spardha", what: "Tests and campus contests" },
-  { id: "riyaaz", name: "Riyaaz", what: "Daily coding practice" },
   { id: "kaksha", name: "Kaksha", what: "Cohort video courses" },
+  { id: "riyaaz", name: "Riyaaz", what: "Daily coding practice" },
+  { id: "spardha", name: "Spardha", what: "Tests and campus contests" },
 ];
 
 function PlatformsScene() {
   return (
-    <Stage<Pf> width={W} height={H} compact={compact} initial={{ on: ["spardha", "marg"] }} poster={{ on: ["spardha", "marg", "setu", "riyaaz", "kaksha"] }} script={pfScript} play="once" className="tc tc-pg tc-pg--navy">
+    <Stage<Pf> width={W} height={H} compact={compact} initial={{ on: ["setu", "marg"] }} poster={{ on: ["setu", "marg", "kaksha", "riyaaz", "spardha"] }} script={pfScript} play="once" className="tc tc-pg tc-pg--navy">
       {(s) => (
         <Frame
           title="TechCity account"

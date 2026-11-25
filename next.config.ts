@@ -12,7 +12,8 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   // The product roadmap page became Reports.
   async redirects() {
-    return [{ source: "/company/roadmap", destination: "/reports", permanent: true }];
+    return [{ source: "/company/roadmap", destination: "/reports", permanent: true },
+      { source: "/students/features", destination: "/students/featured", permanent: true }];
   },
   partialPrefetching: true,
   turbopack: {

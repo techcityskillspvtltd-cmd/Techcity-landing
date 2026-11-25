@@ -59,7 +59,7 @@ export default function Page() {
         rest="From the first lecture to the first offer."
         actions={
           <>
-            <a href="#contact" className="btn btn-primary btn-lg">
+            <a href="#partner" className="btn btn-primary btn-lg">
               Partner with us
               <HoverArrow />
             </a>

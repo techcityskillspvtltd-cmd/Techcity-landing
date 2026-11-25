@@ -14,7 +14,10 @@ export const site = {
   themeColor: "#FFFFFF",
   areaServed: ["Delhi NCR", "Faridabad", "Noida", "Lucknow", "Ambala", "Haryana", "Uttar Pradesh", "Punjab", "Bihar"],
   products: [
+    { name: "Setu", description: "Learning management for colleges", url: "https://setu.techcityskills.com" },
     { name: "Marg", description: "Learning paths and roadmaps", url: "https://marg.techcityskills.com" },
+    { name: "Kaksha", description: "Cohort-based video courses", url: "https://kaksha.techcityskills.com" },
+    { name: "Riyaaz", description: "Daily coding practice", url: "https://riyaaz.techcityskills.com" },
     { name: "Spardha", description: "Tests, assessments and campus contests", url: "https://spardha.techcityskills.com" },
   ],
   founders: ["Deepak Tripathi", "Gunjan Soam"],
@@ -36,3 +39,10 @@ export const site = {
     "Delhi NCR",
   ],
 } as const;
+
+/** Where students create their TechCity account (on Setu). */
+export const signupUrl = "https://setu.techcityskills.com/signup";
+
+/** Off-site links (http/https) open in a new tab. */
+export const linkTarget = (href: string) =>
+  /^https?:\/\//.test(href) ? { target: "_blank", rel: "noopener noreferrer" } : {};

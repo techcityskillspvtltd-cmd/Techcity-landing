@@ -9,6 +9,7 @@ import { ProjectCard, Proof, StoryCard, StudentHero, ToolCard } from "@/componen
 import { DayScene } from "@/components/students/scenes";
 import { studentStories } from "@/lib/company";
 import { container } from "@/lib/layout";
+import { signupUrl } from "@/lib/site";
 import { journey, studentProjects, tools } from "@/lib/students";
 // The step list of "Your path" is styled with the program pages' (`.pr-*`, `.pl-tint`).
 import "@/components/program-landing.css";
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
  */
 
 const featuredStories = ["Aarav Sharma", "Tanvi Patel", "Vikram Singh"].map((n) => studentStories.find((s) => s.name === n)!);
-const featuredProjects = studentProjects.slice(0, 3);
+const featuredProjects = studentProjects.filter((p) => p.featured).slice(0, 3);
 
 export default function StudentsHome() {
   return (
@@ -36,18 +37,18 @@ export default function StudentsHome() {
       <StudentHero
         title={
           <>
-            Learn the work. <span className="mark">Get hired</span> for what you can do.
+            Learn the work. Get hired for what you can do.
           </>
         }
         lede="Roadmaps, daily practice, contests and cohort courses on one account, with mentors who hire people like you."
         actions={
           <>
-            <a href="#contact" className="btn btn-primary btn-lg">
+            <a href={signupUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-lg">
               Create your account
               <HoverArrow />
             </a>
-            <Link href="/students/features" className="btn btn-secondary btn-lg shadow-[var(--shadow-btn)]">
-              See what you get
+            <Link href="/students/featured" className="btn btn-secondary btn-lg shadow-[var(--shadow-btn)]">
+              See featured projects
             </Link>
           </>
         }
@@ -89,15 +90,10 @@ export default function StudentsHome() {
       {/* The five tools */}
       <section>
         <div className={`${container} border-x border-b border-line`}>
-          <SectionHead lead="Five tools, one login." rest="Each one does a part of the work; together they take you all the way.">
-            <Link href="/students/features" className="btn btn-secondary btn-lg shrink-0 self-start shadow-[var(--shadow-btn)] sm:self-auto">
-              All features
-              <HoverArrow />
-            </Link>
-          </SectionHead>
+          <SectionHead lead="Five tools, one login." rest="Each one does a part of the work; together they take you all the way." />
           <div className="sd-tools">
             {tools.map((t) => (
-              <ToolCard key={t.id} tool={t} href={`/students/features#${t.id}`} />
+              <ToolCard key={t.id} tool={t} />
             ))}
           </div>
         </div>
@@ -124,8 +120,8 @@ export default function StudentsHome() {
       <section>
         <div className={`${container} border-x border-b border-line`}>
           <SectionHead lead="Built by students." rest="Real projects, reviewed like work, that got people hired.">
-            <Link href="/students/projects" className="btn btn-secondary btn-lg shrink-0 self-start shadow-[var(--shadow-btn)] sm:self-auto">
-              All projects
+            <Link href="/students/featured" className="btn btn-secondary btn-lg shrink-0 self-start shadow-[var(--shadow-btn)] sm:self-auto">
+              Featured projects
               <HoverArrow />
             </Link>
           </SectionHead>

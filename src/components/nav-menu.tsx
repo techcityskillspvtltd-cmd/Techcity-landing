@@ -6,6 +6,7 @@ import { ExternalArrow, HoverArrow, newTab } from "@/components/hover-arrow";
 import { Icon } from "@/components/icons";
 import { ProductLogo } from "@/components/product-logo";
 import type { NavGroup, NavItem, NavSection } from "@/lib/nav";
+import { linkTarget } from "@/lib/site";
 
 type Menu = {
   index: number | null;
@@ -179,6 +180,7 @@ function Panel({ group, onNavigate }: { group: NavGroup; onNavigate: () => void 
               <li key={link.label}>
                 <Link
                   href={link.href}
+                  {...linkTarget(link.href)}
                   onClick={onNavigate}
                   className="inline-flex items-center text-[14px] font-medium text-text transition-colors duration-200 hover:text-tertiary"
                 >

@@ -50,7 +50,7 @@ export function ProgramLanding({ program: p }: { program: ProgramPage }) {
               {p.hero.lead} <span className="text-text-muted">{p.hero.rest}</span>
             </h1>
             <div className="pp-actions">
-              <a href="#contact" className="btn btn-primary btn-lg">
+              <a href="#partner" className="btn btn-primary btn-lg">
                 Bring it to your campus
                 <HoverArrow />
               </a>

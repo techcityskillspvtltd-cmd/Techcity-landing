@@ -47,11 +47,24 @@ const delay = (ms: number) => ({ "--dl": `${ms}ms` }) as CSSProperties;
 
 export type JoinStep = { title: string; body: string };
 
-const STEPS: { name: string; pill: string; color: string; hold: number }[] = [
+type Plate = { name: string; pill: string; color: string; hold: number };
+
+/** Trainers (Careers): apply, interview rounds, start the training. */
+const TRAINER_STEPS: Plate[] = [
   { name: "APPLY", pill: "FORM", color: "var(--g-indigo)", hold: 3600 },
   { name: "INTERVIEW", pill: "ROUNDS", color: "var(--accent)", hold: 3800 },
   { name: "TRAINING", pill: "DAY 1", color: "var(--g-amber)", hold: 5000 },
 ];
+
+/** Students (Student careers): apply, three interview rounds, selected. */
+const STUDENT_STEPS: Plate[] = [
+  { name: "APPLY", pill: "FORM", color: "var(--g-indigo)", hold: 3600 },
+  { name: "INTERVIEW", pill: "3 ROUNDS", color: "var(--accent)", hold: 3800 },
+  { name: "SELECTED", pill: "OFFER", color: "var(--g-amber)", hold: 5000 },
+];
+
+export type JoinVariant = "trainers" | "students";
+const STEPS_FOR: Record<JoinVariant, Plate[]> = { trainers: TRAINER_STEPS, students: STUDENT_STEPS };
 
 /* ---------- Faces (plate coordinates, above BAR_Y) ---------- */
 
@@ -254,7 +267,43 @@ function TrainingFace() {
   );
 }
 
-/** A flag stands up on the training plate's back corner: you're in. */
+/** Selected: an offer letter, stamped, then signed. */
+function OfferFace() {
+  return (
+    <>
+      <rect x="24" y="24" width="212" height="40" rx="3" className="hl-mid" />
+      <circle cx="46" cy="44" r="12" className="hl-pit hl-mid" />
+      <line x1="66" y1="38" x2="150" y2="38" className="hl-mid hl-thick" />
+      <line x1="66" y1="52" x2="120" y2="52" className="hl-lo hl-thick" />
+      <g className="jn-pop" style={delay(900)}>
+        <circle cx="216" cy="44" r="10" className="hl-face hl-acc" />
+        <polyline points="211,44 215,48 222,40" className="jn-check" />
+      </g>
+      <text x="24" y="88" className="hl-type hl-type--tiny">
+        OFFER LETTER
+      </text>
+      <line x1="24" y1="104" x2="220" y2="104" className="hl-lo hl-thick" />
+      <line x1="24" y1="118" x2="196" y2="118" className="hl-lo hl-thick" />
+      <line x1="24" y1="132" x2="150" y2="132" className="hl-lo hl-thick" />
+      <rect x="24" y="152" width="112" height="30" rx="15" className="hl-pit hl-mid" />
+      <g className="jn-pop" style={delay(500)}>
+        <rect x="24" y="152" width="112" height="30" rx="15" className="hl-face hl-acc" />
+      </g>
+      <text x="80" y="171" textAnchor="middle" className="hl-type hl-type--tiny jn-on" style={delay(500)}>
+        SELECTED
+      </text>
+      <line x1="156" y1="190" x2="236" y2="190" className="hl-lo" />
+      <path
+        d="M158 182 C 166 168, 174 192, 182 178 S 198 170, 206 182 S 222 186, 234 172"
+        pathLength={1}
+        className="hl-acc hl-thick jn-draw"
+        style={delay(1300)}
+      />
+    </>
+  );
+}
+
+/** A flag stands up on the last plate's back corner: you're in. */
 function TrainingFlag() {
   const base = P(232, 40);
   const top = P(232, 40, 44);
@@ -275,10 +324,15 @@ function TrainingFlag() {
   );
 }
 
-const faces = [ApplyFace, InterviewFace, TrainingFace];
+const FACES_FOR: Record<JoinVariant, (() => ReactNode)[]> = {
+  trainers: [ApplyFace, InterviewFace, TrainingFace],
+  students: [ApplyFace, InterviewFace, OfferFace],
+};
 
 /** The three plates. `step` is the plate in focus. */
-function Plates({ step }: { step: number }) {
+function Plates({ step, variant }: { step: number; variant: JoinVariant }) {
+  const STEPS = STEPS_FOR[variant];
+  const faces = FACES_FOR[variant];
   // Plates rest tucked together, labels showing at their front edge. The one
   // in focus gets a clear gap above it, so the plate above never covers its
   // face; the plates below tuck under it. The stack is centred as it changes height.
@@ -386,11 +440,15 @@ function Plates({ step }: { step: number }) {
  */
 export function JoinHero({
   steps,
+  variant = "trainers",
   children,
 }: {
   steps: JoinStep[];
+  /** Which process the plates show: trainers (Careers) or students (Student careers). */
+  variant?: JoinVariant;
   children: ReactNode;
 }) {
+  const STEPS = STEPS_FOR[variant];
   const [step, setStep] = useState(0);
   const [run, setRun] = useState(0); // restarts the timer and the progress bar
   const [onScreen, setOnScreen] = useState(true);
@@ -414,7 +472,7 @@ export function JoinHero({
       mq.removeEventListener("change", apply);
       io.disconnect();
     };
-  }, []);
+  }, [STEPS.length]);
 
   useEffect(() => {
     if (still || !onScreen) return;
@@ -423,7 +481,7 @@ export function JoinHero({
       setRun((r) => r + 1);
     }, STEPS[step].hold);
     return () => clearTimeout(id);
-  }, [step, run, still, onScreen]);
+  }, [step, run, still, onScreen, STEPS]);
 
   const pick = (k: number) => {
     setStep(k);
@@ -435,7 +493,7 @@ export function JoinHero({
       <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         {children}
         <div className="cr-join">
-          <Plates step={step} />
+          <Plates step={step} variant={variant} />
         </div>
       </div>
       <ol

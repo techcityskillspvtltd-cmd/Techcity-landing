@@ -79,7 +79,7 @@ export function ProjectsHero({
             </h1>
             {body && <p className="pp-lede">{body}</p>}
             <div className="pp-actions">
-              <a href="#contact" className="btn btn-primary btn-lg">
+              <a href="#partner" className="btn btn-primary btn-lg">
                 Partner with us
                 <HoverArrow />
               </a>

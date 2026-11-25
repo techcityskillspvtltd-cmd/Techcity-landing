@@ -1,8 +1,7 @@
 "use client";
 
-import { Avatar, Badge, Button, Check, Collapse, Meter, Roll, Row, Stage, Text, Toggle, Window, type Act } from "@/stageshow/kit";
+import { Avatar, Badge, Button, Check, Collapse, Meter, Roll, Row, Stage, Text, Window, type Act } from "@/stageshow/kit";
 import { ProductLogo } from "@/components/product-logo";
-import { products } from "@/lib/products";
 import "./scenes.css";
 
 /*
@@ -203,80 +202,6 @@ export function ShipScene() {
               <Button variant="primary" size="large">
                 {s.merged ? "Merged" : "Merge"}
               </Button>
-            </div>
-          </div>
-        </Window>
-      )}
-    </Stage>
-  );
-}
-
-/* ------------------------------------------------------------- account */
-// One account, five tools. Gold: payout-flow (a staggered run of arrivals,
-// the payoff held). Beats: the five tools switch on one after another, the
-// count in the title rolls up with them, then "All five, one login" drops in.
-// Real strings: the five products and what each is for.
-
-type Acct = { on: number; done: boolean };
-
-async function accountScript(a: Act<Acct>) {
-  await a.wait(800);
-  a.mark("tools");
-  for (let i = 1; i <= products.length; i++) {
-    a.put({ on: i });
-    await a.wait(420);
-  }
-  await a.wait(300);
-  a.mark("done");
-  a.put({ done: true });
-  await a.wait(3000);
-}
-
-export function AccountScene() {
-  return (
-    <Stage<Acct>
-      width={600}
-      height={480}
-      compact={{ below: 560, width: 358, height: 300 }}
-      initial={{ on: 0, done: false }}
-      poster={{ on: products.length, done: true }}
-      script={accountScript}
-      play="once"
-      className="tc tc-sd"
-    >
-      {(s, _rect, layout) => (
-        <Window title="Your account" className="sd-win" toolbar={<Avatar name="Aarav Sharma" size={24} tone="accent" />}>
-          <div className="sd-body">
-            <div className="sd-hello" data-hide={layout === "compact" || undefined}>
-              <span>
-                <Text className="sd-hello__name">Tools</Text>
-                <span className="sd-hello__sub">
-                  <Roll>{String(s.on)}</Roll> of {products.length} switched on
-                </span>
-              </span>
-            </div>
-            <div className="sd-list">
-              {products.map((p, i) => (
-                <Row
-                  key={p.id}
-                  pad={12}
-                  selected={s.on === i + 1 && !s.done}
-                  lead={<ProductLogo id={p.id} size={32} />}
-                  title={<Text>{p.name}</Text>}
-                  subtitle={<Text>{p.category}</Text>}
-                >
-                  <Toggle on={i < s.on} />
-                </Row>
-              ))}
-            </div>
-            <div className="sd-merge">
-              <Collapse open={s.done} reveal="drop">
-                <div className="sd-merge__row">
-                  <Badge tone="success" dot>
-                    All five on one login
-                  </Badge>
-                </div>
-              </Collapse>
             </div>
           </div>
         </Window>

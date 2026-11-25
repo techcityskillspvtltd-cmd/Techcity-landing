@@ -38,7 +38,7 @@ export default function Page() {
       rest="what our students learn."
       body="Upskilling platforms, test preparation, and the software and IT teams our students go on to join."
       actions={[
-        { label: "Partner with us", href: "#contact" },
+        { label: "Partner with us", href: "#partner" },
         { label: "Read their stories", href: "/company/testimonials#stories" },
       ]}
       section={{ lead: "Every industry partner.", rest: "Filter by the kind of work; a partner with a story links to it." }}

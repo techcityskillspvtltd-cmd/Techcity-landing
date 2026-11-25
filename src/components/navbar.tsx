@@ -6,6 +6,7 @@ import { NavMenu } from "@/components/nav-menu";
 import { NavShell } from "@/components/nav-shell";
 import { container } from "@/lib/layout";
 import type { NavConfig } from "@/lib/nav";
+import { linkTarget } from "@/lib/site";
 
 export function Navbar({ nav }: { nav: NavConfig }) {
   return (
@@ -21,7 +22,7 @@ export function Navbar({ nav }: { nav: NavConfig }) {
           <Link href={nav.secondary.href} className="btn btn-secondary hidden sm:inline-flex">
             {nav.secondary.label}
           </Link>
-          <Link href={nav.primary.href} className="btn btn-primary hidden min-[420px]:inline-flex">
+          <Link href={nav.primary.href} className="btn btn-primary hidden min-[420px]:inline-flex" {...linkTarget(nav.primary.href)}>
             {nav.primary.label}
             <HoverArrow />
           </Link>

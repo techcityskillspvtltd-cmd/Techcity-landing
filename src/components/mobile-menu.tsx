@@ -6,9 +6,9 @@ import { ExternalArrow, HoverArrow, newTab } from "@/components/hover-arrow";
 import { Icon } from "@/components/icons";
 import { ProductLogo } from "@/components/product-logo";
 import { groupItems, type NavConfig, type NavGroup, type NavItem } from "@/lib/nav";
-import { site } from "@/lib/site";
+import { linkTarget, site } from "@/lib/site";
 
-/** "Spardha, Marg, Setu +2": what's inside a group, readable before it is opened. */
+/** "Setu, Marg, Kaksha +2": what's inside a group, readable before it is opened. */
 function preview(group: NavGroup) {
   const labels = groupItems(group).map((i) => i.label);
   const shown = labels.slice(0, 3).join(", ");
@@ -182,7 +182,7 @@ export function MobileMenu({ nav }: { nav: NavConfig }) {
                         {group.aside && (
                           <div className="flex flex-wrap gap-2">
                             {group.aside.links.map((l) => (
-                              <Link key={l.label} href={l.href} onClick={close} className="mobile-sheet__chip">
+                              <Link key={l.label} href={l.href} {...linkTarget(l.href)} onClick={close} className="mobile-sheet__chip">
                                 {l.label}
                                 <HoverArrow />
                               </Link>
@@ -216,7 +216,7 @@ export function MobileMenu({ nav }: { nav: NavConfig }) {
             <Link href={nav.secondary.href} onClick={close} className="btn btn-secondary btn-lg flex-1 !border-line">
               {nav.secondary.label}
             </Link>
-            <Link href={nav.primary.href} onClick={close} className="btn btn-primary btn-lg flex-1">
+            <Link href={nav.primary.href} {...linkTarget(nav.primary.href)} onClick={close} className="btn btn-primary btn-lg flex-1">
               {nav.primary.label}
               <HoverArrow />
             </Link>

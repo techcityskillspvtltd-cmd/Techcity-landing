@@ -20,7 +20,7 @@
      #1C257D  #3B47C4  #6B7BE6  #A5B1F5  #E4E8FD  #FFF1D6  #FCD38A  #F59E0B
 
    Product colors (logo tiles only, never text or buttons)
-     Marg #4F7CF6  Spardha #EE9A3A  Riyaaz #2FA58F  Kaksha #E5486A  Setu #7A5CF5
+     Setu #7A5CF5  Marg #4F7CF6  Kaksha #E5486A  Riyaaz #2FA58F  Spardha #EE9A3A
    --------------------------------------------------------------- */
 :root {
   --sans: var(--font-inter), "Inter", system-ui, sans-serif;

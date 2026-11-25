@@ -93,7 +93,7 @@ export default function Page() {
                 Apply to teach with us. <span className="text-text-muted">One form, a few minutes.</span>
               </h2>
               <p className="mt-5 max-w-[420px] text-[16px] leading-[1.65] text-text-muted">
-                Tell us what you teach and where you&apos;d like to teach it. We read every application.
+                Tell us what you teach and where you&apos;d like to teach it.
               </p>
               <p className="mt-10 text-[13px] font-medium text-[var(--g-indigo)]">Have these ready</p>
               <ol className="cr-next mt-4">

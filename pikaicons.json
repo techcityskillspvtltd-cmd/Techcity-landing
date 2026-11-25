@@ -4,6 +4,10 @@
   "importAlias": "@/components/pikaicons",
   "variant": "stroke",
   "icons": {
+    "alert-circle": {
+      "name": "alert-circle",
+      "variant": "stroke"
+    },
     "arrow-left": {
       "name": "arrow-left",
       "variant": "stroke"

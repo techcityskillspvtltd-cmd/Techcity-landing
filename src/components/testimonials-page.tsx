@@ -176,7 +176,7 @@ export function StoryArticle({ story, more }: { story: PartnerStory; more: Partn
                 </div>
               ))}
             </dl>
-            <a href="#contact" className="ts-btn mt-8">
+            <a href="#partner" className="ts-btn mt-8">
               Partner with us
               <HoverArrow />
             </a>

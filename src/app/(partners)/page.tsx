@@ -27,7 +27,7 @@ export default function Home() {
                 Industry-aligned skilling that makes students stand out, get hired and grow.
               </h1>
               <div className="mt-8">
-                <a href="#contact" className="btn btn-primary btn-lg">
+                <a href="#partner" className="btn btn-primary btn-lg">
                   Partner with us
                   <HoverArrow />
                 </a>

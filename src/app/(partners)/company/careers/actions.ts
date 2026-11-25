@@ -1,12 +1,13 @@
 "use server";
 
-import { site } from "@/lib/site";
+import { checkTrainer } from "@/lib/apply-checks";
+import { ROLES } from "@/lib/careers";
+import { attachment, SEND_FAILED, sendMail } from "@/lib/mail";
 
 /*
- * Careers application: validates what the form sends and returns a result the
- * form shows. Sending it on by email is not wired up yet: the TODO below is the
- * one place to add it (the details and the résumé are both here, ready to
- * attach), addressed to the company inbox in `site.email`.
+ * Trainer application: runs the same checks as the form (lib/apply-checks),
+ * then emails the details and the résumé to the TechCity inbox (lib/mail),
+ * with replies going to the applicant.
  */
 
 export type ApplyState = {
@@ -16,58 +17,55 @@ export type ApplyState = {
   errors?: Partial<Record<string, string>>;
 };
 
-const MAX_RESUME = 5 * 1024 * 1024; // 5 MB; next.config allows a little more for the form overhead
-const RESUME_TYPES = [
-  "application/pdf",
-  "application/msword",
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-];
-
 const text = (f: FormData, k: string) => String(f.get(k) ?? "").trim();
 
 export async function submitApplication(_prev: ApplyState, form: FormData): Promise<ApplyState> {
+  const errors = checkTrainer(
+    form,
+    ROLES.map((r) => r.value),
+  );
+  if (Object.keys(errors).length) {
+    return { status: "error", message: "A few details need another look.", errors };
+  }
+
   const data = {
     name: text(form, "name"),
     email: text(form, "email"),
     phone: text(form, "phone"),
     city: text(form, "city"),
-    role: text(form, "role"),
-    engagement: text(form, "engagement"),
-    mode: text(form, "mode"),
-    experience: text(form, "experience"),
-    subjects: text(form, "subjects"),
     company: text(form, "company"),
     link: text(form, "link"),
-    availability: text(form, "availability"),
-    note: text(form, "note"),
-    consent: form.get("consent") === "on",
+    role: ROLES.find((r) => r.value === text(form, "role"))!.label,
+    experience: text(form, "experience"),
+    subjects: text(form, "subjects"),
+    engagement: text(form, "engagement"),
+    mode: text(form, "mode"),
   };
-  const resume = form.get("resume");
+  const resume = form.get("resume") as File;
 
-  const errors: Record<string, string> = {};
-  if (!data.name) errors.name = "Enter your full name.";
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) errors.email = "Enter a valid email address.";
-  if (data.phone.replace(/\D/g, "").length < 10) errors.phone = "Enter a 10-digit phone number.";
-  if (!data.city) errors.city = "Tell us where you're based.";
-  if (!data.role) errors.role = "Choose the role you're applying for.";
-  if (!data.experience) errors.experience = "Choose your experience.";
-  if (!data.subjects) errors.subjects = "List the subjects or skills you'd teach.";
-  if (data.link && !/^https?:\/\/\S+\.\S+/.test(data.link)) errors.link = "Use a full link, starting with https://";
-  if (!(resume instanceof File) || resume.size === 0) errors.resume = "Attach your résumé.";
-  else if (!RESUME_TYPES.includes(resume.type)) errors.resume = "Use a PDF or Word file.";
-  else if (resume.size > MAX_RESUME) errors.resume = "Keep the file under 5 MB.";
-  if (!data.consent) errors.consent = "Please confirm so we can contact you.";
-
-  if (Object.keys(errors).length) {
-    return { status: "error", message: "A few details need another look.", errors };
-  }
-
-  // TODO(careers email): send `data` and the résumé to `site.email`, for example
-  // with an email provider's API or SMTP, attaching `resume` as a file.
-  void site.email;
+  const sent = await sendMail({
+    subject: `Trainer application: ${data.role} · ${data.name}`,
+    heading: `New trainer application for ${data.role}`,
+    replyTo: { name: data.name, email: data.email },
+    rows: [
+      ["Name", data.name],
+      ["Email", data.email],
+      ["Phone", data.phone],
+      ["City", data.city],
+      ["Company or college", data.company],
+      ["Link", data.link],
+      ["Role", data.role],
+      ["Experience", data.experience],
+      ["Subjects", data.subjects],
+      ["Type of work", data.engagement],
+      ["Where", data.mode],
+    ],
+    attachments: [await attachment(resume)],
+  });
+  if (!sent) return { status: "error", message: SEND_FAILED };
 
   return {
     status: "sent",
-    message: `Thanks, ${data.name.split(" ")[0]}. Your application is in, and we'll write to you at ${data.email}.`,
+    message: `Thanks, ${data.name.split(" ")[0]}. Your application for ${data.role} is in, and we'll write to you at ${data.email}.`,
   };
 }

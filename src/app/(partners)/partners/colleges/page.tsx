@@ -32,7 +32,7 @@ export default function Page() {
       rest="inside their own timetables."
       body={`Universities and institutes across ${states.slice(0, -1).join(", ")} and ${states[states.length - 1]}, with their own faculty in the room.`}
       actions={[
-        { label: "Partner with us", href: "#contact" },
+        { label: "Partner with us", href: "#partner" },
         { label: "Read their stories", href: "/company/testimonials#stories" },
       ]}
       section={{ lead: "Every partner college.", rest: "Filter by state; a college with a story links to it." }}
