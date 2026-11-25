@@ -199,9 +199,9 @@ function PlacingScene() {
   );
 }
 
-/* ------------------------------------------------------------- mentorship */
-// A student's mentoring plan: the project review is done, the next session is
-// booked with the mentor.
+/* -------------------------------------------------------------- workshops */
+// A two-day workshop: the second lab finishes, then the demo hour is done and
+// the certificates go out.
 
 type Me = { review: boolean; booked: boolean };
 async function meScript(a: Act<Me>) {
@@ -212,35 +212,35 @@ async function meScript(a: Act<Me>) {
   await a.wait(3200);
 }
 
-function MentorshipScene() {
+function WorkshopsScene() {
   return (
     <Stage<Me> width={W} height={H} compact={compact} initial={{ review: false, booked: false }} poster={{ review: true, booked: true }} script={meScript} play="once" className="tc tc-pg">
       {(s) => (
         <Frame
-          title="Mentorship"
+          title="Workshops"
           summary={
             <>
               <span className="pg-who">
-                <Avatar name="Neha Gupta" size={32} tone="accent" />
-                <What name="Neha Gupta" meta="Engineering Manager · your mentor" />
+                <Avatar name="Divya Verma" size={32} tone="accent" />
+                <What name="Divya Verma" meta="ML engineer · workshop lead" />
               </span>
-              <Badge>Backend track</Badge>
+              <Badge>Generative AI · 2 days</Badge>
             </>
           }
           toast={
             <Toast show={s.booked} icon={<Check on size={16} />} className="pg-toast">
-              Booked for Thursday, 6:00 pm
+              55 certificates issued
             </Toast>
           }
         >
-          <Row pad={10} lead={<Check on />} title={title("Set goals")} subtitle={sub("Backend developer by final year")} />
-          <Row pad={10} selected={!s.review} lead={<Check on={s.review} pending={!s.review} />} title={title("Project review")} subtitle={sub("Library API · 6 comments")} />
-          <Row pad={10} selected={s.review && !s.booked} lead={<Check on={s.booked} />} title={title("Resume feedback")} subtitle={sub("Next session")}>
+          <Row pad={10} lead={<Check on />} title={title("Lab 1 · Prompting")} subtitle={sub("60 students · in pairs")} />
+          <Row pad={10} selected={!s.review} lead={<Check on={s.review} pending={!s.review} />} title={title("Lab 2 · Retrieval")} subtitle={sub("A chatbot over the unit notes")} />
+          <Row pad={10} selected={s.review && !s.booked} lead={<Check on={s.booked} />} title={title("Demo hour")} subtitle={sub("Every pair shows their bot")}>
             <Badge tone={s.booked ? "success" : "neutral"}>
-              <Roll variant="fade">{s.booked ? "Booked" : "Not booked"}</Roll>
+              <Roll variant="fade">{s.booked ? "Done" : "At 4 pm"}</Roll>
             </Badge>
           </Row>
-          <Row pad={10} lead={<Check on={false} />} title={title("Mock system design")} subtitle={sub("Before placement season")} />
+          <Row pad={10} lead={<Check on={false} />} title={title("Cloud & DevOps")} subtitle={sub("Next workshop · in two weeks")} />
         </Frame>
       )}
     </Stage>
@@ -435,7 +435,7 @@ const scenes: Record<ProgramSlug, ComponentType> = {
   trainers: TrainersScene,
   "placement-preparation": PlacementScene,
   "student-placement": PlacingScene,
-  mentorship: MentorshipScene,
+  workshops: WorkshopsScene,
   "faculty-development": FacultyScene,
   "online-lessons": OnlineScene,
   "online-content": ContentScene,

@@ -29,10 +29,7 @@ export async function submitPartner(_prev: PartnerState, form: FormData): Promis
     email: text(form, "email"),
     phone: text(form, "phone"),
     organisation: text(form, "organisation"),
-    designation: text(form, "designation"),
-    city: text(form, "city"),
     kind: text(form, "kind"),
-    interests: form.getAll("interests").map(String).join(", "),
     message: text(form, "message"),
   };
 
@@ -46,9 +43,6 @@ export async function submitPartner(_prev: PartnerState, form: FormData): Promis
       ["Phone", data.phone],
       ["Organisation", data.organisation],
       ["Partner type", data.kind],
-      ["Designation", data.designation],
-      ["City", data.city],
-      ["Interested in", data.interests],
       ["Message", data.message],
     ],
   });

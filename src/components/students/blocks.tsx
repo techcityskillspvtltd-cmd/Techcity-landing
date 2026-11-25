@@ -12,17 +12,16 @@ import "./students.css";
 /*
  * Blocks for the student side (/students and its pages). Same tokens, type,
  * guide lines and run-in headings as the partner side; the student look adds
- * a little energy on top: a highlighter on the key words, chips with a dot in
- * each track's colour, rounded cards that lift, and the product colours.
+ * a little energy on top: chips with a dot in each track's colour, rounded
+ * cards that lift, and the product colours.
  * Styles: students.css (`sd-*`).
  */
 
 /* ------------------------------------------------------------------ hero */
 
 /**
- * The student hero: breadcrumb (or a "For students" pill on the home page),
- * a headline whose `mark`ed words get the highlighter, a line, actions; the
- * picture on a dotted panel beside it.
+ * The student hero: breadcrumb (none on the home page), the headline, a
+ * line, actions; the picture on a dotted panel beside it.
  */
 export function StudentHero({
   crumb,
@@ -32,7 +31,7 @@ export function StudentHero({
   picture,
   below,
 }: {
-  /** Leave out on the student home page, which shows a pill instead. */
+  /** Leave out on the student home page. */
   crumb?: Crumb[];
   title: ReactNode;
   lede: string;
@@ -46,15 +45,8 @@ export function StudentHero({
       <div className={`${container} border-x border-b border-line`}>
         <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)]">
           <div className="pp-hero-copy">
-            {crumb ? (
-              <Crumbs items={crumb} />
-            ) : (
-              <p className="sd-pill">
-                <i aria-hidden="true" />
-                For students
-              </p>
-            )}
-            <h1 className="sd-h1">{title}</h1>
+            {crumb && <Crumbs items={crumb} />}
+            <h1 className={crumb ? "sd-h1" : "sd-h1 sd-h1--first"}>{title}</h1>
             <p className="pp-lede">{lede}</p>
             <div className="pp-actions">{actions}</div>
             {below}

@@ -3,9 +3,9 @@
 import { Avatar, Check, Stage, depth, on } from "./stage";
 
 /**
- * Industry mentors: a one-to-one session. Messages arrive in turn (each one
- * starts as a typing indicator), a mentor tag floats above, and the next session gets
- * booked on a small calendar card in front.
+ * Workshops: a question in a live lab. Messages arrive in turn (each one
+ * starts as a typing indicator), the workshop lead's tag floats above, and
+ * the next workshop is on a small calendar card in front.
  */
 
 type Msg = {
@@ -17,21 +17,21 @@ type Msg = {
 const msgs: Msg[] = [
   {
     from: "student",
-    text: "How should I prepare for system design rounds?",
+    text: "Our bot answers from outside the syllabus. Why?",
     typing: 0.3,
     at: 1,
   },
   {
     from: "mentor",
-    text: "Pick one project and design it end to end. I’ll share a checklist.",
+    text: "Add retrieval: index the unit notes and answer only from them.",
     typing: 1.8,
     at: 3,
   },
-  { from: "student", text: "Thanks! Same time next week?", typing: 4, at: 4.8 },
+  { from: "student", text: "Done. It cites the unit now!", typing: 4, at: 4.8 },
 ];
 const OUT = 10.2;
 
-export function MentorshipItem() {
+export function WorkshopsItem() {
   return (
     <Stage length={11} still={9.5} rx={12} ry={14} rz={-1.5}>
       {(t) => {
@@ -45,7 +45,7 @@ export function MentorshipItem() {
                     <Avatar initials="PR" size={20} />
                   </span>
                 </span>
-                <span>Mentor session</span>
+                <span>Workshop · Generative AI</span>
                 <span className="bx-chip bx-chip--live ml-auto">
                   <i className="bx-dot bx-dot--pulse" />
                   Live
@@ -70,7 +70,7 @@ export function MentorshipItem() {
 
             <div className="bx-layer bx-chat__tag bx-pop" data-on={on(t, 0.2, OUT)} style={depth(44)}>
               <i className="bx-dot" style={{ background: "var(--g-navy)" }} />
-              Mentor · SDE II, fintech
+              Workshop lead · ML engineer
             </div>
 
             <div className="bx-layer bx-panel bx-cal bx-in" data-on={on(t, 6, OUT)} style={depth(66)}>
@@ -79,8 +79,8 @@ export function MentorshipItem() {
                 <strong>14</strong>
               </span>
               <span className="min-w-0">
-                <span className="bx-title">Next session</span>
-                <span className="bx-meta">6:00 PM · 30 min</span>
+                <span className="bx-title">Next workshop</span>
+                <span className="bx-meta">Cloud & DevOps · 2 days</span>
               </span>
               <Check size={18} />
             </div>

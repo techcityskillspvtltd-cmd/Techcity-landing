@@ -1,0 +1,376 @@
+/* ---------------------------------------------------------------
+   The student projects table (components/students/projects-table.tsx).
+   --------------------------------------------------------------- */
+
+.pt {
+  padding: 0 20px 64px;
+}
+@media (min-width: 640px) {
+  .pt {
+    padding: 0 40px 80px;
+  }
+}
+.pt-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+@media (min-width: 1024px) {
+  .pt-bar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+.pt-search {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 10px;
+  height: 44px;
+  padding: 0 14px;
+  border-radius: 999px;
+  color: var(--text-muted);
+  background: var(--bg);
+  box-shadow: inset 0 0 0 1px var(--border);
+  transition: box-shadow 150ms var(--ease-out);
+}
+@media (min-width: 1024px) {
+  .pt-search {
+    order: 2;
+    width: 320px;
+  }
+}
+.pt-search:focus-within {
+  box-shadow:
+    inset 0 0 0 1px var(--accent),
+    0 0 0 3px color-mix(in srgb, var(--accent) 14%, transparent);
+}
+.pt-search input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  border: 0;
+  font: inherit;
+  font-size: 15px;
+  color: var(--text);
+  background: transparent;
+  outline: none;
+}
+.pt-search input::placeholder {
+  color: color-mix(in srgb, var(--text-muted) 75%, transparent);
+}
+.pt-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* The table: one rounded frame, a quiet header, rules between rows. */
+.pt-frame {
+  overflow-x: auto;
+  border-radius: 16px;
+  background: var(--bg);
+  box-shadow:
+    0 0 0 1px var(--line),
+    0 24px 48px -36px rgb(6 27 49 / 0.22);
+  overflow: hidden;
+}
+.pt-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.pt-table thead th {
+  padding: 14px 16px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--surface-subdued);
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+.pt-table thead th button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.pt-table thead th button::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  opacity: 0.35;
+  transform: translateY(-2px) rotate(45deg);
+  transition:
+    transform 200ms var(--ease-out),
+    opacity 200ms var(--ease-out);
+}
+.pt-table thead th button:hover {
+  color: var(--text);
+}
+.pt-table thead th button[data-sort] {
+  color: var(--text);
+}
+.pt-table thead th button[data-sort]::after {
+  opacity: 1;
+}
+.pt-table thead th button[data-sort="-1"]::after {
+  transform: translateY(2px) rotate(-135deg);
+}
+.pt-row {
+  position: relative;
+  animation: pt-in 500ms var(--ease-out) both;
+  animation-delay: calc(min(var(--i), 12) * 30ms);
+  transition: background-color 200ms var(--ease-out);
+}
+@keyframes pt-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+.pt-row + .pt-row td {
+  border-top: 1px solid var(--line);
+}
+.pt-row:hover {
+  background: color-mix(in srgb, var(--surface-subdued) 80%, var(--bg));
+}
+.pt-row td {
+  padding: 16px 14px;
+  vertical-align: middle;
+}
+.pt-row td:first-child,
+.pt-table thead th:first-child {
+  padding-left: 20px;
+}
+.pt-num {
+  width: 56px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+td.pt-num {
+  padding-left: 20px !important;
+}
+.pt-project {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 16px;
+  min-width: 280px;
+}
+.pt-thumb {
+  display: flex;
+  flex: none;
+  width: 84px;
+  height: 60px;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: inset 0 0 0 1px var(--line);
+}
+.pt-thumb .sd-thumb {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 8px 8px 0;
+  border: 0;
+  border-radius: 10px;
+  transition: transform 300ms var(--ease-out);
+}
+.pt-row:hover .pt-thumb .sd-thumb {
+  transform: scale(1.06);
+}
+.pt-title {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--text);
+}
+/* The whole row opens the project. */
+.pt-title::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.pt-title:focus-visible {
+  outline: none;
+}
+.pt-row:has(.pt-title:focus-visible) {
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+.pt-featured {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  padding: 0 7px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--g-indigo);
+  background: color-mix(in srgb, var(--g-indigo) 9%, transparent);
+}
+.pt-summary {
+  display: -webkit-box;
+  margin-top: 4px;
+  max-width: 420px;
+  overflow: hidden;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-muted);
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+.pt-student {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 10px;
+  min-width: 170px;
+}
+.pt-avatar {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--g-navy);
+  background: color-mix(in srgb, var(--g-navy) 8%, var(--bg));
+}
+.pt-track span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  color: var(--text);
+  white-space: nowrap;
+}
+.pt-track i {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--dot);
+}
+.pt-stack > span {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  min-width: 130px;
+}
+.pt-stack > span > span {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  color: var(--text-muted);
+  background: var(--surface-subdued);
+  box-shadow: inset 0 0 0 1px var(--line);
+  white-space: nowrap;
+}
+.pt-outcome {
+  min-width: 160px;
+  padding-right: 48px !important;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: #157452;
+}
+.pt-go {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  color: var(--text-muted);
+  transform: translateY(-50%);
+  transition: color 200ms var(--ease-out);
+}
+.pt-row:hover .pt-go {
+  color: var(--accent);
+}
+.pt-empty {
+  padding: 40px 20px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+.pt-empty button {
+  font-weight: 500;
+  color: var(--accent);
+  cursor: pointer;
+}
+.pt-count {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* Narrow: each row is a card. */
+@media (max-width: 1199px) {
+  .pt-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .pt-table,
+  .pt-table tbody {
+    display: block;
+  }
+  .pt-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    padding: 18px 20px;
+  }
+  .pt-row + .pt-row {
+    border-top: 1px solid var(--line);
+  }
+  .pt-row + .pt-row td {
+    border-top: 0;
+  }
+  .pt-row td {
+    padding: 0 !important;
+  }
+  .pt-num {
+    display: none;
+  }
+  .pt-project {
+    min-width: 0;
+  }
+  .pt-summary {
+    -webkit-line-clamp: 2;
+  }
+  .pt-student,
+  .pt-stack > span,
+  .pt-outcome {
+    min-width: 0;
+  }
+  .pt-outcome {
+    padding-right: 32px !important;
+  }
+  .pt-go {
+    top: 24px;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pt-row {
+    animation: none;
+  }
+}

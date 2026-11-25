@@ -61,7 +61,7 @@ const LANES = [
   { label: "Faculty sessions", color: LAV },
   { label: "Labs", color: SKY },
   { label: "Placement prep", color: HONEY },
-  { label: "Mentorship", color: AMBER },
+  { label: "Workshops", color: AMBER },
 ];
 
 /** Chart labels (Improve) and lane axis labels (Deliver), positioned every frame. */

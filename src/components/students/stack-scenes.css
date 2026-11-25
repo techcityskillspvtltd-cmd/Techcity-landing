@@ -1,0 +1,597 @@
+/*
+ * Student scenes (components/students/stack-scenes.tsx). Tokens come from the
+ * product look (product-scenes/look.css, `.tc-<product>`) and the student
+ * look (students/scenes.css, `.tc-sd`). Every scene: one window pinned one
+ * gutter in on three sides, running off the bottom; white content.
+ */
+
+.ts-scene .ts-win {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  box-shadow: var(--ss-shadow-hero);
+}
+.ts-scene .ss-stage[data-layout="compact"] .ts-win {
+  top: 16px;
+  left: 16px;
+  right: 16px;
+}
+.ts-scene .ts-body {
+  min-height: 520px;
+  padding: 18px 16px 24px;
+  background: var(--ss-surface);
+}
+.ts-scene .ss-stage[data-layout="compact"] .ts-body {
+  padding: 14px 12px 20px;
+}
+
+/* ---------------------------------------------------------- profile */
+.ts-scene .pf-head {
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--ss-line);
+}
+.ts-scene .pf-name {
+  font-weight: 600;
+}
+.ts-scene .pf-score {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+.ts-scene .pf-score__num {
+  height: 32px;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 32px;
+  letter-spacing: -0.02em;
+  color: var(--ss-accent-text);
+}
+.ts-scene .ss-stage[data-layout="compact"] .pf-score__num {
+  height: 28px;
+  font-size: 22px;
+  line-height: 28px;
+}
+.ts-scene .pf-score__label {
+  font-size: 12px;
+  color: var(--ss-text);
+}
+.ts-scene .pf-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ts-scene .pf-val {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ss-text);
+  white-space: nowrap;
+  transition: color 300ms ease;
+}
+.ts-scene .pf-val[data-on] {
+  color: var(--ss-text-strong);
+}
+
+/* -------------------------------------------------------------- setu */
+.ts-scene .st-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ts-scene .st-time {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 32px;
+  border-radius: var(--ss-radius-md);
+  background: var(--ss-accent-soft);
+  color: var(--ss-accent-text);
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.ts-scene .st-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 14px;
+  padding: 16px 12px;
+  border-radius: var(--ss-radius-lg);
+  background: var(--ss-canvas);
+}
+.ts-scene .st-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.ts-scene .st-card__top > span:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ts-scene .st-done {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 16px;
+}
+.ts-scene .st-card__label {
+  font-size: 13px;
+  color: var(--ss-text);
+}
+.ts-scene .st-card__num {
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ss-text-strong);
+}
+.ts-scene .st-meter {
+  position: relative;
+  display: block;
+}
+.ts-scene .st-meter .ss-meter {
+  width: 100%;
+}
+.ts-scene .st-line {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  left: 75%;
+  width: 2px;
+  border-radius: 1px;
+  background: var(--ss-text-strong);
+  opacity: 0.55;
+}
+
+/* -------------------------------------------------------------- marg */
+.ts-scene .mg-road {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  padding: 8px 20px 18px;
+}
+.ts-scene .mg-rail {
+  position: absolute;
+  top: 26px;
+  left: calc(20px + (100% - 40px) / 12);
+  right: calc(20px + (100% - 40px) / 12);
+  height: 4px;
+  border-radius: 2px;
+  background: var(--ss-line);
+}
+.ts-scene .mg-rail__fill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--ss-accent);
+  transform-origin: left;
+  transform: scaleX(var(--done));
+  transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ts-scene .mg-node {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.ts-scene .mg-dot {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: var(--ss-surface);
+  box-shadow: inset 0 0 0 2px var(--ss-line);
+  color: var(--ss-text-faint);
+  transition:
+    box-shadow 400ms ease,
+    color 400ms ease;
+}
+.ts-scene .ss-stage[data-layout="compact"] .mg-dot {
+  width: 30px;
+  height: 30px;
+}
+.ts-scene .mg-node[data-state="done"] .mg-dot {
+  box-shadow: inset 0 0 0 2px var(--ss-accent);
+}
+.ts-scene .mg-node[data-state="done"] .ss-check {
+  --ss-check-on: var(--ss-accent);
+}
+.ts-scene .mg-node[data-state="current"] .mg-dot {
+  box-shadow:
+    inset 0 0 0 2px var(--ss-accent),
+    0 0 0 5px var(--ss-accent-soft);
+  color: var(--ss-accent-text);
+}
+.ts-scene .mg-num {
+  font-size: 13px;
+  font-weight: 600;
+}
+.ts-scene .mg-label {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 12px;
+  color: var(--ss-text);
+}
+.ts-scene .ss-stage[data-layout="compact"] .mg-label {
+  font-size: 11px;
+}
+.ts-scene .mg-node[data-state="current"] .mg-label {
+  font-weight: 600;
+  color: var(--ss-text-strong);
+}
+.ts-scene .mg-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 14px 12px;
+  border-radius: var(--ss-radius-lg);
+  background: var(--ss-canvas);
+}
+.ts-scene .mg-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+}
+.ts-scene .mg-card__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ss-text-strong);
+}
+.ts-scene .mg-mastery {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ts-scene .mg-mastery .ss-meter {
+  flex: 1;
+}
+.ts-scene .mg-mastery__num {
+  min-width: 44px;
+  text-align: right;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ss-text-strong);
+}
+.ts-scene .mg-next {
+  padding-top: 10px;
+}
+.ts-scene .mg-dot .ss-states {
+  display: grid;
+  place-items: center;
+}
+
+/* ------------------------------------------------------------ kaksha */
+.ts-scene .kk-player {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: 214px;
+  padding: 20px 12px;
+  border-radius: var(--ss-radius-lg);
+  background: linear-gradient(135deg, var(--ss-accent-soft), #fff6ea);
+}
+.ts-scene .ss-stage[data-layout="compact"] .kk-player {
+  height: 230px;
+  padding: 16px;
+}
+.ts-scene .kk-player__meta {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ss-accent-text);
+}
+.ts-scene .kk-player__title {
+  max-width: 300px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--ss-text-strong);
+}
+.ts-scene .kk-play {
+  position: absolute;
+  left: 12px;
+  bottom: 40px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding-left: 2px;
+  border-radius: 999px;
+  background: var(--ss-accent);
+  color: #fff;
+}
+.ts-scene .ss-stage[data-layout="compact"] .kk-play {
+  left: 16px;
+}
+.ts-scene .kk-bar {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 20px;
+}
+.ts-scene .ss-stage[data-layout="compact"] .kk-bar {
+  left: 16px;
+  right: 16px;
+}
+.ts-scene .kk-bar .ss-meter {
+  width: 100%;
+}
+.ts-scene .kk-quiz {
+  position: absolute;
+  left: 64px;
+  right: 12px;
+  bottom: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px;
+  --ss-popover-bg: var(--ss-surface);
+}
+.ts-scene .ss-stage[data-layout="compact"] .kk-quiz {
+  left: 16px;
+  right: 16px;
+  bottom: 34px;
+}
+.ts-scene .kk-quiz__q {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ss-text-strong);
+}
+.ts-scene .kk-quiz__opts {
+  display: flex;
+  gap: 8px;
+}
+.ts-scene .kk-right[data-variant="primary"],
+.ts-scene .kk-right.ss-btn--primary {
+  --ss-accent: var(--ss-success);
+}
+.ts-scene .kk-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: 10px;
+}
+
+/* ------------------------------------------------------------ riyaaz */
+.ts-scene .ry2-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.ts-scene .ry2-code {
+  padding: 12px;
+  border-radius: var(--ss-radius-lg);
+  background: var(--ss-canvas);
+}
+.ts-scene .ry2-tests {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 0 0 27px;
+}
+.ts-scene .ry2-test {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--ss-text);
+}
+.ts-scene .ry2-test__name {
+  width: 52px;
+  font-weight: 500;
+  color: var(--ss-text-strong);
+}
+.ts-scene .ry2-test code {
+  font-family: var(--ss-mono, ui-monospace, monospace);
+  font-size: 12px;
+}
+.ts-scene .ry2-result {
+  display: block;
+  margin-top: 4px;
+  padding: 8px 12px;
+  border-radius: var(--ss-radius-md);
+  background: var(--ss-success-soft);
+  color: var(--ss-success-text);
+  font-size: 13px;
+  font-weight: 500;
+}
+.ts-scene .ry2-streak {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: var(--ss-radius-lg);
+  background: var(--ss-canvas);
+}
+.ts-scene .ry2-streak__num {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ss-text-strong);
+}
+.ts-scene .ry2-streak__num svg {
+  color: #e0861c;
+}
+.ts-scene .ry2-streak__unit {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ss-text);
+}
+.ts-scene .ry2-heat {
+  display: flex;
+  gap: 4px;
+}
+.ts-scene .ry2-heat i {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  background: var(--ss-accent);
+}
+.ts-scene .ry2-heat .ry2-today {
+  opacity: 1;
+  background: var(--ss-line);
+  transition: background-color 400ms ease;
+}
+.ts-scene .ry2-heat .ry2-today[data-on] {
+  background: var(--ss-accent);
+  box-shadow: 0 0 0 3px var(--ss-accent-soft);
+}
+
+/* ----------------------------------------------------------- spardha */
+.ts-scene .sp-score {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px 12px 16px;
+}
+.ts-scene .sp-score__num {
+  font-size: 44px;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--ss-text-strong);
+}
+.ts-scene .sp-score__label {
+  font-size: 13px;
+  color: var(--ss-text);
+}
+.ts-scene .sp-facts {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ts-scene .sp-fact {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ss-text-strong);
+}
+.ts-scene .sp-cert {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 14px;
+  border-radius: var(--ss-radius-lg);
+  background: var(--ss-accent-soft);
+}
+.ts-scene .sp-cert__seal {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: var(--ss-accent);
+  color: #fff;
+}
+.ts-scene .sp-cert__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  flex: 1;
+}
+.ts-scene .sp-cert__title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ss-text-strong);
+}
+.ts-scene .sp-cert__link {
+  font-size: 12px;
+  color: var(--ss-accent-text);
+}
+
+/* ----------------------------------------------------------- roadmap */
+.ts-scene .rm-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ts-scene .rm-meter {
+  display: block;
+  width: 140px;
+  padding: 5px 0;
+}
+.ts-scene .rm-meter .ss-meter {
+  width: 100%;
+}
+
+/* ------------------------------------------------------------ review */
+.ts-scene .rv-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 400px;
+}
+.ts-scene .rv-file {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ss-text);
+}
+.ts-scene .rv-code {
+  border-radius: var(--ss-radius-lg);
+}
+.ts-scene .rv-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+  border-radius: var(--ss-radius-lg);
+  background: var(--ss-surface);
+  box-shadow:
+    0 0 0 1px var(--ss-line),
+    0 12px 28px -18px rgb(6 27 49 / 0.35);
+}
+.ts-scene .rv-msg {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 10px;
+}
+.ts-scene .rv-msg--reply {
+  padding-top: 14px;
+}
+.ts-scene .rv-msg__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.ts-scene .rv-msg__head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.ts-scene .rv-msg__name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ss-text-strong);
+}
+.ts-scene .rv-msg__role {
+  font-size: 12px;
+  color: var(--ss-text-faint);
+}
+.ts-scene .rv-msg__text {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ss-text);
+}
+.ts-scene .rv-foot {
+  display: flex;
+  justify-content: flex-end;
+}

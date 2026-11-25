@@ -20,12 +20,20 @@
       "name": "building-apartment-two",
       "variant": "stroke"
     },
+    "calendar-check": {
+      "name": "calendar-check",
+      "variant": "stroke"
+    },
     "calendar-default": {
       "name": "calendar-default",
       "variant": "stroke"
     },
     "check-tick-circle": {
       "name": "check-tick-circle",
+      "variant": "stroke"
+    },
+    "code": {
+      "name": "code",
       "variant": "stroke"
     },
     "envelope-default-solid": {
@@ -58,6 +66,10 @@
     },
     "multiple-cross-cancel-default": {
       "name": "multiple-cross-cancel-default",
+      "variant": "stroke"
+    },
+    "search-default": {
+      "name": "search-default",
       "variant": "stroke"
     },
     "upload-up": {

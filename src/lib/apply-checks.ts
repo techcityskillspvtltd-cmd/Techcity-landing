@@ -71,11 +71,11 @@ function order(e: FieldErrors, fields: string[]): FieldErrors {
   return Object.fromEntries(fields.filter((k) => e[k]).map((k) => [k, e[k]]));
 }
 
-/** Partners: who you are, your organisation; the rest is optional. */
+/** Partners: who you are and your organisation; the message is optional. */
 export function checkPartner(f: FormData): FieldErrors {
   const e: FieldErrors = {};
   contact(f, e);
   if (!text(f, "organisation")) e.organisation = "Enter your college or company.";
   if (text(f, "message").length > 1000) e.message = "Keep the message under 1,000 characters.";
-  return order(e, ["name", "email", "phone", "organisation", "message", "consent"]);
+  return order(e, ["name", "organisation", "email", "phone", "message", "consent"]);
 }

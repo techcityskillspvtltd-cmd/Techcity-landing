@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { ComponentType, CSSProperties } from "react";
 import { ContentItem } from "@/components/bento/content";
 import { FacultyItem } from "@/components/bento/faculty";
-import { MentorshipItem } from "@/components/bento/mentorship";
+import { WorkshopsItem } from "@/components/bento/workshops";
 import { OnlineItem } from "@/components/bento/online";
 import { PlacementItem } from "@/components/bento/placement";
 import { PlatformsItem } from "@/components/bento/platforms";
@@ -93,7 +93,7 @@ export const scenes: Record<string, Scene> = {
     ribbons: [{ y0: 320, y1: 130, bend: 20, t0: 30, t1: 90, colors: [C.lavender, C.honey, C.amber], lines: true }],
   },
   // Cool: a ribbon dipping to the right.
-  mentorship: {
+  workshops: {
     blobs: [
       { c: C.mist, x: 25, y: 60, s: 70 },
       { c: C.lavender, x: 70, y: 85, s: 75 },
@@ -206,7 +206,7 @@ function ArrowIcon() {
 const items: Record<string, ComponentType> = {
   trainers: TrainersItem,
   placement: PlacementItem,
-  mentorship: MentorshipItem,
+  workshops: WorkshopsItem,
   faculty: FacultyItem,
   online: OnlineItem,
   content: ContentItem,

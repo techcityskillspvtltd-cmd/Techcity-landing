@@ -87,7 +87,7 @@ export const partnerNav: NavConfig = {
             { label: "Trainers for students", icon: "trainer", description: "30+ subjects on campus", href: "/programs/trainers" },
             { label: "Placement preparation", icon: "target", description: "Interviews and drills", href: "/programs/placement-preparation" },
             { label: "Student placement", icon: "briefcase", description: "Campus to first role", href: "/programs/student-placement" },
-            { label: "Mentorship", icon: "compass", description: "Industry mentors", href: "/programs/mentorship" },
+            { label: "Workshops", icon: "calendar", description: "Hands-on, led by engineers", href: "/programs/workshops" },
           ],
         },
         {
@@ -188,6 +188,7 @@ export const studentNav: NavConfig = {
           items: [
             { label: "Our story", icon: "book", description: "How TechCity started", href: "/students/story" },
             { label: "Testimonials", icon: "quote", description: "From students", href: "/students/testimonials" },
+            { label: "Product roadmap", icon: "roadmap", description: "What's shipped and what's next", href: "/students/roadmap" },
           ],
         },
       ],

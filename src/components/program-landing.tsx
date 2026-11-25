@@ -29,7 +29,7 @@ const STORY: Record<ProgramSlug, string> = {
   trainers: "Aarav Sharma",
   "placement-preparation": "Ishita Banerjee",
   "student-placement": "Siddharth Rao",
-  mentorship: "Neha Choudhary",
+  workshops: "Neha Choudhary",
   "faculty-development": "Meera Joshi",
   "online-lessons": "Sahil Khan",
   "online-content": "Kunal Mehta",

@@ -45,6 +45,13 @@ export interface StageProps<S> {
   cursor?: { at: Target | { wide: Target; compact: Target }; kind?: CursorKind; style?: CursorStyle; still?: boolean; ripple?: boolean; idle?: number | false }
   play?: Play
   /**
+   * How much of the stage (0 to 1) must be on screen before it starts. The
+   * default starts on the first pixel; a page of scenes the reader scrolls to
+   * passes, say, 0.6, so each plays once it is mostly in view. Playback still
+   * stops and resets only once the stage is fully off screen.
+   */
+  startAt?: number
+  /**
    * A second, smaller design for narrow containers. Below `below` px of
    * container width the stage uses this size, the render's `layout` argument
    * (and `useLook().layout` inside the stage) and data-layout become 'compact', and the script restarts. Build the
@@ -97,6 +104,7 @@ export function Stage<S extends object>({
   cursor,
   hover,
   play: playProp = 'loop',
+  startAt = 0,
   compact,
   keys: keysAt = 'bottom',
   palette = 'accent',
@@ -523,12 +531,17 @@ export function Stage<S extends object>({
 
     const markOffscreen = () => stage.toggleAttribute('data-offscreen', !onScreen || document.hidden)
     markOffscreen()
-    const io = new IntersectionObserver(([entry]) => {
-      onScreen = entry.isIntersecting
-      // Off screen its CSS animations pause too, so nothing runs out of view
-      markOffscreen()
-      onScreen ? start() : stop()
-    })
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        // Starts once startAt of it shows; stops only when it has fully left
+        if (entry.isIntersecting && entry.intersectionRatio + 0.001 < startAt) return
+        onScreen = entry.isIntersecting
+        // Off screen its CSS animations pause too, so nothing runs out of view
+        markOffscreen()
+        onScreen ? start() : stop()
+      },
+      { threshold: startAt > 0 ? [0, startAt] : 0 },
+    )
     io.observe(root)
     const onVisibility = () => {
       markOffscreen()
@@ -558,7 +571,7 @@ export function Stage<S extends object>({
       autoRef.current = null
       cancelReset()
     }
-  }, [still, script, makeAct, play, layout]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [still, script, makeAct, play, layout, startAt]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useLayoutEffect(() => {
     if (cursor && !still && !dragging.current) autoRef.current?.(pos.current)

@@ -2,7 +2,7 @@
 
 import { useActionState, useEffect, useRef, useState } from "react";
 import { submitPartner, type PartnerState } from "@/app/actions/partner";
-import { Choices, Consent, Field, FormAlert, Pills, RequiredNote, SubmitRow, TextArea, useApplyForm } from "@/components/apply-form";
+import { Consent, Field, FormAlert, Pills, RequiredNote, SubmitRow, TextArea, useApplyForm } from "@/components/apply-form";
 import { CheckTickCircleIcon, MultipleCrossCancelIcon } from "@/components/pikaicons";
 import { checkPartner } from "@/lib/apply-checks";
 import "@/components/careers-page.css";
@@ -16,7 +16,6 @@ import "@/components/careers-page.css";
  */
 
 const KINDS = ["College or university", "Company", "Other"];
-const INTERESTS = ["Programs and trainers", "Placement preparation", "Faculty development", "Platforms", "Hiring students", "Industry projects"];
 
 export function PartnerDialog() {
   const dialog = useRef<HTMLDialogElement>(null);
@@ -71,7 +70,6 @@ export function PartnerDialog() {
             <h2 id="partner-dialog-title" className="mt-1 text-[22px] leading-[1.25] font-normal tracking-[-0.02em] text-text">
               Let&apos;s work together.
             </h2>
-            <p className="mt-1 text-[14px] text-text-muted">Tell us who you are, and our team will get in touch.</p>
           </div>
           <button type="button" className="ap-dialog__close" onClick={close} aria-label="Close">
             <MultipleCrossCancelIcon width={18} height={18} aria-hidden="true" />
@@ -110,28 +108,16 @@ function PartnerForm({ onDone }: { onDone: () => void }) {
         <RequiredNote />
         <FormAlert alertRef={alertRef} errors={errors} message={serverMessage} onPick={pick} />
 
-        <fieldset className="cr-group">
-          <legend className="cr-legend">About you</legend>
-          <div className="cr-grid">
-            <Field name="name" label="Full name" autoComplete="name" required error={errors.name} />
-            <Field name="email" label="Work email" type="email" autoComplete="email" placeholder="name@college.edu" required error={errors.email} />
-            <Field name="phone" label="Phone" type="tel" autoComplete="tel" inputMode="tel" placeholder="+91" required error={errors.phone} />
-            <Field name="designation" label="Designation" autoComplete="organization-title" placeholder="Dean, TPO, HR lead…" />
+        <div className="cr-grid">
+          <Field name="name" label="Full name" autoComplete="name" required error={errors.name} />
+          <Field name="organisation" label="College or company" autoComplete="organization" required error={errors.organisation} />
+          <Field name="email" label="Work email" type="email" autoComplete="email" placeholder="name@college.edu" required error={errors.email} />
+          <Field name="phone" label="Phone" type="tel" autoComplete="tel" inputMode="tel" placeholder="+91" required error={errors.phone} />
+          <div className="cr-field--wide">
+            <Pills name="kind" label="You are a" options={KINDS} defaultValue={KINDS[0]} />
           </div>
-        </fieldset>
-
-        <fieldset className="cr-group">
-          <legend className="cr-legend">Your organisation</legend>
-          <div className="cr-grid">
-            <Field name="organisation" label="College or company" autoComplete="organization" required error={errors.organisation} />
-            <Field name="city" label="City" autoComplete="address-level2" />
-            <div className="cr-field--wide">
-              <Pills name="kind" label="You are a" options={KINDS} defaultValue={KINDS[0]} />
-            </div>
-            <Choices name="interests" label="Interested in" options={INTERESTS} />
-            <TextArea name="message" label="Message" maxLength={1000} placeholder="Anything we should know before we call." error={errors.message} />
-          </div>
-        </fieldset>
+          <TextArea name="message" label="Message" maxLength={1000} placeholder="What would you like to talk about?" error={errors.message} />
+        </div>
 
         <Consent error={errors.consent}>I agree that TechCity Skills may store these details and contact me about partnering.</Consent>
         <SubmitRow pending={pending} label="Send" />

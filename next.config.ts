@@ -13,7 +13,8 @@ const nextConfig: NextConfig = {
   // The product roadmap page became Reports.
   async redirects() {
     return [{ source: "/company/roadmap", destination: "/reports", permanent: true },
-      { source: "/students/features", destination: "/students/featured", permanent: true }];
+      { source: "/students/features", destination: "/students/featured", permanent: true },
+      { source: "/programs/mentorship", destination: "/programs/workshops", permanent: true }];
   },
   partialPrefetching: true,
   turbopack: {

@@ -1,0 +1,154 @@
+/* Scenes for the student projects pages (components/students/project-scenes.tsx). */
+
+.ts-scene .pj-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* payments */
+.ts-scene .pj-alert {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding: 12px;
+  border-radius: var(--ss-radius-md);
+  background: var(--ss-warning-soft, #fdf1e2);
+  color: var(--ss-warning-text, #a95f0c);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* chatbot */
+.ts-scene .pj-chat {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ts-scene .pj-q {
+  display: flex;
+  justify-content: flex-end;
+}
+.ts-scene .pj-q .ss-text {
+  max-width: 78%;
+  padding: 10px 14px;
+  border-radius: 16px 16px 4px 16px;
+  background: var(--ss-accent);
+  color: #fff;
+  font-size: 14px;
+  line-height: 1.45;
+}
+.ts-scene .pj-a {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 88%;
+  padding: 12px 14px;
+  border-radius: 16px 16px 16px 4px;
+  background: var(--ss-canvas);
+}
+.ts-scene .pj-a > .ss-text {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ss-text-strong);
+}
+.ts-scene .pj-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--ss-surface);
+  box-shadow: inset 0 0 0 1px var(--ss-line);
+  font-size: 12px;
+  color: var(--ss-accent-text);
+}
+
+/* pipeline */
+.ts-scene .pj-mark {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: var(--ss-success);
+  color: #fff;
+  transition: background-color 300ms ease;
+}
+.ts-scene .pj-mark[data-bad] {
+  background: var(--ss-danger, #d64545);
+}
+.ts-scene .pj-mark .ss-states {
+  display: grid;
+  place-items: center;
+}
+.ts-scene .pj-dot {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #fff;
+}
+
+/* events */
+.ts-scene .pj-event {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+  padding: 14px;
+  border-radius: var(--ss-radius-lg);
+  background: var(--ss-canvas);
+}
+.ts-scene .pj-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  height: 56px;
+  border-radius: var(--ss-radius-md);
+  background: var(--ss-surface);
+  box-shadow: inset 0 0 0 1px var(--ss-line);
+}
+.ts-scene .pj-date span:first-child {
+  line-height: 1.2;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--ss-accent-text);
+}
+.ts-scene .pj-date span:last-child {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--ss-text-strong);
+}
+.ts-scene .pj-event__copy {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.ts-scene .pj-event__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ss-text-strong);
+}
+.ts-scene .pj-event__sub {
+  font-size: 13px;
+  color: var(--ss-text);
+}
+.ts-scene .pj-going {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--ss-text);
+}
+.ts-scene .pj-source-row {
+  display: flex;
+}

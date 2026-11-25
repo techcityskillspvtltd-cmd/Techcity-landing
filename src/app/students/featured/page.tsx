@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { HoverArrow } from "@/components/hover-arrow";
-import { SectionHead } from "@/components/page-blocks";
-import { FeaturedProject, StudentHero } from "@/components/students/blocks";
+import { StudentHero } from "@/components/students/blocks";
+import { FeaturedCase, FeaturedIndex, MoreProjects } from "@/components/students/featured-cases";
 import { ShipScene } from "@/components/students/scenes";
 import { container } from "@/lib/layout";
 import { studentProjects } from "@/lib/students";
@@ -16,8 +16,9 @@ export const metadata: Metadata = {
 /*
  * Featured: the best of the student projects. The hero ships one (a
  * stageshow scene: checks pass, the trainer approves, it merges and
- * deploys); then each featured project large, alternating sides, each leading
- * to its own page; then the way on to every project.
+ * deploys); an index of the featured projects; each one as a case study
+ * beside a scene of it working, sides alternating; then the way on to every
+ * project.
  */
 
 const featured = studentProjects.filter((p) => p.featured);
@@ -47,24 +48,23 @@ export default function Page() {
         picture={<ShipScene />}
       />
 
-      <div id="featured" className="scroll-mt-16">
-        {featured.map((p, i) => (
-          <section key={p.slug} className={i % 2 ? "bg-surface-subdued" : undefined}>
-            <div className={`${container} border-x border-b border-line`}>
-              <FeaturedProject project={p} flip={i % 2 === 1} index={i} />
-            </div>
-          </section>
-        ))}
-      </div>
+      <section id="featured" className="scroll-mt-16">
+        <div className={`${container} border-x border-b border-line`}>
+          <FeaturedIndex projects={featured} />
+        </div>
+      </section>
+
+      {featured.map((p, i) => (
+        <section key={p.slug}>
+          <div className={`${container} border-x border-b border-line`}>
+            <FeaturedCase project={p} index={i} flip={i % 2 === 1} />
+          </div>
+        </section>
+      ))}
 
       <section>
         <div className={`${container} border-x border-b border-line`}>
-          <SectionHead lead="Every project." rest={`${studentProjects.length} students, ${studentProjects.length} projects, each with its own page.`}>
-            <Link href="/students/projects" className="btn btn-primary btn-lg shrink-0 self-start sm:self-auto">
-              All student projects
-              <HoverArrow />
-            </Link>
-          </SectionHead>
+          <MoreProjects projects={studentProjects.filter((p) => !p.featured).slice(0, 6)} total={studentProjects.length} />
         </div>
       </section>
       <div aria-hidden="true" className="relative -mt-px border-t border-line" />

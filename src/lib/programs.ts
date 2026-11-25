@@ -7,7 +7,7 @@ export const partnerPrograms = [
       { anchor: "trainers", label: "Trainers for students", description: "30+ subjects on campus", icon: "trainer" },
       { anchor: "placement", label: "Placement preparation", description: "Interviews and drills", icon: "target" },
       { anchor: "placing", label: "Student placement", description: "Campus to first role", icon: "briefcase" },
-      { anchor: "mentorship", label: "Mentorship", description: "Industry mentors", icon: "compass" },
+      { anchor: "workshops", label: "Workshops", description: "Hands-on, led by engineers", icon: "calendar" },
     ],
   },
   {
@@ -72,11 +72,11 @@ export const programBento: BentoProgram[] = [
     size: "small",
   },
   {
-    anchor: "mentorship",
-    icon: "compass",
+    anchor: "workshops",
+    icon: "calendar",
     audience: "For students",
-    lead: "Mentors from the industry.",
-    body: "One-to-one sessions with engineers who hire.",
+    lead: "Workshops that build something.",
+    body: "Hands-on days on campus, led by engineers.",
     size: "small",
   },
   {

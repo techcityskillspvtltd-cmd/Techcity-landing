@@ -20,7 +20,7 @@ export type ProgramSlug =
   | "trainers"
   | "placement-preparation"
   | "student-placement"
-  | "mentorship"
+  | "workshops"
   | "faculty-development"
   | "online-lessons"
   | "online-content"
@@ -375,100 +375,100 @@ export const programPages: ProgramPage[] = [
 
   /* ------------------------------------------------------------------ */
   {
-    slug: "mentorship",
-    anchor: "mentorship",
-    label: "Mentorship",
+    slug: "workshops",
+    anchor: "workshops",
+    label: "Workshops",
     audience: "For students",
-    icon: "compass",
-    summary: "One-to-one sessions with engineers who hire.",
+    icon: "calendar",
+    summary: "Hands-on workshops on campus, led by engineers.",
     hero: {
-      lead: "Mentors from the industry.",
-      rest: "One-to-one time with engineers who hire.",
-      body: "Students meet engineers from the field they want to join, one to one, to plan, get their work reviewed and learn how hiring really works.",
+      lead: "Workshops that build something.",
+      rest: "One or two days on campus, led by engineers from the field.",
+      body: "Hands-on workshops in AI, cloud, full stack and more, run in your labs by engineers who do the work. Students leave with something they built, not just notes.",
       stats: [
         { value: "50+", label: "Industry partners" },
-        { value: "40+", label: "Faculty & trainers" },
-        { value: "10K+", label: "Students mentored" },
+        { value: "30+", label: "Partner colleges" },
+        { value: "12,000+", label: "Sessions taught" },
       ],
     },
     process: {
-      lead: "A mentor, from first goal to next step.",
-      rest: "Every session builds on the last.",
+      lead: "From a topic to a demo.",
+      rest: "Every workshop ends with something working.",
       steps: [
         {
-          title: "Set the goals",
-          body: "Students say where they want to go: a role, a skill, a company.",
+          title: "Pick the topics",
+          body: "Choose with your HoDs what the batch needs, from generative AI to cloud and DevOps.",
           scene: {
             kind: "select",
-            title: "Goals · Neha Choudhary",
-            prompt: "What do you want from mentoring?",
-            chips: ["A backend role", "Crack DSA rounds", "Open source", "Higher studies", "System design", "A first internship"],
-            picked: [0, 1, 4],
-            done: "3 goals saved",
+            title: "Workshops · CSE 3rd year",
+            prompt: "Which workshops this term?",
+            chips: ["Generative AI", "Cloud & DevOps", "Full stack", "System design", "Data analytics", "Cyber security"],
+            picked: [0, 1, 3],
+            done: "3 workshops planned",
           },
         },
         {
-          title: "Get matched",
-          body: "We match each student with a mentor who works in that field.",
+          title: "Plan the days",
+          body: "We fit each workshop into your timetable and labs, with an engineer to lead it.",
           scene: {
             kind: "assign",
-            title: "Your mentor",
+            title: "Workshop leads",
             rows: [
-              { name: "Divya Verma", role: "Backend engineer · 8 years", tag: "Matched" },
-              { name: "Karan Sethi", role: "Engineering manager · hires juniors", tag: "Backup" },
+              { name: "Divya Verma", role: "ML engineer · Generative AI", tag: "Confirmed" },
+              { name: "Karan Sethi", role: "SRE · Cloud & DevOps", tag: "Confirmed" },
             ],
           },
         },
         {
-          title: "Meet one to one",
-          body: "Booked sessions for reviews, questions and planning, online or on campus.",
+          title: "Build in the room",
+          body: "Short talks, then labs: students build in pairs while the lead and trainers help.",
           scene: {
             kind: "chat",
-            title: "Session · Divya Verma",
+            title: "Workshop · Generative AI",
             status: "Live",
             lines: [
-              { who: "Neha", text: "Could you review my API project before I apply?", me: true },
-              { who: "Divya", text: "Yes. Add tests and a README first; reviewers look there." },
-              { who: "Divya", text: "Then we'll do a mock system design next week." },
+              { who: "Neha", text: "Our bot keeps answering from outside the syllabus.", me: true },
+              { who: "Divya", text: "Add retrieval: index the unit notes and answer only from them." },
+              { who: "Divya", text: "Then test it on ten real questions before the demo." },
             ],
-            result: "Next session · Thursday, 6 pm",
+            result: "Demo hour · 4 pm",
           },
         },
         {
-          title: "Track the progress",
-          body: "Goals and next steps are tracked, so nothing said in a session gets lost.",
+          title: "Demo and certify",
+          body: "Every pair shows what they built; certificates go to those who finish the labs.",
           scene: {
             kind: "progress",
-            title: "Goals · Neha Choudhary",
+            title: "Workshop · results",
             rows: [
-              { label: "A backend role", value: 70, note: "2 applications out" },
-              { label: "Crack DSA rounds", value: 80, note: "120 problems solved" },
-              { label: "System design", value: 45, note: "1 mock done" },
+              { label: "Labs finished", value: 92, note: "55 of 60 students" },
+              { label: "Demos shown", value: 80, note: "24 of 30 pairs" },
+              { label: "Certificates", value: 92, note: "55 issued" },
             ],
           },
         },
       ],
     },
     gets: {
-      lead: "Advice from people who hire.",
-      rest: "Specific to each student, not a lecture.",
+      lead: "Hands-on, start to finish.",
+      rest: "What every workshop includes.",
       tiles: [
-        { icon: "team", lead: "One to one.", body: "Booked sessions with one mentor who knows the student's work." },
-        { icon: "code", lead: "Project reviews.", body: "Code and portfolio reviewed the way a hiring team would." },
-        { icon: "roadmap", lead: "A plan.", body: "Clear next steps after every session, tracked over the term." },
-        { icon: "briefcase", lead: "How hiring works.", body: "What interviews test and what gets a resume read." },
+        { icon: "team", lead: "Led by engineers.", body: "People who do the work in industry, with our trainers in the room." },
+        { icon: "code", lead: "Labs, not slides.", body: "Most of the day is spent building, in pairs, on your lab machines." },
+        { icon: "roadmap", lead: "A demo at the end.", body: "Every pair shows what they built, so the day ends with something working." },
+        { icon: "briefcase", lead: "A certificate.", body: "For students who finish the labs, with the project linked." },
       ],
     },
     covers: {
-      lead: "What students bring to a mentor.",
-      rest: "The questions we hear most.",
+      lead: "Workshops we run.",
+      rest: "The ones colleges ask for most.",
       items: [
-        { title: "Choosing a path", body: "Backend or data, product or services, a job or higher studies." },
-        { title: "Project feedback", body: "What makes a project worth talking about in an interview." },
-        { title: "Interview strategy", body: "Preparing for a company, and learning from the rounds that went badly." },
-        { title: "Open source & portfolios", body: "Where to start, and how to make work visible." },
-        { title: "Higher studies", body: "Which programs, which exams, and when it makes sense." },
-        { title: "The first job", body: "Offers, the first ninety days and growing in a team." },
+        { title: "Generative AI", body: "Prompting, retrieval and evaluation, ending in a chatbot over real notes." },
+        { title: "Cloud & DevOps", body: "Containers, a CI/CD pipeline and a deploy that rolls back on its own." },
+        { title: "Full stack", body: "A small app from database to deploy, built in a day." },
+        { title: "System design", body: "How real systems scale, worked through on a whiteboard in teams." },
+        { title: "Data analytics", body: "From a messy spreadsheet to a dashboard someone can act on." },
+        { title: "Hackathons", body: "A 24-hour build on a theme, with mentors in the room and a judged demo." },
       ],
     },
   },
